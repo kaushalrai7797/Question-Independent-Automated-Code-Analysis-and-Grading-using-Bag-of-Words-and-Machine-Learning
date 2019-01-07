@@ -2,7 +2,7 @@ from cfg import CFG
 from clang.cindex import *
 from decorators.concrete_node_decorators import *
 
-Config.set_library_path('/usr/lib/x86_64-linux-gnu')
+Config.set_library_path('/Library/Developer/CommandLineTools/usr/lib')
 
 
 def buildAST(cfile):

@@ -38,6 +38,7 @@ class GraphBuilder:
     def addVariables(self, node, var):
         if var not in self.Nodes[node].variables:
             self.Nodes[node].variables.append(var)
+
     def dfs(self, node, parent):
         if (self.visited[node.id] == True):
             return

@@ -426,9 +426,18 @@ class CFGBuilder:
         return self._block
 
     def visitDoStmt(self, D):
+
         loopSuccessor = None
         #"do ... while" is a control-flow statement. Thus we stop processing the current
         # block
+        prevNode = self.graph.lastNode
+
+        doWhileNode = self.graph.createNode("control")
+        self.graph.addFeature(doWhileNode, "loop")
+        self.graph.addControlEdge(prevNode, doWhileNode)
+        self.curNode = doWhileNode
+
+
         if self._block:
             if self._badCFG:
                 return None
@@ -457,6 +466,13 @@ class CFGBuilder:
         # See if this is a known constant
         knownVal = self.tryEvaluateBool(D.getCond())
         # Process the loop body
+
+        doWhileBodyNode = self.graph.createNode("data")
+        self.graph.addFeature(doWhileBodyNode, "doWhileBody")
+        self.graph.addControlEdge(doWhileNode, doWhileBodyNode)
+        self.curNode = doWhileBodyNode
+
+
         bodyBlock = None
         assert D.getBody() is not None
         # TODO: Save the current values for Block, Succ, and continue and break targets
@@ -492,6 +508,19 @@ class CFGBuilder:
             self.addSucessor(exitConditionBlock, None)
         # Link up the condition block with the code that follows the loop
         # (false branch)
+
+        lastNode = self.graph.lastNode
+        endDoWhileNode = self.graph.createNode("control")
+        self.graph.addFeature(endDoWhileNode, "endLoop")
+        self.graph.addControlEdge(lastNode, endDoWhileNode)
+        self.graph.addControlEdge(endDoWhileNode, doWhileNode)
+
+        # creating node to be followed after doWhile loop ends
+
+        afterLoopNode = self.graph.createNode("control")
+        self.graph.addControlEdge(endDoWhileNode, afterLoopNode)
+        self.curNode = afterLoopNode
+
         if knownVal.isTrue():
             self.addSucessor(exitConditionBlock, None)
         else:
@@ -678,10 +707,11 @@ class CFGBuilder:
         """
         # The block we were processing is now finished. Make it the successor block
         prevNode = self.graph.lastNode
-
         parentIf = self.graph.createNode("control","if")
         self.graph.addFeature(parentIf,"if")
         self.graph.addControlEdge(prevNode, parentIf)
+        self.curNode= parentIf
+
         if self._block:
             self._succ = self._block
             if self._badCFG:
@@ -715,6 +745,7 @@ class CFGBuilder:
         assert then is not None
         self._sv.push_back(self._succ)
         self._block = None
+
         ifNode = self.graph.createNode("data", "if")
         self.graph.addControlEdge(parentIf,ifNode)
         self.curNode = ifNode
@@ -722,6 +753,7 @@ class CFGBuilder:
         thenBlock = self.accepts(then)
 
         thenEnd = self.graph.lastNode
+
         if not thenBlock:
             # We can reach here if the 'then' statement has all NullStmts.
             # Create an empty block so we can distinguish between true and false
@@ -733,10 +765,16 @@ class CFGBuilder:
         elif self._block:
             if self._badCFG:
                 return None
+
         endIfNode = self.graph.createNode("control")
         self.graph.addFeature(endIfNode, "endIf")
         self.graph.addControlEdge(elseEnd, endIfNode)
         self.graph.addControlEdge(thenEnd, endIfNode)
+
+        afterIfElseNode = self.graph.createNode("control")
+        self.graph.addControlEdge(endIfNode, afterIfElseNode)
+        self.curNode = afterIfElseNode
+
         # Specially handle "if (expr1 || ...)" and "if (expr1 && ...)" by having these
         # handle the actual control-flow jump.
         cond = if_stmt.getCond()
@@ -758,7 +796,7 @@ class CFGBuilder:
         # blocks will be pointed to be "Block"
         # TODO: Revisar
         self.appendStmt(self._block, if_stmt)
-        self.curNode = parentIf
+        # self.curNode = parentIf          #commented to make sure that code following if else goes to new node
         lastBlock = self.accepts(if_stmt.getCond())
         return lastBlock
 
@@ -989,8 +1027,6 @@ class CFGBuilder:
         # Now populate the body block, and in the process create new blocks as we walk
         # the body of the loop
 
-
-
         forBodyNode = self.graph.createNode("data")
         self.graph.addFeature(forBodyNode, "forBody")
         self.graph.addControlEdge(forNode, forBodyNode)
@@ -1077,6 +1113,12 @@ class CFGBuilder:
         self.graph.addControlEdge(lastNode, endForNode)
         self.graph.addControlEdge(endForNode, forNode)
 
+        #creating node to be followed after for loop ends
+
+        afterLoopNode = self.graph.createNode("control")
+        self.graph.addControlEdge(endForNode,afterLoopNode)
+        self.curNode = afterLoopNode
+
         # There is no loop initialization. We are thus basically a while loop.
         # NULL out Block to force lazy block construction
         if i:
@@ -1091,6 +1133,14 @@ class CFGBuilder:
     def visitWhileStmt(self, W):
         loopSuccessor = None
         # While is a control flow stmt. Thus we stop processing the current block
+
+        prevNode = self.graph.lastNode
+
+        whileNode = self.graph.createNode("control")
+        self.graph.addFeature(whileNode, "loop")
+        self.graph.addControlEdge(prevNode, whileNode)
+        self.curNode = whileNode
+
         if self._block:
             if self._badCFG:
                 return None
@@ -1114,6 +1164,14 @@ class CFGBuilder:
         # All breaks should go to the code following the loop
         self._breakJumpTarget = BlockScopePosPair(loopSuccessor)
         # Create the body. The returned block is the entry to the loop body
+
+
+        whileBodyNode = self.graph.createNode("data")
+        self.graph.addFeature(whileBodyNode, "whileBody")
+        self.graph.addControlEdge(whileNode, whileBodyNode)
+        self.curNode = whileBodyNode
+
+
         bodyBlock = self.accepts(W.getBody())
         if not bodyBlock:
             # Can happen for while(...);
@@ -1161,6 +1219,20 @@ class CFGBuilder:
                 self.addSucessor(exitCOnditionBlock, loopSuccessor)
             break
         # Link up the loop-back block to the entry condition block
+
+        # joiningNodes
+        lastNode = self.graph.lastNode
+        endWhileNode = self.graph.createNode("control")
+        self.graph.addFeature(endWhileNode, "endLoop")
+        self.graph.addControlEdge(lastNode, endWhileNode)
+        self.graph.addControlEdge(endWhileNode, whileNode)
+
+        # creating node to be followed after while loop ends
+
+        afterLoopNode = self.graph.createNode("control")
+        self.graph.addControlEdge(endWhileNode, afterLoopNode)
+        self.curNode = afterLoopNode
+
         self.addSucessor(transitionBlock, entryConditionBlock)
         # there can be no more statements in the condition block since we loop back
         # to this block. Null out self._block to force lazy creation of another block
@@ -1169,8 +1241,22 @@ class CFGBuilder:
         self._succ = entryConditionBlock
         return entryConditionBlock
 
+    # switchFlag = 0
+
     def visitSwitchStmt(self, terminator):
         # 'Switch' is a control-flow statment. Thus we stop processing the current block
+
+        prevNode = self.graph.lastNode
+
+        switchNode = self.graph.createNode("control")
+        self.graph.addFeature(switchNode, "switch")
+        self.graph.addControlEdge(prevNode, switchNode)
+        self.curNode = switchNode
+
+        # global switchFlag
+
+        switchFlag = 0
+
         if self._block:
             if self._badCFG:
                 return None
@@ -1246,8 +1332,18 @@ class CFGBuilder:
         # TODO: FOR ARRAY TYPES
         return[False, False]
 
+    # caseExit = 0
+
     def visitCaseStmt(self, CS):
         # CaseStmts are essentially labels, so they are the first statement in a block
+
+        prevNode = self.graph.lastNode
+
+        caseNode = self.graph.createNode("control")
+        self.graph.addFeature(caseNode, "case")
+        self.graph.addControlEdge(prevNode, caseNode)
+        self.curNode = caseNode
+
         topBlock = None
         lastBlock = None
         sub = CS.getSubStmt()
@@ -1284,6 +1380,23 @@ class CFGBuilder:
         else:
             self.addSucessor(self._switchTerminatedBlock, caseBlock, False)
         # we set block to NULL to allow lazy creation of a new block (if neccesari)
+
+        # global switchFlag
+        # global caseExit
+        #
+        # if switchFlag == 0:
+        #     afterCaseNode = self.graph.createNode("control")
+        #     self.curNode = afterCaseNode
+        #
+        #     switchFlag = 1
+        #     caseExit = afterCaseNode
+        #
+        # self.graph.addControlEdge(caseNode, caseExit)
+
+        afterCaseNode = self.graph.createNode("control")
+        self.curNode = afterCaseNode
+        self.graph.addControlEdge(caseNode, afterCaseNode)
+
         self._block = None
         if topBlock:
             self.addSucessor(lastBlock, caseBlock)
@@ -1342,6 +1455,14 @@ class CFGBuilder:
         return self._block
 
     def visitDefaultStmt(self, terminator):
+
+        prevNode = self.graph.lastNode
+
+        defaultNode = self.graph.createNode("control")
+        self.graph.addFeature(defaultNode, "default")
+        self.graph.addControlEdge(prevNode, defaultNode)
+        self.curNode = defaultNode
+
         substmt = terminator.getSubStmt()
         if substmt:
             self.accepts(terminator.getSubStmt())
@@ -1362,6 +1483,11 @@ class CFGBuilder:
         self._block = None
         # This block is now the implicit successor of other blocks
         self._succ = self._defaultCaseBlock
+
+        afterDefaultNode = self.graph.createNode("control")
+        self.graph.addControlEdge(defaultNode, afterDefaultNode)
+        self.curNode = afterDefaultNode
+
         return self._defaultCaseBlock
 
     def autoCreateBlock(self):
@@ -1371,7 +1497,6 @@ class CFGBuilder:
     def appendStmt(self, CFGBlock, stmt):
         """Interface to CFGBlock - adding CFGElements."""
         CFGBlock.appendStmt(stmt)
-
 
 class CFG:
     def __init__(self):
