@@ -7,7 +7,7 @@ no_name = []
 sources = []
 verdicts = []
 
-gen_url = 'https://www.codechef.com/status/INVLIS?sort_by=All&sorting_order=asc&language=44&status=All&handle=&Submit=GO'
+gen_url = 'https://www.codechef.com/status/ADASTAIR?sort_by=All&sorting_order=asc&language=11&status=15&handle=&Submit=GO'
 
 hdr = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11',
        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
@@ -35,7 +35,7 @@ for tr in trs:
     sources.append('https://www.codechef.com/viewplaintext' + link[13:])
 
 n = len(sources)
-fileNo = 0
+fileNo = -1
 os.chdir('dataset')
 
 for i in range(n):
@@ -50,5 +50,5 @@ for i in range(n):
     soup = BeautifulSoup(content, 'html.parser')
     code = soup.text
     fileNo = fileNo + 1
-    with open(str(fileNo)+verdicts[i]+".cpp", "w") as f:
+    with open(str(fileNo) + ".c", "w") as f:
         f.write(code)
