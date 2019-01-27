@@ -16,4 +16,3 @@ int main()
 	 printf("%ld\n",sum);
 	 }
 	 return 0;
-}

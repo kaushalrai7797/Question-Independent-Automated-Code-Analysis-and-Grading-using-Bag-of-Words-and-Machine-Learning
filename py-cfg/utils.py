@@ -3,7 +3,7 @@ from clang.cindex import *
 from decorators.concrete_node_decorators import *
 
 Config.set_library_path('/usr/local/Cellar/llvm/7.0.1/lib/')
-
+# Config.set_library_path('/usr/lib/x86_64-linux-gnu')
 
 def buildAST(cfile):
     """This functions builds a Clang AST from a C file."""

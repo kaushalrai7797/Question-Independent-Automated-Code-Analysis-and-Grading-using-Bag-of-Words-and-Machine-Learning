@@ -1,5 +1,4 @@
-
-#include <stdio.h>
+include <stdio.h>
 int main()
 {
     int rev=0,d,n,i;

@@ -502,6 +502,7 @@ class ForStmt(Stmt):
 
         :return: decorator
         """
+
         if(self._structure[1] == True):
             if(self._structure[0] == True):
                 return self.get_children().return_index(1)
@@ -1021,7 +1022,6 @@ class VarDecl(Decl):
         if (self.specific_kind == type_stmt.ARRAY):
             return int(self.get_cursor().type.get_array_size())
 
-
 # -----------------------------------
 # DECORATOR FOR PARM_DECL NODES
 # -----------------------------------
@@ -1503,7 +1503,6 @@ class BinaryOperator(GenericDecorator):
             return True
         else:
             return False
-
 
 # -----------------------------------
 # DECORATOR FOR UNARYOPERATOR NODES

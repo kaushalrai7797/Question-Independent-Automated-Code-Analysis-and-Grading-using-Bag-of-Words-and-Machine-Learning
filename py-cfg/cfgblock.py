@@ -1,4 +1,4 @@
-from enum import Enum
+# from enum import Enum
 from termcolor import colored
 from customvector import CustomVector
 
@@ -18,7 +18,7 @@ class CFGBlock:
         allows one to encode scenarios where a block was substituted
         because the original (now alternate) block is unreachable."""
 
-        class Kind(Enum):
+        class Kind():
             AB_Normal = 0
             AB_Unreachable = 1
             AB_Alternate = 2

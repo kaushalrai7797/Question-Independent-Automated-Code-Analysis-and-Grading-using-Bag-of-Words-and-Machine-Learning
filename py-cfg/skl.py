@@ -1,4 +1,4 @@
-from GetGraphs import GetGraphs
+from getGraphs import GetGraphs
 from myMiniModel import MyMiniModel
 
 x = GetGraphs(20)
