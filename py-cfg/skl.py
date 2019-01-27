@@ -21,7 +21,10 @@ for train in trainData:
 	for n in testRes:
 		simMat.append(n[1])
 		# print (n[0]['string'], n[0]['features'], "\n--->", n[1])
-	matrix.append(simMat)
+	simMat.sort(reverse=True)
+	# find avg of top 10 values
+	avg = sum(simMat[:10])/10
+	matrix.append(avg)
 
 print(matrix)
 
