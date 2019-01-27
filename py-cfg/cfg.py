@@ -4,6 +4,7 @@ from decorators.enumeration import type_stmt
 from customvector import CustomVector
 from graph import GraphBuilder
 
+
 class CFGBuilder:
 
     def __init__(self):
@@ -33,24 +34,30 @@ class CFGBuilder:
         self.graph = GraphBuilder()
         self.curNode = -1
 
+    def addPrefix(self, ch):
+        self.graph.prefixString.append(ch)
+
+    def removePrefix(self):
+        self.graph.prefixString = self.graph.prefixString[:-1]
+
     def buildCFG(self, Decl, statement=None):
         """ Constructs a CFG from an AST (a Stmt). The ownership of the
-        returned CFG is transferred to the caller.
+		returned CFG is transferred to the caller.
 
-        Parameters
-        ----------
-        statement : :obj:`statement`
-            This is the AST, and can represent any arbitrary statement. For
-            a single expression or a function body (compound statement).
+		Parameters
+		----------
+		statement : :obj:`statement`
+			This is the AST, and can represent any arbitrary statement. For
+			a single expression or a function body (compound statement).
 
-        Returns
-        -------
-        :obj:`CFG`
-            A cfg object.
-        None
-            If the CFG construction fails.
+		Returns
+		-------
+		:obj:`CFG`
+			A cfg object.
+		None
+			If the CFG construction fails.
 
-        """
+		"""
         if not statement:
             return None
 
@@ -83,7 +90,7 @@ class CFGBuilder:
 
         # Add successor to the Indirect Goto Dispatch block (if we have one)
         b = self._cfg.getIndirectGotoBlock()
-        if(b is not None):
+        if (b is not None):
             for l in self._addressTakenLabels.begin():
                 # Look the target block
                 try:
@@ -101,19 +108,19 @@ class CFGBuilder:
 
     def createBlock(self, add_sucessor=True):
         """Used to lazily create blocks that are connected to the current
-        (global) succesor.
+		(global) succesor.
 
-        Parameters
-        ----------
-        add_sucessor : bool
-            Variable that indicates whether or not a sucessor is added.
+		Parameters
+		----------
+		add_sucessor : bool
+			Variable that indicates whether or not a sucessor is added.
 
-        Returns
-        -------
-        :obj:`CFGBlock`
-            Returns the CFG block object.
+		Returns
+		-------
+		:obj:`CFGBlock`
+			Returns the CFG block object.
 
-        """
+		"""
         B = self._cfg.createBlock()
         if add_sucessor and self._succ:
             self.addSucessor(B, self._succ)
@@ -127,64 +134,64 @@ class CFGBuilder:
 
     def visit(self, S=None):
         """Visit - Walk the subtree of a statement and add extra
-        blocks for ternary operators, &&, and ||.  We also process "," and
-        DeclStmts (which may contain nested control-flow).
+		blocks for ternary operators, &&, and ||.  We also process "," and
+		DeclStmts (which may contain nested control-flow).
 
-        Paramaters
-        ----------
-        S :
-            Cursor to the statement in the AST.
+		Paramaters
+		----------
+		S :
+			Cursor to the statement in the AST.
 
-        Returns
-        -------
-        :obj:`CFGBlock`
-            Returns the CFG block object.
+		Returns
+		-------
+		:obj:`CFGBlock`
+			Returns the CFG block object.
 
-        """
+		"""
         if not S:
             self._badCFG = True
             return None
 
         kind = S.kind()
 
-        if(type_stmt.COMPOUND_STMT == kind):
-            #self.graph.addNode(S)
+        if (type_stmt.COMPOUND_STMT == kind):
+            # self.graph.addNode(S)
             return self.visitCompoundStmt(S)
 
-        elif(type_stmt.DECL_STMT == kind):
+        elif (type_stmt.DECL_STMT == kind):
             return self.visitDeclStmt(S)
 
-        elif(type_stmt.IF_STMT == kind):
+        elif (type_stmt.IF_STMT == kind):
             return self.visitIfStmt(S)
 
-        elif(type_stmt.BINARY_OPERATOR == kind):
+        elif (type_stmt.BINARY_OPERATOR == kind):
             return self.visitBinaryOperator(S)
 
         elif (type_stmt.COMPOUND_ASSIGMENT_OP == kind):
             return self.visitCompoundAssignmentOp(S)
 
-        elif(type_stmt.FOR_STMT == kind):
+        elif (type_stmt.FOR_STMT == kind):
             return self.visitForStmt(S)
 
-        elif(type_stmt.NULL_STMT == kind):
+        elif (type_stmt.NULL_STMT == kind):
             return self.visitNullStmt()
 
-        elif(type_stmt.WHILE_STMT == kind):
+        elif (type_stmt.WHILE_STMT == kind):
             return self.visitWhileStmt(S)
 
-        elif(type_stmt.IMPL_CAST_EXPR == kind):
+        elif (type_stmt.IMPL_CAST_EXPR == kind):
             return self.visitImplicitCastExpr(S)
 
         elif (type_stmt.CSTYLE_CAST_EXPR == kind):
             return self.visitCstyleCastExpr(S)
 
-        elif(type_stmt.SWITCH_STMT == kind):
+        elif (type_stmt.SWITCH_STMT == kind):
             return self.visitSwitchStmt(S)
 
-        elif(type_stmt.CASE_STMT == kind):
+        elif (type_stmt.CASE_STMT == kind):
             return self.visitCaseStmt(S)
 
-        elif(type_stmt.BREAK_STMT == kind):
+        elif (type_stmt.BREAK_STMT == kind):
             return self.visitBreakStmt(S)
 
         elif (type_stmt.DEFAULT_STMT == kind):
@@ -208,13 +215,13 @@ class CFGBuilder:
         elif (type_stmt.LABEL_STMT == kind):
             return self.visitLabelStmt(S)
 
-        elif(type_stmt.CONDITIONAL_OPERATOR == kind or type_stmt.BINARY_CONDITIONAL_OPERATOR == kind):
+        elif (type_stmt.CONDITIONAL_OPERATOR == kind or type_stmt.BINARY_CONDITIONAL_OPERATOR == kind):
             return self.visitConditionalOperator(S)
 
-        elif(type_stmt.RETURN_STMT == kind):
+        elif (type_stmt.RETURN_STMT == kind):
             return self.visitReturnStmt(S)
 
-        elif(type_stmt.PAREN_EXPR == kind):
+        elif (type_stmt.PAREN_EXPR == kind):
             return self.visitParenExpr(S)
 
         elif (type_stmt.MEMBER_REF_EXPR == kind):
@@ -230,12 +237,35 @@ class CFGBuilder:
             return self.visitCompoundLiteralExpr(S)
 
         elif (type_stmt.DECL_REF_EXPR == kind):
+            # print S.printer()
             self.graph.addVariables(self.curNode, S.value())
+
+        elif (type_stmt.INTEGER_LITERAL == kind):
+            self.graph.addConstant(self.curNode, S.value())
+
+
+        elif (type_stmt.CHARACTER_LITERAL == kind):
+            self.graph.addConstant(self.curNode, S.value())
+
+        elif (type_stmt.FLOATING_LITERAL == kind):
+            self.graph.addConstant(self.curNode, S.value())
+
+        elif (type_stmt.STRING_LITERAL == kind):
+            self.graph.addConstant(self.curNode, S.value())
+
+        elif (type_stmt.UNARY_OPERATOR == kind):
+            self.visitUnaryStmt(S)
+
+
+        # elif (type_stmt.VAR_DECL == kind):
+        # print '[]', S.value()
+        # self.graph.addVariables(self.curNode, S.value())
+
         # elif (type_stmt.BLOCK_EXPR == kind):
-         #   return self.visitBlockExpr(S)
+        #   return self.visitBlockExpr(S)
 
         # elif (type_stmt.LAMBDA_EXPR == kind):
-         #   return self.visitLambdaExpr(S)
+        #   return self.visitLambdaExpr(S)
 
         else:
             return self.visitStmt(S)
@@ -245,15 +275,15 @@ class CFGBuilder:
         self.appendStmt(self._block, S)
 
         se = S.getSubExpr()
-        if(se is not None):
+        if (se is not None):
             return self.accepts(se)
 
     def visitStmtExpr(self, S):
         """ Utility method to handle (nested) statements expressions (a GCC extension)
 
-        :param S: Statement
-        :return: visit
-        """
+		:param S: Statement
+		:return: visit
+		"""
         self.autoCreateBlock()
         self.appendStmt(self._block, S)
 
@@ -263,13 +293,13 @@ class CFGBuilder:
         # Lazily create the indirect-goto dispatch block if there isn't one already
         IBlock = self._cfg.getIndirectGotoBlock()
 
-        if(IBlock is None):
+        if (IBlock is None):
             IBlock = self.createBlock(False)
             self._cfg.setIndirectGotoBlock(IBlock)
 
         # IndirectGoto is a control-flow statement. Thus we stop processing the current
         # block and create a new one
-        if(self._badCFG):
+        if (self._badCFG):
             return None
 
         self._block = self.createBlock(False)
@@ -292,13 +322,13 @@ class CFGBuilder:
     def visitReturnStmt(self, R):
         """If we were in the middle of a block we stop processing that block.
 
-        Notes
-        -----
-        If a 'return' appears in the middle of a block, this means that the
-        code afterwards is DEAD (unreachable). We still keep a basic block for that code;
-        a simple 'mark-and-sweep' from the entry block will be able to resport such dead blocks.
+		Notes
+		-----
+		If a 'return' appears in the middle of a block, this means that the
+		code afterwards is DEAD (unreachable). We still keep a basic block for that code;
+		a simple 'mark-and-sweep' from the entry block will be able to resport such dead blocks.
 
-        """
+		"""
         # Create the new block
         self._block = self.createBlock(False)
         self.addSucessor(self._block, self._cfg.getExit())
@@ -312,10 +342,10 @@ class CFGBuilder:
         return self._block
 
     # def visitBlockExpr(self, E):
-     #   lastBlock = self.visitNoRecurse(E)
+    #   lastBlock = self.visitNoRecurse(E)
 
     def visitConditionalOperator(self, C):
-        if(C.kind() == type_stmt.BINARY_CONDITIONAL_OPERATOR):
+        if (C.kind() == type_stmt.BINARY_CONDITIONAL_OPERATOR):
             opaqueValue = C.getOpaqueValue()
         else:
             opaqueValue = None
@@ -334,7 +364,7 @@ class CFGBuilder:
         self._succ = confluenceBlock
         self._block = None
         trueExpr = C.getTrueExpr()
-        if(trueExpr.kind() != type_stmt.OPAQUE_VALUE_EXPR):
+        if (trueExpr.kind() != type_stmt.OPAQUE_VALUE_EXPR):
             lhsBlock = self.visit(C.getTrueExpr())
             if self._badCFG:
                 return None
@@ -348,15 +378,15 @@ class CFGBuilder:
             return None
         # If the condition is a logical '&&' or '||', build a more acurate CFG
         cond = C.getCond()
-        if(cond.kind() == type_stmt.BINARY_OPERATOR):
-            if(cond.isLogicalOp()):
+        if (cond.kind() == type_stmt.BINARY_OPERATOR):
+            if (cond.isLogicalOp()):
                 return self.visitLogicalOperator(cond, C, lhsBlock, rhsBlock)[0]
         # Create the block that will contain the condition
         self._block = self.createBlock(False)
         # See if this is a known constant
         knownValue = self.tryEvaluateBool(C.getCond())
-        self.addSucessor(self._block, lhsBlock, not(knownValue.isFalse()))
-        self.addSucessor(self._block, rhsBlock, not(knownValue.isTrue()))
+        self.addSucessor(self._block, lhsBlock, not (knownValue.isFalse()))
+        self.addSucessor(self._block, rhsBlock, not (knownValue.isTrue()))
         self._block.setTerminator(C)
         condExpr = C.getCond()
         if opaqueValue:
@@ -393,7 +423,7 @@ class CFGBuilder:
 
     def visitGoToStmt(self, G):
         """Goto is a control-flow statement. Thus we stop processing the current block and
-        create a new one."""
+		create a new one."""
         if self._badCFG:
             return None
         self._block = self.createBlock(False)
@@ -428,7 +458,7 @@ class CFGBuilder:
     def visitDoStmt(self, D):
 
         loopSuccessor = None
-        #"do ... while" is a control-flow statement. Thus we stop processing the current
+        # "do ... while" is a control-flow statement. Thus we stop processing the current
         # block
         prevNode = self.graph.lastNode
 
@@ -436,7 +466,6 @@ class CFGBuilder:
         self.graph.addFeature(doWhileNode, "loop")
         self.graph.addControlEdge(prevNode, doWhileNode)
         self.curNode = doWhileNode
-
 
         if self._block:
             if self._badCFG:
@@ -472,7 +501,6 @@ class CFGBuilder:
         self.graph.addControlEdge(doWhileNode, doWhileBodyNode)
         self.curNode = doWhileBodyNode
 
-
         bodyBlock = None
         assert D.getBody() is not None
         # TODO: Save the current values for Block, Succ, and continue and break targets
@@ -493,7 +521,7 @@ class CFGBuilder:
         elif self._block:
             if self._badCFG:
                 return None
-        if (not(knownVal.isFalse())):
+        if (not (knownVal.isFalse())):
             # Add an intermediate block between the BodyBlock and the
             # ExitConditionBlock to represent the "loop back" transition.
             # Create and empty block to represent the transition block for
@@ -536,12 +564,14 @@ class CFGBuilder:
     def visitCallExpr(self, C):
         """Compute de callee type.
 
-        TODO
-        ----
-        calleType = C.getCalle().getType() #TODO TODO
-        If this is a call to a no-return function, this stops the block here bool
+		TODO
+		----
+		calleType = C.getCalle().getType() #TODO TODO
+		If this is a call to a no-return function, this stops the block here bool
 
-        """
+		"""
+        params = C.getParams()
+        for param in params: self.visit(param)
         if self._block:
             self._succ = self._block
             if self._badCFG:
@@ -560,8 +590,8 @@ class CFGBuilder:
         self.autoCreateBlock()
         self.appendStmt(self._block, S)
         # I don't want the index of the array subscript in the CFG
-        if(S.kind() == type_stmt.ARRAY_SUBSCRIPT_EXPR):
-            return self.accepts(S.getSubExpr())
+        # if(S.kind() == type_stmt.ARRAY_SUBSCRIPT_EXPR):
+        # return self.accepts(S.getSubExpr())
         return self.visitChildren(S)
 
     def visitChildren(self, S):
@@ -586,12 +616,12 @@ class CFGBuilder:
     def visitImplicitCastExpr(self, S):
         self.autoCreateBlock()
         self.appendStmt(self._block, S)
-        self.graph.addVariables(self.curNode, S.getSubExpr().value())
+        # print S.getSubExpr().kind()
         return self.accepts(S.getSubExpr())
 
     def isStmt(self, S):
         type = S.kind()
-        if(type == type_stmt.COMPOUND_STMT or type == type_stmt.IF_STMT or type == type_stmt.FOR_STMT
+        if (type == type_stmt.COMPOUND_STMT or type == type_stmt.IF_STMT or type == type_stmt.FOR_STMT
                 or type == type_stmt.DECL_STMT):
             return True
         else:
@@ -599,19 +629,23 @@ class CFGBuilder:
 
     def visitCompoundStmt(self, compoundStatement):
         """visitCompoundStmt - when a compound statement is reached visit the stmts
-        inside it.
+		inside it.
 
-        :param S: StmtDecorator
-        :return: CFGBlock
+		:param S: StmtDecorator
+		:return: CFGBlock
 
-        """
+		"""
         # creating a binding to block object
         lastBlock = self._block
         # iterating through the compound statement
         elements = compoundStatement.child_iterator()
         for e in elements:
+            # lastNode = self.graph.lastNode
 
-
+            curNode = self.graph.createNode('data')
+            self.curNode = curNode
+            if (len(e.printer()) < 40):
+                self.graph.addString(self.curNode, e.printer())
             newBlock = self.accepts(e)
             if newBlock:
                 lastBlock = newBlock
@@ -624,7 +658,6 @@ class CFGBuilder:
         # If the DS refers to a single declaration
 
         if DS.isSingleDeclaration():
-
             return self.visitDeclSubExpr(DS)
         # pointer to a CFGBlock
         B = None
@@ -638,20 +671,25 @@ class CFGBuilder:
 
     def visitDeclSubExpr(self, DS):
         """Utility method to add block-level expressions for DeclStmts
-        and initializers in them
+		and initializers in them
 
-        :param DS: StmtDecorator
-        :return:
-        """
+		:param DS: StmtDecorator
+		:return:
+		"""
+        for val in DS.get_children().front().value():
+            self.graph.addVariables(self.curNode, val)
         assert DS.isSingleDeclaration(), "Can handle single declarations only"
         VD = DS.getSingleDeclaration()
+        # print VD.kind()
+
         if not VD:
             # Of everything that can be declared in a DeclStmt, only VarDecls impact
             # runtime semantics
             return self._block
+        # self.visit(VD)
         # Guard static initializers under a branch
-        if VD.value() is not None:
-            self.graph.addFeature(self.curNode, VD.value())
+        # if VD.value() is not None:
+        # self.graph.addFeature(self.curNode, VD.value())
         blockAfterStaticInit = None
         # TODO
         # ----
@@ -678,7 +716,7 @@ class CFGBuilder:
         # handle array initialization
         if init and type(init) is list:
             for i in init:
-                print i
+                # print i
                 newBlock = self.visit(i)
                 if init:
                     lastBlock = newBlock
@@ -699,18 +737,65 @@ class CFGBuilder:
 
     def visitIfStmt(self, if_stmt):
         """ We may see an if stmt in the middle of a basic block, or it may be the
-        first statement we are processing. In either case, we create a new basic block.
-        First, we create the blocks for the then...else statements, and then we create the
-        block containing the if stmt. If we were in the middle of a block, we stop processing
-        that block. That block is then the implicit successor for the then and else clauses.
+		first statement we are processing. In either case, we create a new basic block.
+		First, we create the blocks for the then...else statements, and then we create the
+		block containing the if stmt. If we were in the middle of a block, we stop processing
+		that block. That block is then the implicit successor for the then and else clauses.
 
-        """
+		"""
         # The block we were processing is now finished. Make it the successor block
-        prevNode = self.graph.lastNode
-        parentIf = self.graph.createNode("control","if")
-        self.graph.addFeature(parentIf,"if")
-        self.graph.addControlEdge(prevNode, parentIf)
-        self.curNode= parentIf
+
+        ifNode = self.curNode
+        self.graph.addFeature(ifNode, "cn")
+        # self.addPrefix('i')
+        # self.addPrefix('c')
+        cond = if_stmt.getCond()
+        if cond and cond.kind() is type_stmt.BINARY_OPERATOR:
+            if cond.isLogicalOp():
+                return self.visitLogicalOperator(cond, if_stmt, thenBlock, elseBlock)[0]
+        # Create a new block containing the if statement
+        self._block = self.createBlock(False)
+        # Set the terminator of the new block to the If statement
+        self._block.setTerminator(if_stmt)
+        # see if this is a known constant
+        # knowVal = self.tryEvaluateBool(if_stmt.getCond())
+        # Add the successors. If we know that specific branches are
+        # unreachable, inform addSuccessor() of that knowledge
+        # self.addSucessor(self._block, thenBlock, not(knowVal.isFalse()))
+        # self.addSucessor(self._block, elseBlock, not (knowVal.isTrue()))
+        # Add the condition as the last statement in the new block. This may create
+        # new blocks as the condition may contain control-flow. Any newly created
+        # blocks will be pointed to be "Block"
+        # TODO: Revisar
+        self.appendStmt(self._block, if_stmt)
+        # self.curNode = parentIf          #commented to make sure that code following if else goes to new node
+        lastBlock = self.accepts(if_stmt.getCond())
+
+        self.addPrefix('if')
+
+        # thenNode = self.graph.createNode('data')
+        # self.curNode  = thenNode
+        # Process the true branch
+        then = if_stmt.getThen()
+        assert then is not None
+        self._sv.push_back(self._succ)
+        self._block = None
+
+        thenBlock = self.accepts(then)
+        if not thenBlock:
+            # We can reach here if the 'then' statement has all NullStmts.
+            # Create an empty block so we can distinguish between true and false
+            # branches in path sensitive analysis
+            thenBlock = self.createBlock(False)
+            self.addSucessor(thenBlock, self._sv.pop_back())
+
+
+        elif self._block:
+            if self._badCFG:
+                return None
+
+        # elseNode = self.graph.createNode('data',)
+        # self.curNode = elseNode
 
         if self._block:
             self._succ = self._block
@@ -720,10 +805,10 @@ class CFGBuilder:
         elseBlock = self._succ
         else_ = if_stmt.getElse()
 
-        elseNode = self.graph.createNode("data","else")
-        self.graph.addFeature(elseNode, "else")
-        self.graph.addControlEdge(parentIf,elseNode)
-        self.curNode = elseNode
+        # elseNode = self.graph.createNode("data","else")
+        # self.graph.addFeature(elseNode, "else")
+        # self.graph.addControlEdge(parentIf,elseNode)
+        # self.curNode = elseNode
         if else_:
             # Save succ for possible override
             self._sv.push_back(self._succ)
@@ -739,70 +824,15 @@ class CFGBuilder:
                     return None
 
         elseEnd = self.graph.lastNode
+        self.removePrefix()
 
-        # Process the true branch
-        then = if_stmt.getThen()
-        assert then is not None
-        self._sv.push_back(self._succ)
-        self._block = None
-
-        ifNode = self.graph.createNode("data", "if")
-        self.graph.addControlEdge(parentIf,ifNode)
-        self.curNode = ifNode
-
-        thenBlock = self.accepts(then)
-
-        thenEnd = self.graph.lastNode
-
-        if not thenBlock:
-            # We can reach here if the 'then' statement has all NullStmts.
-            # Create an empty block so we can distinguish between true and false
-            # branches in path sensitive analysis
-            thenBlock = self.createBlock(False)
-            self.addSucessor(thenBlock, self._sv.pop_back())
-
-
-        elif self._block:
-            if self._badCFG:
-                return None
-
-        endIfNode = self.graph.createNode("control")
-        self.graph.addFeature(endIfNode, "endIf")
-        self.graph.addControlEdge(elseEnd, endIfNode)
-        self.graph.addControlEdge(thenEnd, endIfNode)
-
-        afterIfElseNode = self.graph.createNode("control")
-        self.graph.addControlEdge(endIfNode, afterIfElseNode)
-        self.curNode = afterIfElseNode
-
-        # Specially handle "if (expr1 || ...)" and "if (expr1 && ...)" by having these
-        # handle the actual control-flow jump.
-        cond = if_stmt.getCond()
-        if cond and cond.kind() is type_stmt.BINARY_OPERATOR:
-            if cond.isLogicalOp():
-                return self.visitLogicalOperator(cond, if_stmt, thenBlock,  elseBlock)[0]
-        # Create a new block containing the if statement
-        self._block = self.createBlock(False)
-        # Set the terminator of the new block to the If statement
-        self._block.setTerminator(if_stmt)
-        # see if this is a known constant
-        #knowVal = self.tryEvaluateBool(if_stmt.getCond())
-        # Add the successors. If we know that specific branches are
-        # unreachable, inform addSuccessor() of that knowledge
-        # self.addSucessor(self._block, thenBlock, not(knowVal.isFalse()))
-        # self.addSucessor(self._block, elseBlock, not (knowVal.isTrue()))
-        # Add the condition as the last statement in the new block. This may create
-        # new blocks as the condition may contain control-flow. Any newly created
-        # blocks will be pointed to be "Block"
-        # TODO: Revisar
-        self.appendStmt(self._block, if_stmt)
-        # self.curNode = parentIf          #commented to make sure that code following if else goes to new node
-        lastBlock = self.accepts(if_stmt.getCond())
+        # self.graph.createNode('data', 'endIf')
         return lastBlock
 
     def visitLogicalOperator(self, bOperator, stmt=None, trueBlock=None, falseBlock=None):
         # Introspect the RHS. if it is a nested logical operation, we recursively build te
         # CFG using this funcrion. Otherwise, resort to default CFG construction behaviour
+        # print bOperator.value()
         rhs = bOperator.getRHS()
         rhsBlock = None
         exitBlock = None
@@ -825,8 +855,8 @@ class CFGBuilder:
                 knowVal = self.tryEvaluateBool(rhs)
                 if not knowVal.isKnown():
                     knowVal = self.tryEvaluateBool(bOperator)
-                self.addSucessor(rhsBlock, trueBlock, not(knowVal.isFalse()))
-                self.addSucessor(rhsBlock, falseBlock, not(knowVal.isTrue()))
+                self.addSucessor(rhsBlock, trueBlock, not (knowVal.isFalse()))
+                self.addSucessor(rhsBlock, falseBlock, not (knowVal.isTrue()))
             self._block = rhsBlock
             rhsBlock = self.accepts(rhs)
             break
@@ -856,17 +886,17 @@ class CFGBuilder:
         knowVal = self.tryEvaluateBool(lhs)
         # Now link the LHSBlock with RHSBlock
         if bOperator.value() == "||":
-            self.addSucessor(lhsBlock, trueBlock, not(knowVal.isFalse()))
-            self.addSucessor(lhsBlock, rhsBlock, not(knowVal.isTrue()))
+            self.addSucessor(lhsBlock, trueBlock, not (knowVal.isFalse()))
+            self.addSucessor(lhsBlock, rhsBlock, not (knowVal.isTrue()))
         else:
-            self.addSucessor(lhsBlock, rhsBlock, not(knowVal.isFalse()))
-            self.addSucessor(lhsBlock, falseBlock, not(knowVal.isTrue()))
+            self.addSucessor(lhsBlock, rhsBlock, not (knowVal.isFalse()))
+            self.addSucessor(lhsBlock, falseBlock, not (knowVal.isTrue()))
         return [entryLHSBlock, exitBlock]
 
     def tryEvaluateBool(self, S):
         """ Try and evaluate the Stmt and return 0 or 1 if we can evaluate to know value
-        otherwise return -1.
-        """
+		otherwise return -1.
+		"""
         # TODO: Build options
         if S.kind() is type_stmt.BINARY_OPERATOR:
             bop = S
@@ -878,11 +908,11 @@ class CFGBuilder:
             else:
                 # For 'x & 0' and 'x * 0' we can determine that the value is
                 # always false
-                if(bop.value() == '*' or bop.value() == '&'):
+                if (bop.value() == '*' or bop.value() == '&'):
                     # If either operand is 0 value must be false
-                    if(bop.getLHS.kind() == type_stmt.INTEGER_LITERAL and bop.getLHS.value() == 0):
+                    if (bop.getLHS.kind() == type_stmt.INTEGER_LITERAL and bop.getLHS.value() == 0):
                         return TryResult(False)
-                    if(bop.getHS.kind() == type_stmt.INTEGER_LITERAL and bop.getRHS.value() == 0):
+                    if (bop.getHS.kind() == type_stmt.INTEGER_LITERAL and bop.getRHS.value() == 0):
                         return TryResult(False)
         return self.evaluateAsBooleanCondition(S)
 
@@ -915,23 +945,26 @@ class CFGBuilder:
                             return TryResult()  # bopRes.isTrue() FIXME
                 return TryResult()
             elif bop.value() == '==' or bop.value() == '!=':
-                #bopRes = self.checkIncorrectEqualityOperator(bop)
+                # bopRes = self.checkIncorrectEqualityOperator(bop)
                 # if (bopRes.isKnown()):
                 return TryResult()  # bopRes.isTrue() FIXME
             elif bop.value() == '<' or bop.value() == '>' or bop.value() == '>=' or bop.value() == '<=':
-                #bopRes = self.checkIncorrectRelationaloperator(bop)
+                # bopRes = self.checkIncorrectRelationaloperator(bop)
                 # if(bopRes.isKnown()):
                 # bopRes.isTrue() #FIXME: De momento lo todomo todo como uknown, hay que hacerla bien
                 return TryResult()
         # result = None
         # if(expression.EvaluateAsBooleanCondition(result) == True): # TODO(Optional)
-          #  return result
+        #  return result
         return TryResult()
 
     def visitBinaryOperator(self, B):
         # && or ||
 
-        self.graph.addFeature(self.curNode, B.value())
+        self.graph.addString(self.curNode, B.printer())
+
+        self.graph.addOperator(self.curNode, B.value())
+        # print B.value()
 
         if B.isLogicalOp():
             return self.visitLogicalOperator(B)
@@ -943,15 +976,34 @@ class CFGBuilder:
         if B.isAssignmentOp():
             self.autoCreateBlock()
             self.appendStmt(self._block, B)
+            self.graph.inLHS = True
             self.accepts(B.getLHS())
+            self.graph.inLHS = False
 
             return self.accepts(B.getRHS())
         # TODO: ALWAYS ADD
         self.autoCreateBlock()
         self.appendStmt(self._block, B)
-        #print B.getLHS().getSubExpr().value()
-        rBlock = self.accepts(B.getRHS())
-        lBlock = self.accepts(B.getLHS())
+        # print B.getLHS().getSubExpr().value()
+
+        numOfOps = B.getLen()
+        if (numOfOps > 1):
+            oldNode = self.curNode
+
+            rhNode = self.graph.createNode('graph')
+            self.curNode = rhNode
+            rBlock = self.accepts(B.getRHS())
+
+            lhNode = self.graph.createNode('data')
+            self.curNode = lhNode
+            lBlock = self.accepts(B.getLHS())
+
+            self.graph.addLink(oldNode, rhNode)
+            self.graph.addLink(oldNode, lhNode)
+        else:
+            rBlock = self.accepts(B.getRHS())
+            lBlock = self.accepts(B.getLHS())
+
         # If visiting RHS causes us to finish 'Block' eg: the RHS is a StmtExpr
         # containing a DoStmt, and the LHS doesn't create a new block, the we should
         # return RBlock. Otherwise we'll incorrectly recur Null
@@ -964,6 +1016,7 @@ class CFGBuilder:
         # TODO: ALWAYS ADD
         self.autoCreateBlock()
         self.appendStmt(self._block, C)
+        self.graph.addOperator(self.curNode, C.specific_kind())
         rBlock = self.accepts(C.getRHS())
         lBlock = self.accepts(C.getLHS())
         # If visiting RHS causes us to finish 'Block' eg: the RHS is a StmtExpr
@@ -977,74 +1030,15 @@ class CFGBuilder:
     def visitForStmt(self, F):
         # 'For' is a control flow statement, thus we stop processing the current block
         #
-        prevNode = self.graph.lastNode
+        i = F.getInit()
+        if i:
+            self._block = self.createBlock()
+            initBlock = self.accepts(i)
 
-        forNode = self.graph.createNode("control")
-        self.graph.addFeature(forNode, "loop")
-        self.graph.addControlEdge(prevNode, forNode)
-        self.curNode = forNode
-
-        if self._block:
-            if self._badCFG:
-                return None
-            loopSuccessor = self._block
-        else:
-            loopSuccessor = self._succ
-        # Save the current value for the break targets. All breaks should go to the code
-        # following the loop
-        self._saveBreak.push_back(self._breakJumpTarget)
-        self._breakJumpTarget = BlockScopePosPair(loopSuccessor)
-        # Now create the loop body
-        assert F.getBody() is not None
-        # Save the current values for Block, Succ, continue and break targets
-        self._saveBlock.push_back(self._block)
-        self._saveSucc.push_back(self._succ)
-        self._saveContinue.push_back(self._continueJumpTarget)
-        # Create an empty block to represent the transition block for looping back to the
-        # head of the loop. If we have increment code, it will go in this block as well.
-
-
-
-        self._block = self._succ = transitionBlock = self.createBlock(False)
-        transitionBlock.setLoopTarget(F)
-        inc = F.getInc()
-        self.curNode = forNode
-        if inc.kind() is type_stmt.DECL_STMT:
-            # Generate increment code in its own basic block. This is the target of the
-            # continue statement
-            self._succ = self.accepts(inc)
-        # Finish the increment (or empty) block if it hasn't been already.
-        if self._block:
-            assert self._block == self._succ
-            if self._badCFG:
-                return None
-            else:
-                self._block = None
-        # The starting block for the loop increment is the block that should represent
-        # the 'loop target' for looping back to the start of the loop
-        self._continueJumpTarget = BlockScopePosPair(self._succ)
-        self._continueJumpTarget.block.setLoopTarget(F)
-        # Now populate the body block, and in the process create new blocks as we walk
-        # the body of the loop
-
-        forBodyNode = self.graph.createNode("data")
-        self.graph.addFeature(forBodyNode, "forBody")
-        self.graph.addControlEdge(forNode, forBodyNode)
-        self.curNode = forBodyNode
-
-        bodyBlock = self.accepts(F.getBody())
-
-        if not bodyBlock:
-            # In the case of 'for(...;...;..);" we can have a null bodyBlock.
-            # Use the continue jump target as the proxy for the body
-            bodyBlock = self._continueJumpTarget.block
-        elif self._badCFG:
-            return None
-        # Becasuse of short-circuit evaluation, the condition of the loop can span multiple
-        # basic blocks. Thus we need the Entry and Exit blocks that evaluate the condition
+        condNode = self.graph.createNode('data')
+        self.graph.addFeature(condNode, 'cn')
+        # [condition]
         entryConditionBlock = None
-
-        self.curNode = forNode
 
         while True:
             cond = F.getCond()
@@ -1081,19 +1075,83 @@ class CFGBuilder:
                 # XXX: This can't be done in C language
                 if self._block and self._badCFG:
                     return None
-                knownValue = self.tryEvaluateBool(cond)
+            # knownValue = self.tryEvaluateBool(cond)
             # Add the loop body entry as a successor to the confition
-            if knownValue.isFalse():
-                self.addSucessor(exitConditionBlock, None)
-            else:
-                self.addSucessor(exitConditionBlock, bodyBlock)
-            # Link up the condition block with the code that follow the loop. (the false branch)
-            if knownValue.isTrue():
-                self.addSucessor(exitConditionBlock, None)
-            else:
-                self.addSucessor(exitConditionBlock, loopSuccessor)
+            # if knownValue.isFalse():
+            #     self.addSucessor(exitConditionBlock, None)
+            # else:
+            #     self.addSucessor(exitConditionBlock, bodyBlock)
+            # # Link up the condition block with the code that follow the loop. (the false branch)
+            # if knownValue.isTrue():
+            #     self.addSucessor(exitConditionBlock, None)
+            # else:
+            #     self.addSucessor(exitConditionBlock, loopSuccessor)
             break
+        # [--condition--]
+
+        if self._block:
+            if self._badCFG:
+                return None
+            loopSuccessor = self._block
+        else:
+            loopSuccessor = self._succ
+        # Save the current value for the break targets. All breaks should go to the code
+        # following the loop
+        self._saveBreak.push_back(self._breakJumpTarget)
+        self._breakJumpTarget = BlockScopePosPair(loopSuccessor)
+        # Now create the loop body
+        # assert F.getBody() is not None
+        # Save the current values for Block, Succ, continue and break targets
+        self._saveBlock.push_back(self._block)
+        self._saveSucc.push_back(self._succ)
+        self._saveContinue.push_back(self._continueJumpTarget)
+        # Create an empty block to represent the transition block for looping back to the
+        # head of the loop. If we have increment code, it will go in this block as well.
+
+        self.addPrefix('lp')
+        IncNode = self.graph.createNode('data')
+        self.curNode = IncNode
+
+        self._block = self._succ = transitionBlock = self.createBlock(False)
+        transitionBlock.setLoopTarget(F)
+        inc = F.getInc()
+        # self.curNode = forNode
+        if inc and inc.kind() is type_stmt.DECL_STMT:
+            # Generate increment code in its own basic block. This is the target of the
+            # continue statement
+            self._succ = self.accepts(inc)
+        # Finish the increment (or empty) block if it hasn't been already.
+        if self._block:
+            assert self._block == self._succ
+            if self._badCFG:
+                return None
+            else:
+                self._block = None
+        # The starting block for the loop increment is the block that should represent
+        # the 'loop target' for looping back to the start of the loop
+        self._continueJumpTarget = BlockScopePosPair(self._succ)
+        self._continueJumpTarget.block.setLoopTarget(F)
+        # Now populate the body block, and in the process create new blocks as we walk
+        # the body of the loop
+
+        # forBodyNode = self.graph.createNode("data")
+        # self.graph.addFeature(forBodyNode, "forBody")
+        # self.graph.addControlEdge(forNode, forBodyNode)
+        # self.curNode = forBodyNode
+
+        bodyBlock = self.accepts(F.getBody())
+        self.removePrefix()
+        if not bodyBlock:
+            # In the case of 'for(...;...;..);" we can have a null bodyBlock.
+            # Use the continue jump target as the proxy for the body
+            bodyBlock = self._continueJumpTarget.block
+        elif self._badCFG:
+            return None
+        # Becasuse of short-circuit evaluation, the condition of the loop can span multiple
+        # basic blocks. Thus we need the Entry and Exit blocks that evaluate the condition
+
         # Link up the loop-back block to the entry condition block
+
         self.addSucessor(transitionBlock, entryConditionBlock)
         # the condition block is the implicit sucessor for any code above the loop
         self._succ = entryConditionBlock
@@ -1101,23 +1159,19 @@ class CFGBuilder:
         # This block can also contain statements that precede the loop
 
         initBlock = None
-        i = F.getInit()
-        if i:
-            self._block = self.createBlock()
-            initBlock =  self.accepts(i)
 
-        #joiningNodes
-        lastNode = self.graph.lastNode
-        endForNode = self.graph.createNode("control")
-        self.graph.addFeature(endForNode, "endLoop")
-        self.graph.addControlEdge(lastNode, endForNode)
-        self.graph.addControlEdge(endForNode, forNode)
+        # joiningNodes
+        # lastNode = self.graph.lastNode
+        # endForNode = self.graph.createNode("control")
+        # self.graph.addFeature(endForNode, "endLoop")
+        # self.graph.addControlEdge(lastNode, endForNode)
+        # self.graph.addControlEdge(endForNode, forNode)
 
-        #creating node to be followed after for loop ends
+        # creating node to be followed after for loop ends
 
-        afterLoopNode = self.graph.createNode("control")
-        self.graph.addControlEdge(endForNode,afterLoopNode)
-        self.curNode = afterLoopNode
+        # afterLoopNode = self.graph.createNode("control")
+        # self.graph.addControlEdge(endForNode,afterLoopNode)
+        # self.curNode = afterLoopNode
 
         # There is no loop initialization. We are thus basically a while loop.
         # NULL out Block to force lazy block construction
@@ -1134,55 +1188,12 @@ class CFGBuilder:
         loopSuccessor = None
         # While is a control flow stmt. Thus we stop processing the current block
 
-        prevNode = self.graph.lastNode
-
-        whileNode = self.graph.createNode("control")
-        self.graph.addFeature(whileNode, "loop")
-        self.graph.addControlEdge(prevNode, whileNode)
-        self.curNode = whileNode
-
-        if self._block:
-            if self._badCFG:
-                return None
-            loopSuccessor = self._block
-            self._block = None
-        else:
-            loopSuccessor = self._succ
-        bodyBlock = None
-        transitionBlock = None
-        # Process the loop body
-        assert W.getBody is not None
-        self._saveBlock.push_back(self._block)
-        self._saveSucc.push_back(self._succ)
-        self._saveContinue.push_back(self._continueJumpTarget)
-        self._saveBreak.push_back(self._breakJumpTarget)
-        # Create an empty block to represent the transition block for looping back
-        # to the head of the loop
-        self._succ = transitionBlock = self.createBlock(False)
-        transitionBlock.setLoopTarget(W)
-        self._continueJumpTarget = BlockScopePosPair(self._succ)
-        # All breaks should go to the code following the loop
-        self._breakJumpTarget = BlockScopePosPair(loopSuccessor)
-        # Create the body. The returned block is the entry to the loop body
-
-
-        whileBodyNode = self.graph.createNode("data")
-        self.graph.addFeature(whileBodyNode, "whileBody")
-        self.graph.addControlEdge(whileNode, whileBodyNode)
-        self.curNode = whileBodyNode
-
-
-        bodyBlock = self.accepts(W.getBody())
-        if not bodyBlock:
-            # Can happen for while(...);
-            bodyBlock = self._continueJumpTarget.block
-        elif self._block and self._badCFG:
-            return None
-        # Because of the short circuit evaluation, the condition of the loop can span multiple
-        # basic blocks. Thus we need the 'Entry' and 'Exit' blocks that evaluate the
-        # condition
+        whileCnNode = self.curNode
+        self.graph.addFeature(whileCnNode, 'cn')
         entryConditionBlock = None
         exitCOnditionBlock = None
+        bodyBlock = None
+        transitionBlock = None
         while True:
             cond = W.getCond()
             # Specially handle logical operator, which have a slightly more optimal CFG repr.
@@ -1198,40 +1209,86 @@ class CFGBuilder:
             exitCOnditionBlock.setTerminator(W)
             # Now add the actual condition to the condition block. Because the condition
             # itself may contain control-flow, new blocks may be created. Thus we update
-            #"Succ" after adding the condition
+            # "Succ" after adding the condition
             self._block = exitCOnditionBlock
             self.appendStmt(exitCOnditionBlock, W)
+
             self._block = entryConditionBlock = self.accepts(cond)
             if self._block and self._badCFG:
                 return None
             # See if this is a know constant
-            knowVal = self.tryEvaluateBool(cond)
-            # Add the loop body entry as a successor to the condition
-            if knowVal.isFalse():
-                self.addSucessor(exitCOnditionBlock, None)
-            else:
-                self.addSucessor(exitCOnditionBlock, bodyBlock)
-            # Link the condition block with the code that follows the loop.
-            # (the 'false' branch)
-            if knowVal.isTrue():
-                self.addSucessor(exitCOnditionBlock, None)
-            else:
-                self.addSucessor(exitCOnditionBlock, loopSuccessor)
+            # knowVal = self.tryEvaluateBool(cond)
+            # # Add the loop body entry as a successor to the condition
+            # if knowVal.isFalse():
+            #     self.addSucessor(exitCOnditionBlock, None)
+            # else:
+            #     self.addSucessor(exitCOnditionBlock, bodyBlock)
+            # # Link the condition block with the code that follows the loop.
+            # # (the 'false' branch)
+            # if knowVal.isTrue():
+            #     self.addSucessor(exitCOnditionBlock, None)
+            # else:
+            #     self.addSucessor(exitCOnditionBlock, loopSuccessor)
             break
+
+        self.addPrefix('lp')
+
+        if self._block:
+            if self._badCFG:
+                return None
+            loopSuccessor = self._block
+            self._block = None
+        else:
+            loopSuccessor = self._succ
+
+        # Process the loop body
+        assert W.getBody is not None
+        self._saveBlock.push_back(self._block)
+        self._saveSucc.push_back(self._succ)
+        self._saveContinue.push_back(self._continueJumpTarget)
+        self._saveBreak.push_back(self._breakJumpTarget)
+        # Create an empty block to represent the transition block for looping back
+        # to the head of the loop
+        self._succ = transitionBlock = self.createBlock(False)
+        transitionBlock.setLoopTarget(W)
+        self._continueJumpTarget = BlockScopePosPair(self._succ)
+        # All breaks should go to the code following the loop
+        self._breakJumpTarget = BlockScopePosPair(loopSuccessor)
+        # Create the body. The returned block is the entry to the loop body
+
+        # whileBodyNode = self.graph.createNode("data")
+        # self.graph.addFeature(whileBodyNode, "whileBody")
+        # self.graph.addControlEdge(whileNode, whileBodyNode)
+        # self.curNode = whileBodyNode
+
+        bodyBlock = self.accepts(W.getBody())
+        if not bodyBlock:
+            # Can happen for while(...);
+            bodyBlock = self._continueJumpTarget.block
+        elif self._block and self._badCFG:
+            return None
+        # Because of the short circuit evaluation, the condition of the loop can span multiple
+        # basic blocks. Thus we need the 'Entry' and 'Exit' blocks that evaluate the
+        # condition
+
         # Link up the loop-back block to the entry condition block
 
         # joiningNodes
-        lastNode = self.graph.lastNode
-        endWhileNode = self.graph.createNode("control")
-        self.graph.addFeature(endWhileNode, "endLoop")
-        self.graph.addControlEdge(lastNode, endWhileNode)
-        self.graph.addControlEdge(endWhileNode, whileNode)
+        # lastNode = self.graph.lastNode
+        # endWhileNode = self.graph.createNode("control")
+        # self.graph.addFeature(endWhileNode, "endLoop")
+        # self.graph.addControlEdge(lastNode, endWhileNode)
+        # self.graph.addControlEdge(endWhileNode, whileNode)
 
         # creating node to be followed after while loop ends
 
-        afterLoopNode = self.graph.createNode("control")
-        self.graph.addControlEdge(endWhileNode, afterLoopNode)
-        self.curNode = afterLoopNode
+        # afterLoopNode = self.graph.createNode("control")
+        # self.graph.addControlEdge(endWhileNode, afterLoopNode)
+        # self.curNode = afterLoopNode
+
+        # endNode = self.graph.createNode('control')
+        # self.graph.addFeature(endNode, '')
+        self.removePrefix()
 
         self.addSucessor(transitionBlock, entryConditionBlock)
         # there can be no more statements in the condition block since we loop back
@@ -1300,9 +1357,9 @@ class CFGBuilder:
         switchAlwaysHasSuccessor = False
         switchAlwaysHasSuccessor |= self._switchExclusivelyCovered
         switchAlwaysHasSuccessor |= terminator.isAllEnumCasesCovered() and \
-            (terminator.getSwitchCaseList() is not None)
+                                    (terminator.getSwitchCaseList() is not None)
         self.addSucessor(self._switchTerminatedBlock,
-                         self._defaultCaseBlock, not(switchAlwaysHasSuccessor))
+                         self._defaultCaseBlock, not (switchAlwaysHasSuccessor))
         # Add the terminator and condition in the switch block
         self._switchTerminatedBlock.setTerminator(terminator)
         self._block = self._switchTerminatedBlock
@@ -1319,7 +1376,7 @@ class CFGBuilder:
         isConst = field is not False
         if isConst:
             return self.fastEvaluateAsRValue(expr)
-        return[False, False]
+        return [False, False]
 
     def fastEvaluateAsRValue(self, expr):
         # Fast evaluation of integer literals, since we sometimes see files
@@ -1330,7 +1387,7 @@ class CFGBuilder:
         if expr.kind() is type_stmt.NULL_STMT:
             return [True, False]
         # TODO: FOR ARRAY TYPES
-        return[False, False]
+        return [False, False]
 
     # caseExit = 0
 
@@ -1406,6 +1463,10 @@ class CFGBuilder:
             self._succ = caseBlock
         return self._succ
 
+    def visitUnaryStmt(self, S):
+        self.graph.addOperator(self.curNode, S.value())
+        self.visit(S.getOperand())
+
     def shouldAddCase(self, switchExclusivelyCovered, switchCond, CS):
         if not switchCond:
             return True
@@ -1432,9 +1493,9 @@ class CFGBuilder:
 
     def evaluateKnownConstInt(self, S):
         """ Call EvaluateAsRValue and return the folded integer. This must be called on an expression
-        that constant folds to an integer
+		that constant folds to an integer
 
-        """
+		"""
         result = self.evaluateAsRValue(S)
         if result[0]:
             return result[1]
@@ -1498,6 +1559,7 @@ class CFGBuilder:
         """Interface to CFGBlock - adding CFGElements."""
         CFGBlock.appendStmt(stmt)
 
+
 class CFG:
     def __init__(self):
         self._entry = None
@@ -1511,13 +1573,13 @@ class CFG:
     def createBlock(self):
         """Creates a new block in the CFG. The CFG owns the block.
 
-        Returns
-        -------
-        :obj: `CFGBlock`
+		Returns
+		-------
+		:obj: `CFGBlock`
 
-        """
+		"""
         first_block = False
-        if not(self.front) and not(self.back):
+        if not (self.front) and not (self.back):
             first_block = True
         # Create a new block
         self._numBlockID += 1
@@ -1526,36 +1588,36 @@ class CFG:
         B = CFGBlock(self._numBlockID, elements, self)
         # Insert the block
         self._blocks.push_back(B)
-        if(first_block):
+        if (first_block):
             self._entry = self._exit = B
         return self._blocks.back()
 
     def buildCFG(self, declaration, statement):
         """ Builds a CFG from an AST
 
-        :param declaration: DeclDecorator
-        :param statement: StmtDecorator
-        :return: CFG
-        """
+		:param declaration: DeclDecorator
+		:param statement: StmtDecorator
+		:return: CFG
+		"""
         builder = CFGBuilder()
         return builder.buildCFG(declaration, statement)
 
     def setEntry(self, block):
         """ Set the entry block of the CFG. This is typically used
-        only during the CFG construction.
+		only during the CFG construction.
 
-        :param block: CFGBlock
-        :return: None
-        """
+		:param block: CFGBlock
+		:return: None
+		"""
         self._entry = block
 
     def setIndirectGotoBlock(self, block):
         """ Set the block used for indirect goto jumps.
-        This is typically used only during CFG construction.
+		This is typically used only during CFG construction.
 
-        :param block: CFGBlock
-        :return: block
-        """
+		:param block: CFGBlock
+		:return: block
+		"""
         self._indirectGotoBlock = block
 
     #
@@ -1587,20 +1649,20 @@ class CFG:
 
     def addSyntheticDeclStmt(self, synthetic, source):
         """ Records a synthetic DeclStmt and the DeclStmt it was constructed from.
-        The CFG uses synthetic DeclStmt when a single AST DeclStmt contains multiple decls
+		The CFG uses synthetic DeclStmt when a single AST DeclStmt contains multiple decls
 
-        :return:
-        """
+		:return:
+		"""
         assert synthetic.isSingleDeclaration(), "Can handle single declaration only"
 
         self._syntheticDeclStmts.append([source, synthetic])
 
     def synthetic_stmt_begin(self):
         """ Iterates over synthetic DeclStmts in the CFG
-        Each element is a [synthetic statement, source statement] pair
+		Each element is a [synthetic statement, source statement] pair
 
-        :return: [synthetic statement, source statement]
-        """
+		:return: [synthetic statement, source statement]
+		"""
         for key, value in self._syntheticDeclStmts.iteritems():
             yield [key, value]
 
@@ -1611,15 +1673,15 @@ class CFG:
     def getNumBlocIDs(self):
         """ Returns the total number of BlockIDs allocated (start at 1)
 
-        :return: int
-        """
+		:return: int
+		"""
         return self._numBlockID
 
     def size(self):
         """ Returns the total number of CFGBlocks within the CFG
 
-        :return: int
-        """
+		:return: int
+		"""
         return self._numBlockID
 
     def printer(self):
@@ -1654,7 +1716,6 @@ class TryResult:
 
 
 class AddStmtChoice:
-
     NotAlwaysAdd = 0
     AlwaysAdd = 1
 

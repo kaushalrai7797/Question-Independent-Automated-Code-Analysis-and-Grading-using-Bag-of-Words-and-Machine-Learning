@@ -917,9 +917,21 @@ class VarDecl(Decl):
                 return "int " + val[0] + ";"
 
             else:
-                return "int " + val[1] + ";"
+                return "int " + val[0]  + ";"
 
     def value(self):
+
+
+        tok = self.get_cursor().get_tokens()
+        val = []
+
+        for t in tok:
+            if str(t.spelling) in "; =":
+                pass
+            else:
+                val.append(str(t.spelling))
+
+        return val
 
         child = self.get_children().front()
         if (child is None):
@@ -1368,16 +1380,23 @@ class BinaryOperator(GenericDecorator):
         return self._specific_kind
 
     def specific_kind(self):
+        total = self.getOperators(self)
+        left = self.getOperators(self.getLHS())
+        return total[len(left)]
+
+    def getLen(self):
+        return len(self.getOperators(self))
+
+    def getOperators(self,child):
         """ Because the python_bindings doesn't have (or I don't saw it) a way of extracting
         the specific kind of binary operator, we need to extract it from the tokens.
 
         :return: string
         """
-
         i = 0
 
         # Quit parent
-        gen1 = self.get_cursor().get_tokens()
+        gen1 = child.get_cursor().get_tokens()
         tok = CustomVector()
         for t in gen1:
 
@@ -1450,16 +1469,16 @@ class BinaryOperator(GenericDecorator):
                 elif (str(e.spelling) == '|='):
                     op.append('|=')
 
-        if op[0] == '=':
-            return op[0]
-
-        elif('=' not in op):
-            return op[len(op) - 1]
-        elif len(op) > 1:
-            return op[1]
-
-        else:
-            return op[0]
+        return op
+        # if op[0] == '=':
+        #     return op[0]
+        #
+        # elif('=' not in op):
+        #     return op[len(op) - 1]
+        # elif len(op) > 1:
+        #     return op[1]
+        # else:
+        #     return op[0]
 
     def value(self):
         return self._specific_kind

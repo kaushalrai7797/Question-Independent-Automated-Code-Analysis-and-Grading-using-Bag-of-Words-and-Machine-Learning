@@ -1,15 +1,27 @@
 from decorators.enumeration import type_stmt
 import json
+import copy
 
 class Node:
-    def __init__(self, type, id):
+    def __init__(self, type, id, feature):
         self.features = []
+        self.featuresSelf = []
+        self.featuresDerived = []
+        if feature:
+            self.features.append(feature)
         self.type = type
         self.id = id
+        self.ids = []
+        self.operators = []
+        self.constants = []
+        self.variables = []
+        self.lhsvars = []
+        self.links = []
+        self.string = None
         self.controlEdges = []
         self.dataEdges = []
         self.blockNode = {} # starting node of any block
-        self.variables = []
+
     def isControlEdge(self):
         return self.type == "control"
 
@@ -21,53 +33,145 @@ class GraphBuilder:
         self.lastNode = -1
         self.variableMap = {}
         self.visited = []
-    def createNode(self, type, feature = ""):
-        newNode = Node(type, self.numberOfNodes)
+        self.inLHS = False
+        self.prefixString = []
+        self.inFea = ['scanf', 'cin', 'gets']
+        self.outFea = ['printf', 'cout']
+    def createNode(self, type, feature = None):
+        newNode = Node(type, self.numberOfNodes, feature)
         self.numberOfNodes = self.numberOfNodes + 1
+
         self.Nodes.append(newNode)
         self.lastNode = self.numberOfNodes - 1
+
+        for ps in self.prefixString:
+            newNode.ids.append(ps)
+
         return self.numberOfNodes - 1
 
-    def addControlEdge(self, fromNode, toNode):
-        self.Nodes[fromNode].controlEdges.append(toNode)
+    # def addControlEdge(self, fromNode, toNode):
+    #     self.Nodes[fromNode].controlEdges.append(toNode)
 
     def addFeature(self, node, feature):
         if feature not in self.Nodes[node].features:
-            self.Nodes[node].features.append(feature)
+            self.Nodes[node].featuresSelf.append(str(feature))
+
+    def addOperator(self, node, operator):
+        if (operator == '='): return
+
+        self.Nodes[node].operators.append(operator)
+
+    def addConstant(self, node, cons):
+        self.Nodes[node].constants.append(str(cons))
+
+    def addString(self, node, string):
+        self.Nodes[node].string = string
+    def addLink(self, node1, node2):
+        self.Nodes[node1].links.append(node2)
 
     def addVariables(self, node, var):
-        if var not in self.Nodes[node].variables:
-            self.Nodes[node].variables.append(var)
-
-    def dfs(self, node, parent):
-        if (self.visited[node.id] == True):
+        if (var in self.inFea):
+            self.addFeature(node, 'in')
             return
-        else:
-            self.visited[node.id] = True
-        for var in node.variables:
-            if var in self.variableMap:
-                size = len(self.variableMap[var])
-                self.Nodes[self.variableMap[var][size-1]].dataEdges.append(node.id)
-            else:
-                self.variableMap[var] = []
-            self.variableMap[var].append(node.id)
+        if (var in self.outFea):
+            self.addFeature(node, 'out')
+            return
+        loca = self.Nodes[node].variables
+        if self.inLHS == True: loca = self.Nodes[node].lhsvars
+        if var not in loca:
+            loca.append(var)
 
-        for nodeId in node.controlEdges:
-            self.dfs(self.Nodes[nodeId],node)
-        for var in node.variables:
-            size = len(self.variableMap[var])
-            self.variableMap[var].pop(size-1)
+    # def dfs(self, node, parent):
+    #     if (self.visited[node.id] == True):
+    #         return
+    #     else:
+    #         self.visited[node.id] = True
+    #     for var in node.variables:
+    #         if var in self.variableMap:
+    #             size = len(self.variableMap[var])
+    #             if (size > 0):
+    #                 self.Nodes[self.variableMap[var][size-1]].dataEdges.append(node.id)
+    #         else:
+    #             self.variableMap[var] = []
+    #         self.variableMap[var].append(node.id)
+    #
+    #     for nodeId in node.controlEdges:
+    #         self.dfs(self.Nodes[nodeId],node)
+    #     for var in node.variables:
+    #         size = len(self.variableMap[var])
+    #         self.variableMap[var].pop(size-1)
 
-    def printGraph(self):
-        for node in self.Nodes: self.visited.append(False)
-        self.dfs(self.Nodes[0], None)
-        print "-----------------------------------"
+
+    def preProcess(self):
         for node in self.Nodes:
-            print "[",node.id , "]"
-            print "features :    ", node.features
-            print "variables:    ", node.variables
-            print "controlEdges: ", node.controlEdges
-            print "dataEdges:    ", node.dataEdges
+            if( len(node.operators)*len(node.constants) > 0):
+                for oper in node.operators:
+                    for con in node.constants:
+                        node.featuresSelf.append(str(oper)+str(con))
+            else:
+                node.featuresSelf.extend(node.constants)
+                node.featuresSelf.extend(node.operators)
+
+
+            for var in node.variables:
+                recentNode = None
+                for n2 in self.Nodes:
+                    if (n2 == node): break
+                    if (var in n2.lhsvars or var in n2.variables): recentNode = n2
+
+                if (recentNode is None): continue
+                node.links.append(recentNode.id)
+
+
+
+
+
+    # def copyNodes(self):
+    #     for node in self.Nodes:
+    #         for op in node.operators:
+    #             nNode = copy.copy(node)
+    #             nNode.ids.append(op)
+    #             self.Nodes.append(node)
+
+
+    def varFeatures(self):
+        for node in self.Nodes:
+            for var in node.variables:
+                if (var not in self.variableMap): self.variableMap[var] = []
+                node.featuresDerived.extend(self.variableMap[var])
+                self.variableMap[var].extend(node.featuresSelf)
+
+
+
+    def passFeatures(self):
+        i = len(self.Nodes) - 1
+        while (i > 0) :
+            for link in self.Nodes[i].links:
+                self.Nodes[i].featuresDerived.extend(self.Nodes[link].featuresSelf)
+
+
+
+            i = i-1
+
+    def passFeaturesRev(self):
+        i = 0
+        while (i < len(self.Nodes)) :
+            for link in self.Nodes[i].links:
+                self.Nodes[i].featuresDerived.extend(self.Nodes[link].featuresSelf)
+            i = i+1
+    def makeUnique(self):
+        for node in self.Nodes:
+            node.features = list(set(node.featuresSelf) | set(node.featuresDerived) )
+    def printGraph(self):
+        # self.dfs(self.Nodes[0], None)
+        self.preProcess()
+        self.passFeatures()
+        self.varFeatures()
+        self.makeUnique()
+        # print "-----------------------------------"
+        for node in self.Nodes:
+            self.printNode(node.id)
+
 
         jsonData = {}
         jsonData['nodes'] = []
@@ -75,16 +179,31 @@ class GraphBuilder:
             jsonData['nodes'].append({
                 'nodeId': node.id,
                 'features': node.features,
-                'controlEdges': node.controlEdges,
-                'dataEdges': node.dataEdges
+                'featuresSelf': node.featuresSelf,
+                'variables': node.variables,
+                'operators': node.operators,
+                'links': node.links,
+                'ids': node.ids,
+                'constants': node.constants,
+                'string' : node.string
             })
         with open("graph.json", "w") as file:
             json.dump(jsonData, file)
 
     def printNode(self, nodeId):
+        # return
         node = self.Nodes[nodeId]
         print "[", node.id , "]"
         print "features :    ", node.features
+        print "featuresShelf:", node.featuresSelf
+        print "featuresDer:  ", node.featuresDerived
         print "variables:    ", node.variables
         print "controlEdges: ", node.controlEdges
         print "dataEdges:    ", node.dataEdges
+        print "string        ", node.string
+        print "links         ", node.links
+        print "lhs variables ", node.lhsvars
+
+    # def saveFeatureMatrix(self):
+    #
+    #     pass

@@ -36,7 +36,7 @@ for tr in trs:
 
 n = len(sources)
 fileNo = 0
-os.chdir('dataset')
+os.chdir('dataset1')
 
 for i in range(n):
     global hdr
