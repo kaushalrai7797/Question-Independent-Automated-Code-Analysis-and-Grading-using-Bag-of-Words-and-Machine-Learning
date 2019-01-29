@@ -7,9 +7,6 @@ problem_name = ['WORDGRID' , 'NAME2' , 'BUDDYNIM' , 'CSUB' , 'CIELAB' , 'CIRCUIT
 q_num=3
 os.chdir('dataset')
 
-# with open('worksheet' + ".csv", "a") as f:
-#     f.write("Question,Verdict,Memory \n")
-
 for x in problem_name :
 
     no_name = []
