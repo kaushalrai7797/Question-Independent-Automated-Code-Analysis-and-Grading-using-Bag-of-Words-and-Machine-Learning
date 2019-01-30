@@ -33,7 +33,7 @@ for i in range(1, len(questionList)):
         finalVector.append(maxm)
 
 rows = []
-with open('dataset/worksheet1.csv', 'rb') as f:
+with open('dataset/worksheet.csv', 'rb') as f:
     reader = csv.reader(f)
     for row in reader:
         rows.append(row)
@@ -47,7 +47,7 @@ for i in range(1, len(rows)):
     else:
         rows[i].append(1)
 
-with open('dataset/worksheet1.csv', 'wb') as f:
+with open('dataset/worksheet.csv', 'wb') as f:
     writer = csv.writer(f)
     writer.writerows(rows)
 

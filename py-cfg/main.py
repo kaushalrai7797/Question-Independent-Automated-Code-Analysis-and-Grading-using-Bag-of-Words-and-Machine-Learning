@@ -8,15 +8,11 @@ import os
 questionList = os.listdir("dataset")
 # isTest = 6
 # if (isTest < 5):
-for i in range(len(questionList)):
-
-		if (questionList[i] == 'worksheet.csv' or questionList[i] == 'worksheet1.csv'): continue
-
+for i in range(9, 10):
 		dirList = os.listdir("dataset/" + questionList[i])  # dir is your directory path
 		os.mkdir("data/" + questionList[i])
-		for j in range(len(dirList)):
+		for j in range(len(dirList) -1):
 			print(dirList[j])
-			if (dirList[j] == 'goodset'): continue
 			cfg = buildCFG("dataset/" + questionList[i] + "/" + dirList[j], 'main')
 			with open('graph.json', "r") as f1:
 				dta = json.load(f1)

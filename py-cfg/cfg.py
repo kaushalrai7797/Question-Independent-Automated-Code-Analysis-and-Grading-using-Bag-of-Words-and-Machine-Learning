@@ -43,20 +43,17 @@ class CFGBuilder:
 	def buildCFG(self, Decl, statement=None):
 		""" Constructs a CFG from an AST (a Stmt). The ownership of the
 		returned CFG is transferred to the caller.
-
 		Parameters
 		----------
 		statement : :obj:`statement`
 			This is the AST, and can represent any arbitrary statement. For
 			a single expression or a function body (compound statement).
-
 		Returns
 		-------
 		:obj:`CFG`
 			A cfg object.
 		None
 			If the CFG construction fails.
-
 		"""
 		if not statement:
 			return None
@@ -106,17 +103,14 @@ class CFGBuilder:
 	def createBlock(self, add_sucessor=True):
 		"""Used to lazily create blocks that are connected to the current
 		(global) succesor.
-
 		Parameters
 		----------
 		add_sucessor : bool
 			Variable that indicates whether or not a sucessor is added.
-
 		Returns
 		-------
 		:obj:`CFGBlock`
 			Returns the CFG block object.
-
 		"""
 		B = self._cfg.createBlock()
 		if add_sucessor and self._succ:
@@ -135,17 +129,14 @@ class CFGBuilder:
 		"""Visit - Walk the subtree of a statement and add extra
 		blocks for ternary operators, &&, and ||.  We also process "," and
 		DeclStmts (which may contain nested control-flow).
-
 		Paramaters
 		----------
 		S :
 			Cursor to the statement in the AST.
-
 		Returns
 		-------
 		:obj:`CFGBlock`
 			Returns the CFG block object.
-
 		"""
 		if not S:
 			return None
@@ -279,7 +270,6 @@ class CFGBuilder:
 
 	def visitStmtExpr(self, S):
 		""" Utility method to handle (nested) statements expressions (a GCC extension)
-
 		:param S: Statement
 		:return: visit
 		"""
@@ -320,13 +310,11 @@ class CFGBuilder:
 
 	def visitReturnStmt(self, R):
 		"""If we were in the middle of a block we stop processing that block.
-
 		Notes
 		-----
 		If a 'return' appears in the middle of a block, this means that the
 		code afterwards is DEAD (unreachable). We still keep a basic block for that code;
 		a simple 'mark-and-sweep' from the entry block will be able to resport such dead blocks.
-
 		"""
 		# Create the new block
 		self.graph.addFeature(self.curNode, 'return')
@@ -421,12 +409,10 @@ class CFGBuilder:
 	# TODO: REVISAR Y MEJORAR
 	def visitCallExpr(self, C):
 		"""Compute de callee type.
-
 		TODO
 		----
 		calleType = C.getCalle().getType() #TODO TODO
 		If this is a call to a no-return function, this stops the block here bool
-
 		"""
 		params = C.getParams()
 		callee = C.getCallee()
@@ -486,10 +472,8 @@ class CFGBuilder:
 	def visitCompoundStmt(self, compoundStatement):
 		"""visitCompoundStmt - when a compound statement is reached visit the stmts
 		inside it.
-
 		:param S: StmtDecorator
 		:return: CFGBlock
-
 		"""
 		# creating a binding to block object
 		lastBlock = self._block
@@ -525,7 +509,6 @@ class CFGBuilder:
 	def visitDeclSubExpr(self, DS):
 		"""Utility method to add block-level expressions for DeclStmts
 		and initializers in them
-
 		:param DS: StmtDecorator
 		:return:
 		"""
@@ -556,7 +539,6 @@ class CFGBuilder:
 		First, we create the blocks for the then...else statements, and then we create the
 		block containing the if stmt. If we were in the middle of a block, we stop processing
 		that block. That block is then the implicit successor for the then and else clauses.
-
 		"""
 		# The block we were processing is now finished. Make it the successor block
 
@@ -842,7 +824,6 @@ class CFGBuilder:
 	def evaluateKnownConstInt(self, S):
 		""" Call EvaluateAsRValue and return the folded integer. This must be called on an expression
 		that constant folds to an integer
-
 		"""
 		result = self.evaluateAsRValue(S)
 		if result[0]:
@@ -877,11 +858,9 @@ class CFG:
 
 	def createBlock(self):
 		"""Creates a new block in the CFG. The CFG owns the block.
-
 		Returns
 		-------
 		:obj: `CFGBlock`
-
 		"""
 		first_block = False
 		if not (self.front) and not (self.back):
@@ -899,7 +878,6 @@ class CFG:
 
 	def buildCFG(self, declaration, statement):
 		""" Builds a CFG from an AST
-
 		:param declaration: DeclDecorator
 		:param statement: StmtDecorator
 		:return: CFG
@@ -910,7 +888,6 @@ class CFG:
 	def setEntry(self, block):
 		""" Set the entry block of the CFG. This is typically used
 		only during the CFG construction.
-
 		:param block: CFGBlock
 		:return: None
 		"""
@@ -919,7 +896,6 @@ class CFG:
 	def setIndirectGotoBlock(self, block):
 		""" Set the block used for indirect goto jumps.
 		This is typically used only during CFG construction.
-
 		:param block: CFGBlock
 		:return: block
 		"""
@@ -955,7 +931,6 @@ class CFG:
 	def addSyntheticDeclStmt(self, synthetic, source):
 		""" Records a synthetic DeclStmt and the DeclStmt it was constructed from.
 		The CFG uses synthetic DeclStmt when a single AST DeclStmt contains multiple decls
-
 		:return:
 		"""
 		assert synthetic.isSingleDeclaration(), "Can handle single declaration only"
@@ -965,7 +940,6 @@ class CFG:
 	def synthetic_stmt_begin(self):
 		""" Iterates over synthetic DeclStmts in the CFG
 		Each element is a [synthetic statement, source statement] pair
-
 		:return: [synthetic statement, source statement]
 		"""
 		for key, value in self._syntheticDeclStmts.iteritems():
@@ -977,14 +951,12 @@ class CFG:
 
 	def getNumBlocIDs(self):
 		""" Returns the total number of BlockIDs allocated (start at 1)
-
 		:return: int
 		"""
 		return self._numBlockID
 
 	def size(self):
 		""" Returns the total number of CFGBlocks within the CFG
-
 		:return: int
 		"""
 		return self._numBlockID
