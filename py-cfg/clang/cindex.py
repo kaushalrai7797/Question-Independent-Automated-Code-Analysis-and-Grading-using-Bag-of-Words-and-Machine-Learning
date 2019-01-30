@@ -2385,7 +2385,6 @@ class TranslationUnit(ClangObject):
                 unsaved_array[i].name = name
                 unsaved_array[i].contents = contents
                 unsaved_array[i].length = len(contents)
-
         ptr = conf.lib.clang_parseTranslationUnit(index, filename, args_array,
                                                   len(args), unsaved_array,
                                                   len(unsaved_files), options)

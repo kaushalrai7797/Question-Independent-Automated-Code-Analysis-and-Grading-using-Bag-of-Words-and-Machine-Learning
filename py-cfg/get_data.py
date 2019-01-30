@@ -2,12 +2,12 @@ from bs4 import BeautifulSoup
 import urllib2
 import os
 
-problem_name = ['WORDGRID' , 'NAME2' , 'BUDDYNIM' , 'CSUB' , 'CIELAB' , 'CIRCUITS' , 'AMR15D' , 'TRMAG' , 'GRANAMA'];
+problem_name = ['WORDGRID', 'NAME2', 'BUDDYNIM', 'CSUB', 'CIELAB', 'CIRCUITS', 'AMR15D', 'TRMAG', 'GRANAMA']
 
 q_num=3
 os.chdir('dataset')
 
-for x in problem_name :
+for x in problem_name:
 
     no_name = []
     sources = []
@@ -16,7 +16,7 @@ for x in problem_name :
     mems = []
 
     gen_url = 'https://www.codechef.com/status/'+x+'?sort_by=All&sorting_order=asc&language=44&status=All&handle=&Submit=GO'
-    print(gen_url);
+    print(gen_url)
 
     hdr = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11',
            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
@@ -69,7 +69,7 @@ for x in problem_name :
         soup = BeautifulSoup(content, 'html.parser')
         code = soup.text.encode('utf-8')
         fileNo = fileNo + 1
-        if(verdicts[i]=='accepted') :
+        if verdicts[i]=='accepted':
             os.chdir('goodset')
             with open(str(fileNo)+".c", "w") as f:
                 f.write(code)

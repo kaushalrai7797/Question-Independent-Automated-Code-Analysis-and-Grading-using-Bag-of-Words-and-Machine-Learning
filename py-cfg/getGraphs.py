@@ -70,18 +70,18 @@ class GetGraphs:
     # 	return [adjMat, labelDict, edgeLabels, edges]
     #
 
-    def graphs(self, location):
+    def graphs(self, location, dirList):
         graphs = []
-        for i in range(self.num):
-            with open("data/" + str(location) + "/" + str(i) + ".json", "r") as file:
+        for filename in dirList:
+            with open("data/" + str(location) + "/" + filename, "r") as file:
                 gp = json.load(file)
 
             graphs.append(gp)
 
         return graphs
 
-    def getTestGraph(self, location, number):
-        with open("data/" + str(location) + "/" + "good/graph" + str(number) + ".json", "r") as file:
+    def getTestGraph(self, location, filename):
+        with open("data/" + str(location) + "/goodset/" + filename, "r") as file:
             gp = json.load(file)
 
         return gp

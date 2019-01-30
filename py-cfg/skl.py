@@ -1,28 +1,24 @@
 from getGraphs import GetGraphs
 from myMiniModel import MyMiniModel
-import openpyxl
 import os
+import csv
 
-numOfQuestions = 10
-finalVector =[]
-workbook = openpyxl.Workbook('feat.xlsx')
-worksheet = workbook.active()
-row = 0
-col = 4
+numOfQuestions = 12
+finalVector = []
 
-for i in range(numOfQuestions):
+for i in range(1, numOfQuestions):
     dirList = os.listdir("data/" + str(i))  # dir is your directory path
     x = GetGraphs(len(dirList) - 1)
-    data = x.graphs(i)
-    trainData = data[:10]
-    dirList = os.listdir("data/" + str(i) + "/good")
+    trainData = x.graphs(i, dirList)
+    # trainData = data[:10]
+    dirList = os.listdir("data/" + str(i) + "/goodset")
     for train in trainData:
         model = MyMiniModel(0.6)
         # model.fit(train)
         mat = model.fit(train)
         maxm = -1
-        for j in range(len(dirList)):
-            test = x.getTestGraph(i, j)
+        for filename in dirList:
+            test = x.getTestGraph(i, filename)
             testRes = model.transform(test)
             simMat = []
             for n in testRes:
@@ -34,7 +30,24 @@ for i in range(numOfQuestions):
                 maxm = avg
         finalVector.append(maxm)
 
+rows = []
+with open('dataset/worksheet.csv', 'rb') as f:
+    reader = csv.reader(f)
+    for row in reader:
+        rows.append(row)
 
+print(rows[1])
+j = 0
+for i in range(1, len(rows)):
+    if rows[i][1] != 'accepted':
+        rows[i].append(finalVector[j])
+        j += 1
+    else:
+        rows[i].append(1)
+
+with open('dataset/worksheet.csv', 'wb') as f:
+    writer = csv.writer(f)
+    writer.writerows(rows)
 
 # x = GetGraphs(20)
 # data = x.graphs()
