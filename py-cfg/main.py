@@ -10,7 +10,6 @@ import json
 
 nums = 23
 
-
 isTest = 6
 if (isTest < 5):
     for i in range(nums):
