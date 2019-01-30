@@ -1,58 +1,67 @@
-#include <iostream>
-#include <sstream>
-#include <map>
-using namespace std;
-typedef long long int vlong;
-map<vlong,vlong> cache;
-vlong sub_lead(vlong x)
-{
-    ostringstream oss;
-    oss<<x;
-    istringstream iss(oss.str());
-    string s  ="",b;
-    iss>>b;
-    s += b[0];
-    istringstream iss1(s);
-    int y;
-    iss1>>y;
-    return x - y;
-    
+#include<stdio.h>
+#include<string.h>
+char check[5000001];
+char c[5000001];
+long long int top=-1;
+int expression(long long int n);
+int Arepair(char ,char);
+int main(){
+	int t,q;
+	long long int l;
+	scanf("%d",&t);
+	while(t>0)
+	{ t--;
+	scanf("%s",c);
+	l=strlen(c);
+	q=expression(l);
+	if(q==1)
+	{
+	
+	 printf("%d",l);
+   }      
+	if(q==0)
+	{
+		printf("\n0");
+	}
+	}
 }
-vlong return_corr(vlong k)//Key , Value this takes in Key and returns value
-{
- if(k==0) return 1;
- else if(cache.find(k)!=cache.end())return cache[k];
- else
- {
-   vlong sum = 1;
-   vlong ans = sum +return_corr(sub_lead(k));
-   cache[k] = ans;
-   return ans;
- }
-}
-vlong get_info(vlong n)
-{
-    vlong ans;
-  for(vlong i = 9;;i++)
-  {
-      if(return_corr(i) == n )
-      return i;
+int expression(long long int n)
+{  long long int i,f;
+  for(i=0;i<n;i++)
+  { 
+    if(c[i]=='<')
+    { top=top+1;
+      check[top]=c[i];
+	}
+    if(c[i]=='>')
+  {  
+            f=c[i];  
+  	if(Arepair( check[top], f)==0){
+  		return 0;
+	  }
+	  if(Arepair( check[top], f)==1)
+	  {
+	  	top=top-1;
+	  }
+   }
   }
-  
-}
-int main()
+  if(top==-1)
+  { return 1;
+
+  }
+  else
+  {
+  	return 0;
+  }
+  }
+int Arepair(char q,char w)
 {
-  short int test;
-  cin>>test;
-  vlong array[test];
-  
-  for(int i =0;i<test;i++)
-  {
-      cin>>array[i];
-      
-  }
-  for(vlong a :array)
-  {
-      cout<<get_info(a)<<endl;
-  }
-}
+	if(q=='<'&&w=='>')
+	{return 1;
+	}
+	else 
+	{
+		return 0;
+	}
+	}
+	

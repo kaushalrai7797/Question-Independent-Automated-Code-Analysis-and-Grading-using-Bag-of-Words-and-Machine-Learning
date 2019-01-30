@@ -1,47 +1,46 @@
-#include<stdio.h>
-#include<string.h>
-#include<iostream>
-#include<math.h>
-#include<algorithm>
-#include<vector>
-using namespace std;
+#include <stdio.h>
+#include <stdlib.h>
+
+#define N 1000000007
+
+long long buckets[750001];
+long long A[750001];
+
+int cmp(const void *a, const void *b)
+{
+    return *(long long *)b - *(long long *)a;
+}
 
 int main()
 {
-   int q,n,num,k;
-   cin>>q;
-   while(q--)
-   {
-       cin>>n>>k;
-       int harr[n+1],arr[k];
-       for(int i=0;i<=n;i++) harr[i]=0;
-       for(int i=0;i<k;i++)
-       {
-           cin>>arr[i];
-           harr[arr[i]]++;
-       }
+  int t;
+  long long n;
+  scanf("%d", &t);
+  int i;
+  while (t--)
+  {
+    scanf("%lld", &n);
+    for (i = 0; i < n; i++)
+    {
+      scanf("%lld", &A[i]);
+      buckets[A[i]] = 1;
+    }
 
-       if(k>n)
-       {
-           cout<<"NO\n";
-           continue;
-       }
-       else if(n>1 && k==1)
-       {
-           cout<<"NO\n";
-           continue;
-       }
-       else cout<<"YES\n";
+    qsort(A, n, sizeof(long long), cmp);
 
-       for(int i=0;i<k-1;i++) cout<<arr[i]<<' ';
-       cout<<n<<' ';
-       harr[arr[k-1]]=0;
-       for(int i=n-1;i>0;i--)
-       {
-           if(harr[i]==0)
-            cout<<i<<' ';
-       }
-       cout<<"\n";
-   }
-    return 0;
+    long long p, j;
+    for (i = 0; i < n; i++)
+    {
+      p = A[i];
+      for (j = 2 * p; j < 750001; j += p)
+        buckets[p] = (buckets[j] + buckets[p]) % N;
+    }
+
+    long long sum = 0;
+    for (i = 0; i < n; i++)
+      sum = (sum + buckets[A[i]]) % N;
+    printf("%lld\n", sum);
+  }
+
+  return 0;
 }

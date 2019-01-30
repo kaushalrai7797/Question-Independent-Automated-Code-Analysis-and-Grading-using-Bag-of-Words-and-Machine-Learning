@@ -1,38 +1,40 @@
-#include<bits/stdc++.h>
-using namespace std;
-#define lli long long int 
-int main()
-{
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    int t,n,m;
-    lli a,b,x,y,z;
-    cin>>t;
-    while(t--)
-    {
-        cin>>n>>m;
-        x=y=a=b=0;
-        for(int i=0;i<n;i++)
-        {
-            cin>>z;
-            a+=z;
-            x^=z;
-        }
-        for(int i=0;i<m;i++)
-        {
-            cin>>z;
-            b+=z;
-            y^=z;
-        }
-        if(n==1&&m==1)
-            cout<<"Bob"<<endl;
-        else if(n==1||m==1)
-            cout<<"Alice"<<endl;
-        else if(a==b)
-            cout<<"Bob"<<endl;
-        else if(x&&y)
-            cout<<"Alice"<<endl;
-        else
-            cout<<"Bob"<<endl;
-    }
-}
+#include<stdio.h>  
+int main(){
+int t;
+scanf("%d",&t);
+while(t--){
+long long int a,b,i,p=1,r,count=0,c1,c2,x;   
+scanf("%lld %lld",&a,&b);
+i=1;
+while(p<a){
+p=p+2*i+1;
+i++;} 
+a=p;
+//i++;
+//printf("%lld %lld\n",p,i);
+c1=0;c2=0;
+while(p!=0){
+r=p%10;
+c1++;
+if(r==0||r==4||r==1||r==9)
+c2++;
+p=p/10;}
+if(c1==c2)
+count++;
+//i++;
+while(a<b){
+a=a+2*i+1;
+x=a;c1=0;c2=0;
+while(x!=0){
+r=x%10;
+c1++;
+if(r==0||r==1||r==4||r==9)
+c2++;
+x=x/10;}
+if(c1==c2)
+count++;
+i++;
+} 
+printf("%lld\n",count);
+} 
+return 0;}

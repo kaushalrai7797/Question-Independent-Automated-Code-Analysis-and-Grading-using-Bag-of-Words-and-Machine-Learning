@@ -1,1 +1,0 @@
-{"nodes": [{"string": "x;", "links": [], "variables": [], "ids": [], "nodeId": 0, "featuresSelf": [], "operators": [], "constants": [], "features": []}, {"string": " x - y", "links": [], "variables": ["y", "x"], "ids": [], "nodeId": 1, "featuresSelf": ["-"], "operators": ["-"], "constants": [], "features": ["-"]}]}

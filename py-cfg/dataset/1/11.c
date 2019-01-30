@@ -1,47 +1,54 @@
 #include<stdio.h>
-#include<string.h>
-#include<iostream>
 #include<math.h>
-#include<algorithm>
-#include<vector>
-using namespace std;
-
+#include<stdlib.h>
+#define ll long long int
+#define M 750000
+#define MOD 1000000007
 int main()
 {
-   int q,n,num,k;
-   cin>>q;
-   while(q--)
-   {
-       cin>>n>>k;
-       int harr[n+1],arr[k];
-       for(int i=0;i<=n;i++) harr[i]=0;
-       for(int i=0;i<k;i++)
-       {
-           cin>>arr[i];
-           harr[arr[i]]++;
-       }
-
-       if(k>n)
-       {
-           cout<<"NO\n";
-           continue;
-       }
-       else if(n==2 && k==1)
-       {
-           cout<<"NO\n";
-           continue;
-       }
-       else cout<<"YES\n";
-
-       for(int i=0;i<k-1;i++) cout<<arr[i]<<' ';
-       cout<<n<<' ';
-       harr[arr[k-1]]=0;
-       for(int i=n-1;i>0;i--)
-       {
-           if(harr[i]==0)
-            cout<<i<<' ';
-       }
-       cout<<"\n";
-   }
+    ll t;
+    scanf("%lld",&t);
+    ll dp[M];
+    while(t--)
+    {
+        ll n;
+        scanf("%lld",&n);
+        ll a[n];
+        ll i,j;
+        ll hash[M];
+        for(i=0;i<M;i++)
+            hash[i]=0;
+        ll x;
+        for(i=0;i<n;i++)
+        {
+            scanf("%lld",&x);
+            hash[x]=1;
+            a[i]=x;
+        }
+        for(i=0;i<M;i++)
+            dp[i]=0;
+        ll sum=0;
+        for(i=1;i<M;i++)
+        {
+            if(hash[i])
+            {
+                dp[i]++;
+                dp[i]%=MOD;
+                sum++;
+                sum%=MOD;
+                for(j=2*i;j<M;j+=i)
+                {
+                    if(hash[j])
+                    {
+                        dp[j]+=dp[i];
+                        dp[j]%=MOD;
+                        sum+=dp[i];
+                        sum%=MOD;
+                    }
+                }
+            }
+        }
+        printf("%lld\n",sum%MOD);
+    }
     return 0;
 }

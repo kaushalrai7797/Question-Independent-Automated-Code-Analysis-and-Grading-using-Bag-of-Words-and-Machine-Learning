@@ -1,33 +1,67 @@
-#include<iostream>
-#include<bits/stdc++.h>
-using namespace std;
-
+#include<stdio.h>
+#include<string.h>
+char check[5000001];
+char c[5000001];
+long long int top=-1;
+int expression(long long int n);
+int Arepair(char ,char);
 int main(){
-    int testcases;
-    cin>>testcases;
-    for(int i=0;i<testcases;i++){
-        int M,output=10;
-        cin>>M;
-        int constant=10;
-        if(M==1){
-             cout<<0<<endl;
-        }
-        else if(M==2){
-            cout<<9<<endl;
-        }
-        else if(M==3){
-            cout<<10<<endl;
-        }
-        else{
-            for(int i=4;i<=M;i++){
-                if(output/constant>=1&&output/constant<=9){
-                    output=output+output/constant;
-                }    
-                else{
-                    constant*=10;
-                }
-            }
-            cout<<output<<endl;
-        }
-    }
+	int t,q;
+	long long int l;
+	scanf("%d",&t);
+	while(t>0)
+	{ t--;
+	scanf("%s",c);
+	l=strlen(c);
+	q=expression(l);
+	if(q==1)
+	{
+	
+	 printf("%d\n",l);
+   }      
+	if(q==0)
+	{
+		printf("0\n");
+	}
+	}
 }
+int expression(long long int n)
+{  long long int i,f;
+  for(i=0;i<n;i++)
+  { 
+    if(c[i]=='<')
+    { top=top+1;
+      check[top]=c[i];
+	}
+    if(c[i]=='>')
+  {  
+            f=c[i];  
+  	if(Arepair( check[top], f)==0){
+  		return 0;
+	  }
+	  if(Arepair( check[top], f)==1)
+	  {
+	  	top=top-1;
+	  }
+   }
+  }
+  if(top==-1)
+  { return 1;
+
+  }
+  else
+  {
+  	return 0;
+  }
+  }
+int Arepair(char q,char w)
+{
+	if(q=='<'&&w=='>')
+	{return 1;
+	}
+	else 
+	{
+		return 0;
+	}
+	}
+	

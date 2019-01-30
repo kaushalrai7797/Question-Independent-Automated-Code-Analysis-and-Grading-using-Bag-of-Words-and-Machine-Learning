@@ -1,50 +1,86 @@
-#include <iostream>
+#include<stdio.h>
 #include<string.h>
-#include<sstream>
-using namespace std;
-class led{
-    long int k;
-public:
-    string getdata(){
-        cin>>k;
-        if(k==1)
-            return "0";
-        if(k==2)
-            return "9";
-            if(k==3)
-            return "10";
-        int j;
-        long int num=10,cur=10,sc=20;
-        while(k>4){
-                if(num>=cur*10)
-                    cur*=10;
-                if(num>sc)
-                    sc+=10;
-               j=sc/cur;
-               if(num+j>=sc&&(num+10)<cur*10){
-                num+=j;
-               }
-               else{
-                num+=num/cur;
-               }
-                k--;
-        }
-        ostringstream str1;
-        str1<<num;
-        string s1=str1.str();
-        return s1;
-    }
+struct node
+{
+    int y;
+    struct node *next;
 };
+void push_data (struct node **head, int x)
+{
+    struct node *temp;
+    temp= malloc(sizeof(struct node));
+    temp->y= x;
+    temp->next = *head;
+    *head= temp;
+}
+
+int pop_data(struct node **head)
+{
+    struct node *temp;
+    temp= *head;
+    int x;
+    if(temp == NULL)
+    {
+        return -1;
+    }
+    else
+    {
+        x= temp->y;
+        temp= temp->next;
+        *head= temp;
+        return x;
+    }
+}
+
+void display(struct node *head)
+{
+    while(head != NULL)
+    {
+        printf("%d\n",head->y);
+        head= head->next;
+    }
+}
 int main()
 {
-    int t;
-    cin>>t;
-   led obj;
-   string s,s1;
-   while(t--){
-   s1=obj.getdata();
-   s+=s1+"\n";
-   }
-   cout<<s;
+    int test;
+    scanf("%d",&test);
+    while(test--)
+    {
+        struct node *head=NULL;
+        char p[1000001];
+
+        scanf("%s",p);
+        int g,i,j,k=0;
+        g=strlen(p);
+
+        for(i=0;i<g;i++)
+        {
+            if(p[i] == '<')
+                push_data(&head,1);
+
+            else if(p[i] == '>')
+            {
+                j= pop_data(&head);
+
+              //  if(j == -1)
+                //    break;
+
+                if(j==1)
+                   k++;
+            }
+        }
+        printf("%d\n",2*k);
+    }
+    //struct node *head=NULL;
+
+   // push_data(&head,3);
+   // push_data(&head,7);
+    //push_data(&head,10);
+    //display(head);
+    //printf("\n");
+   // printf("%d\n",pop_data(&head));
+   // printf("%d\n",pop_data(&head));
+   // printf("%d\n",pop_data(&head));
+   // printf("%d\n",pop_data(&head));
     return 0;
 }

@@ -1,42 +1,149 @@
-#include<bits/stdc++.h>
-using namespace std;
- 
- 
-int main()
-{
-	int test,n,t,i,j,p;
-	int pageSum[2001];
-	int isAbsent[2001];
-	double num,denom,sum;
-	cin>>test;
-	while(test--)
+#include<stdio.h>
+#include<string.h>
+#define swap( a, b ) a^=b,b^=a,a^=b
+
+int n, an;
+char a[32][5];
+char grid[4][4], answer[4][4];
+const char gridsnotpossible[4][4] = { "grid", "snot", "poss", "ible" };
+
+void reverse( char *a ) {
+	swap( a[0], a[3] );
+	swap( a[1], a[2] );
+}
+
+void gridcpy( char a[4][4], char b[4][4] ) {
+	for( int i=0; i<4; ++i )
+		for( int j=0; j<4; ++j )
+			a[i][j] = b[i][j];
+}
+
+void transform( char a[4][4] ) {
+	for( int i=0; i<4; ++i )
+		for( int j=0; j<4; ++j )
+			if( a[i][j] == '-' )
+				a[i][j] = 'A';
+}
+
+int gridcmp( char a[4][4], char b[4][4] ) {
+	for( int i=0; i<4; ++i )
+		for( int j=0; j<4; ++j )
+			if( a[i][j] != b[i][j] )
+				return a[i][j] - b[i][j];
+	return 0;
+}
+
+void gen( int x ) {
+	if( x == an )
 	{
-		memset(isAbsent,0,2001*sizeof test);
-		scanf("%d",&n);
-		if(n&1)
-		    p=(n+1)>>1;
-		else p=n>>1;
-		scanf("%d",&t);
-		sum=0;
-		for(i=0;i<t;i++)
-		{
-			scanf("%d",&j);
-			isAbsent[j]=1;
- 
-		}
-		scanf("%d",&t);
-		for(i=1,j=1;i<=p;i++)
-		{
-			if(j<=n)
-			    pageSum[i] = (isAbsent[j]?0:j);j++;
-            if(j<=n)
-                pageSum[i] += (isAbsent[j]?0:j);j++;
-                
-            sum+=pageSum[i];
-		}
-		sum *= ((p-t)/((double)p));
-		printf("%.4lf\n",sum);
- 
+		char temp[4][4];
+		gridcpy( temp, grid );
+		transform(grid);
+		if( gridcmp(grid, answer) < 0 )
+			gridcpy( answer, grid );
+		gridcpy( grid, temp );
+		return;
 	}
-	return 0;	
-} 
+	int f;
+	char temp[4];
+	for( int i=0; i<4; ++i )
+	{
+		f = 1;
+		for( int j=0; f==1 && j<4; ++j )
+			if( !(grid[i][j] == '-' || a[x][j] == grid[i][j]) )
+				f = 0;
+		if( f == 1 )
+		{
+			for( int j=0; j<4; ++j )
+				temp[j] = grid[i][j];
+			for( int j=0; j<4; ++j )
+				grid[i][j] = a[x][j];
+			gen( x+1 );
+			for( int j=0; j<4; ++j )
+				grid[i][j] = temp[j];
+		}
+		f = 1;
+		for( int j=0; f==1 && j<4; ++j )
+			if( !(grid[i][j] == '-' || a[x][3-j] == grid[i][j]) )
+				f = 0;
+		if( f == 1 )
+		{
+			for( int j=0; j<4; ++j )
+				temp[j] = grid[i][j];
+			for( int j=0; j<4; ++j )
+				grid[i][j] = a[x][3-j];
+			gen( x+1 );
+			for( int j=0; j<4; ++j )
+				grid[i][j] = temp[j];
+		}
+	}
+	for( int j=0; j<4; ++j )
+	{
+		f=1;
+		for( int i=0; f==1 && i<4; ++i )
+			if( !(grid[i][j] == '-' || a[x][i] == grid[i][j]) )
+				f = 0;
+		if( f == 1 )
+		{
+			for( int i=0; i<4; ++i )
+				temp[i] = grid[i][j];
+			for( int i=0; i<4; ++i )
+				grid[i][j] = a[x][i];
+			gen(x+1);
+			for( int i=0; i<4; ++i )
+				grid[i][j] = temp[i];
+		}
+
+		f=1;
+		for( int i=0; f == 1 && i<4; ++i )
+			if( !(grid[i][j] == '-' || a[x][3-i] == grid[i][j]) )
+				f = 0;
+		if( f == 1 )
+		{
+			for( int i=0; i<4; ++i )
+				temp[i] = grid[i][j];
+			for( int i=0; i<4; ++i )
+				grid[i][j] = a[x][3-i];
+			gen(x+1);
+			for( int i=0; i<4; ++i )
+				grid[i][j] = temp[i];
+		}
+	}
+}
+
+int _main() {
+	scanf("%d", &n); an=0;
+	for( int i=0; i<n; ++i )
+	{
+		char temp[5];
+		scanf("%s\n", temp);
+		int f=1;
+		for( int j=0; f==1 && j<an; ++j )
+		{
+			if( !strcmp(a[j], temp) )
+				f=0;
+			reverse( temp );
+			if( !strcmp(a[j], temp) )
+				f=0;
+		}
+		if( f == 1 )
+			strcpy( a[an++], temp );
+	}
+	for( int i=0; i<4; ++i )
+		for( int j=0; j<4; ++j )
+			grid[i][j] = '-', answer[i][j] = gridsnotpossible[i][j];
+	gen( 0 );
+	for( int i=0; i<4; ++i )
+	{
+		for( int j=0; j<4; ++j )
+			printf("%c", answer[i][j]);
+		printf("\n");
+	}
+	printf("\n");
+}
+
+int main() {
+	int t;
+	for( scanf("%d", &t); t--; )
+		_main();
+}

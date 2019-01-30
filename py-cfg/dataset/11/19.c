@@ -1,33 +1,32 @@
-#include<bits/stdc++.h>
-using namespace std;
+#include<stdio.h>
+#include<string.h>
+#include<stdbool.h>
+int max(int a,int b)
+{
+  if(a>b)
+    return a;
+  else
+   return b;
+}
+bool isSubSequence(char str1[], char str2[], int m, int n)
+{
+    if (m == 0) return true;
+    if (n == 0) return false;
+    if (str1[m-1] == str2[n-1])
+        return isSubSequence(str1, str2, m-1, n-1);
+    return max(isSubSequence(str1, str2, m, n-1),isSubSequence(str1,str2,m-1,n));
+}
 int main()
 {
     int t;
-    cin>>t;
+    scanf("%d",&t );
     while(t--)
     {
-       string str1,str2;
-       cin>>str1;
-       cin>>str2;
-       int i,j,n,m,x[26]={0},y[26]={0},sum=0,sum2=0;
-       n=str1.length();
-       m=str2.length();
-       for(i=0;i<n;i++)
-       x[str1[i]-'a']++;
-       for(j=0;j<m;j++)
-       y[str2[j]-'a']++;
-       for(i=0;i<26;i++)
-       {
-           if((x[i]!=0)&&(y[i]!=0))
-           sum+=abs(x[i]-y[i]);
-           sum2+=abs(x[i]-y[i]);
-       }
-       if((sum==0)||(sum2==m+n))
-       {
-           cout<<"YES"<<endl;
-       }else 
-       {
-           cout<<"NO"<<endl;
-       }
+    char str1[25000],str2[25000];
+    scanf("%s %s",str1,str2);
+    int m = strlen(str1);
+    int n = strlen(str2);
+    isSubSequence(str1, str2, m, n)? printf("YES\n"):printf("NO\n");
     }
+    return 0;
 }

@@ -1,37 +1,46 @@
-#include<iostream>
-using namespace std;
-int main()
+#include<stdio.h>
+#include<string.h>
+main()
 {
-int test;
-cin>>test;
-while(test--)
-{string a;
-string b;
-cin>>a>>b;
-int c[26]={0},d[26]={0},flag=0,flag2=0;
-for(int i=0;a[i]!=0;i++)
-{c[a[i]-'a']++;
-d[a[i]-'a']++;
-}
-for(int i=0;b[i]!=0;i++)
-{c[b[i]-'a']--;
-d[b[i]-'a']=0;
-}
-for(int i=0;i<26;i++)
-{if(c[i]>0)
-{flag=1;
-break;}
-}
-for(int i=0;i<26;i++)
-{if(d[i]>0)
-{flag2=1;
-break;}
-}
-//cout<<flag<<" "<<flag2<<"\n";
-if(flag==flag2)
-cout<<"YES\n";
-else
-    cout<<"NO\n";
-}
-return 0;
+    int t;
+    scanf("%d",&t);
+    while(t--)
+    {
+        char m[25000],w[25000];
+        scanf("%s%s",m,w);
+        int lenw,lenm,i,j,ans=0;
+        lenw=strlen(w);
+        lenm=strlen(m);
+        for(i=0;i<lenw;i++)
+        {
+            if(m[0]==w[i])
+            {
+                for(j=0;j<lenm;j++)
+                {
+                    if(m[j]==w[i])
+                    {
+                        ans=1;
+                        i=i+1;
+                    }
+                    else
+                    {
+                        ans=1;
+                        i=i+1;
+                        j=j-1;
+                    }
+                    if(i>lenw)
+                    {
+                        ans=0;
+                        break;
+                    }
+                }
+            }
+            if(ans==1)
+                break;
+        }
+        if(ans==0)
+            printf("NO\n");
+        else
+            printf("Yes\n");
+    }
 }

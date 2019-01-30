@@ -1,35 +1,53 @@
-#include <iostream>
-#include <vector>
+#include <stdio.h>
 
-using namespace std;
+#define MOD 1000000007
+#define SIZE 750000
 
-int main(){
-  int t,n,k;
-  cin>>t;
-  while(t--){
-    cin>>n>>k;
-    if(k==1&&n>1){
-      cout<<"NO"<<endl;
-      continue;
+int main() {
+    int t;
+    scanf("%d",&t);
+    while (t--)
+    {
+        unsigned int n;
+        scanf("%d",&n);
+        int set[SIZE];
+        int prev_set[SIZE];
+        for (int i = 0;i<SIZE;++i)
+        {
+            set[i] = 0;
+            prev_set[i] = 0;
+        }
+        int max = -1;
+        int min = SIZE + 1;
+        for (int i = 0;i<n;++i)
+        {
+            int x;
+            scanf("%d",&x);
+            set[x-1] = 1;
+            if (x > max)
+            {
+                max = x;
+            }
+            if (x < min)
+            {
+                min = x;
+            }
+        }
+        long count = n;
+        for (int size = max;size > 0;size/=2)
+        {
+            for(int i = min;i<=(size/2);i++)
+            {
+                prev_set[i-1] = set[i-1];
+                for(int j = i + i;j<=size;j+=i)
+                {
+                    set[i-1] += set[j-1] - prev_set[j-1];
+                    count += set[j-1] - prev_set[j-1];
+                    count = count % MOD;
+                }
+            }
+        }
+        printf("%d\n",count % MOD);
     }
-    vector<int> arr(k);
-    for(int i=0;i<k;i++) cin>>arr[i];
-
-    vector<int> res;
-    int largest = arr[arr.size()-1];
-    int smallest = arr[0];
-
-    for(int i=n;i>=largest+1;i--){ res.push_back(i);
-    //  cout<<"Larger : "<<i<<endl;
-    }
-    for(int i=0;i<k;i++){ res.push_back(arr[i]);
-      //cout<<"Itself : "<<arr[i]<<endl;
-    }
-    for(int i=smallest;i>=1;i--){ res.push_back(i);
-    //  cout<<"Smaller : "<<i<<endl;
-    }
-    cout<<"YES"<<endl;
-    for(int i=0;i<n;i++) cout<<res[i]<<" ";
-    cout<<endl;
-  }
+    return 0;
 }

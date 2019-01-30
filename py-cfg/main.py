@@ -1,36 +1,31 @@
 # from utils import buildCFG
-#
-# cfg = buildCFG('example.c', 'main')
-#
-# print "[+] Size of the CFG:", str(cfg.size())
-# print cfg.printer()
-
+# import json
+# import os
 from utils import buildCFG
 import json
 import os
 
-numOfQuestions = 11
-# nums = 23
-
+questionList = os.listdir("dataset")
 # isTest = 6
 # if (isTest < 5):
-for i in range(4, numOfQuestions):
-        dirList = os.listdir("dataset/" + str(i + 1))  # dir is your directory path
+for i in range(len(questionList) - 1):
+        dirList = os.listdir("dataset/" + questionList[i])  # dir is your directory path
+        os.mkdir("data/" + questionList[i])
         for j in range(len(dirList) - 1):
             print(dirList[j])
-            cfg = buildCFG("dataset/" + str(i + 1) + "/" + dirList[j], 'main')
+            cfg = buildCFG("dataset/" + questionList[i] + "/" + dirList[j], 'main')
             with open('graph.json', "r") as f1:
                 dta = json.load(f1)
-                with open("data/" + str(i + 1) + "/" + dirList[j][:-2] + ".json", "w") as f2:
+                with open("data/" + questionList[i] + "/" + dirList[j][:-2] + ".json", "w") as f2:
                     json.dump(dta, f2)
 
-        dirList = os.listdir("dataset/" + str(i + 1) + "/goodset")
-        os.mkdir("data/" + str(i + 1) + "/goodset")
+        dirList = os.listdir("dataset/" + questionList[i] + "/goodset")
+        os.mkdir("data/" + questionList[i] + "/goodset")
         for j in range(len(dirList)):
-            cfg = buildCFG("dataset/" + str(i + 1) + "/goodset/" + dirList[j], 'main')
+            cfg = buildCFG("dataset/" + questionList[i] + "/goodset/" + dirList[j], 'main')
             with open('graph.json', "r") as f1:
                 dta = json.load(f1)
-                with open("data/" + str(i + 1) + "/goodset/" + dirList[j][:-2] + ".json", "w") as f2:
+                with open("data/" + questionList[i] + "/goodset/" + dirList[j][:-2] + ".json", "w") as f2:
                     json.dump(dta, f2)
 
 # if (isTest < 10):

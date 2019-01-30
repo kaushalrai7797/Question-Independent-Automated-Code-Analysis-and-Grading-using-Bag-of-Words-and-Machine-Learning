@@ -1,27 +1,42 @@
-#include <iostream>
-using namespace std;
+#include <stdio.h>
+#include<string.h>
 
-int main() {
-	int a,b,i=0,r=0,n,sum,num;
-	cin>>a>>b;
-	n=a-b;
-	if(n>9)
-	{
-	num=(n/10);
-	while(i<2)
-	{
-		r=r+n%10;
-		n=n/10;
-		i++;
-	}
-	if(r>=10)
-	r=r/10;
-	num=num*10+r;
-	n=num;
-	}
-	else
-	n=n+1;
-	cout<<n;
+int main() 
+{
+    unsigned   long long int sum=0,r,t,a,d,i;
+    
+  char num[100005];
+    scanf("%lld",&t);
+    while(t!=0)
+    {  sum=0;
+            scanf("%s",num);
+          	for(i=0; i<strlen(num); i++)
+		    {	
+		        sum+=num[i]-'0';
+		    }
 	
-	return 0;
+		    r=sum/9;
+	
+		    d=sum-(r*9);
+		    a=((r+1)*9)-sum;
+		    if(d<1)
+		    d=d*-1;
+		    
+		    if((sum-d)>0 && d<a)
+		     {
+		         printf("%lld\n",d);
+		     }
+		 else
+		 {
+		       printf("%lld\n",a);
+		 }
+		 
+		 
+		    
+		    --t;
+  
+    }
+    
+    
+    return 0;
 }

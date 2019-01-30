@@ -1,0 +1,122 @@
+Question,Verdict,Memory
+1question1,wrong answer,9.1M
+1question2,accepted,27.4M
+1question3,wrong answer,20.6M
+1question4,wrong answer,20.6M
+1question5,wrong answer,20.6M
+1question6,wrong answer,20.6M
+1question7,wrong answer,20.6M
+1question8,wrong answer,20.6M
+1question9,wrong answer,20.6M
+1question10,accepted,26.3M
+1question11,wrong answer,26.3M
+1question12,accepted,15.7M
+1question13,wrong answer,14.8M
+1question14,wrong answer,14.8M
+2question1,accepted,18.7M
+2question2,wrong answer,10M
+2question3,accepted,19.6M
+2question4,wrong answer,18.7M
+2question5,wrong answer,86.3M
+2question6,wrong answer,86.3M
+2question7,wrong answer,86.3M
+2question8,wrong answer,86.9M
+2question9,wrong answer,86.3M
+2question10,wrong answer,86.3M
+2question11,accepted,14.7M
+2question12,accepted,10M
+2question13,wrong answer,10M
+2question14,wrong answer,11M
+2question15,wrong answer,18.7M
+2question16,wrong answer,18.7M
+2question17,wrong answer,18.7M
+2question18,accepted,14.7M
+2question19,wrong answer,18.7M
+2question20,wrong answer,18.7M
+2question21,wrong answer,18.7M
+2question22,runtime error(SIGSEGV),9.2M
+2question23,runtime error(SIGSEGV),9.2M
+5question1,wrong answer,9.2M
+5question2,wrong answer,9.2M
+5question3,accepted,9.2M
+5question4,accepted,9.2M
+5question5,time limit exceeded,9.2M
+5question6,time limit exceeded,9.2M
+5question7,accepted,9.2M
+5question8,accepted,9.2M
+5question9,accepted,9.2M
+5question10,wrong answer,9.2M
+5question11,wrong answer,9.2M
+5question12,wrong answer,9.2M
+5question13,time limit exceeded,9.2M
+5question14,accepted,9.2M
+5question15,time limit exceeded,9.2M
+5question16,accepted,9.2M
+5question17,accepted,9.2M
+5question18,accepted,9.2M
+5question19,wrong answer,9.2M
+5question20,wrong answer,9.2M
+5question21,time limit exceeded,9.2M
+10question1,accepted,9.2M
+10question2,wrong answer,9.2M
+10question3,wrong answer,9.2M
+10question4,wrong answer,9.2M
+10question5,wrong answer,9.2M
+10question6,time limit exceeded,9.2M
+10question7,runtime error(SIGSEGV),9.2M
+10question8,runtime error(SIGSEGV),10.6M
+10question9,runtime error(SIGSEGV),10.6M
+10question10,accepted,9.2M
+10question11,accepted,9.2M
+10question12,accepted,9.2M
+10question13,runtime error(NZEC),9.2M
+10question14,runtime error(NZEC),9.2M
+10question15,wrong answer,9.2M
+10question16,accepted,9.2M
+10question17,wrong answer,9.2M
+14question1,accepted,9.2M
+14question2,wrong answer,10.1M
+14question3,wrong answer,9.2M
+14question4,wrong answer,9.5M
+14question5,wrong answer,9.2M
+14question6,wrong answer,9.2M
+14question7,accepted,9.2M
+14question8,wrong answer,9.2M
+14question9,accepted,10.1M
+14question10,wrong answer,9.2M
+14question11,wrong answer,10.1M
+14question12,wrong answer,10.1M
+14question13,wrong answer,9.2M
+14question14,wrong answer,9.2M
+14question15,accepted,9.2M
+14question16,wrong answer,10.1M
+14question17,wrong answer,9.2M
+14question18,wrong answer,9.2M
+14question19,wrong answer,9.2M
+14question20,wrong answer,10.1M
+14question21,wrong answer,9.2M
+14question22,wrong answer,9.2M
+16question1,time limit exceeded,9.9M
+16question2,time limit exceeded,9.9M
+16question3,accepted,10.6M
+16question4,wrong answer,11.5M
+16question5,wrong answer,10.6M
+16question6,time limit exceeded,12.9M
+16question7,time limit exceeded,12.9M
+16question8,time limit exceeded,12.9M
+16question9,time limit exceeded,11.4M
+16question10,time limit exceeded,9.8M
+16question11,time limit exceeded,24.4M
+16question12,time limit exceeded,16.7M
+16question13,runtime error(SIGSEGV),9.2M
+16question14,runtime error(SIGSEGV),9.5M
+16question15,runtime error(SIGSEGV),9.5M
+16question16,time limit exceeded,9.5M
+16question17,time limit exceeded,9.5M
+16question18,time limit exceeded,9.5M
+16question19,wrong answer,11.1M
+16question20,wrong answer,9.9M
+16question21,wrong answer,10.7M
+16question22,wrong answer,10.2M
+16question23,time limit exceeded,10.7M
+16question24,time limit exceeded,9.9M

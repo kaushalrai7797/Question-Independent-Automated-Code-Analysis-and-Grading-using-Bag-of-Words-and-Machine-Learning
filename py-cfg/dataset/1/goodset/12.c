@@ -1,52 +1,57 @@
-#include <iostream>
-#include <vector>
+#include <stdio.h>
 
-using namespace std;
+#define MOD 1000000007
+#define SIZE 750000
 
-int main(){
-  int t,n,k;
-  cin>>t;
-  while(t--){
-    cin>>n>>k;
-
-    vector<int> arr(k);
-    for(int i=0;i<k;i++) cin>>arr[i];
-
-    if(k==1&&n==1){
-      cout<<"YES"<<endl;
-      cout<<1<<endl;
-      continue;
+int main() {
+    int t;
+    scanf("%d",&t);
+    while (t--)
+    {
+        unsigned int n;
+        scanf("%d",&n);
+        int set[SIZE];
+        int prev_set[SIZE];
+        for (int i = 0;i<SIZE;++i)
+        {
+            set[i] = 0;
+            prev_set[i] = 0;
+        }
+        int max = -1;
+        int min = SIZE + 1;
+        for (int i = 0;i<n;++i)
+        {
+            int x;
+            scanf("%d",&x);
+            set[x-1] = 1;
+            if (x > max)
+            {
+                max = x;
+            }
+            if (x < min)
+            {
+                min = x;
+            }
+        }
+        long count = n;
+        for (int size = max;size > 0;size/=2)
+        {
+            for(int i = min;i<=(size/2);i++)
+            {
+                
+                if (set[i-1])               
+                {
+                    prev_set[i-1] = set[i-1];
+                    for(int j = i + i;j<=size;j+=i)
+                    {
+                        set[i-1] += set[j-1] - prev_set[j-1];
+                        count += set[j-1] - prev_set[j-1];
+                        count = count % MOD;
+                    }
+                }
+            }
+        }
+        printf("%ld\n",count % MOD);
     }
-    if(k==1&&n>1){
-      cout<<"NO"<<endl;
-      continue;
-    }if(k==2){
-      bool flag = false;
-      if(arr[0]!=arr[1]-1){
-        cout<<"NO"<<endl;
-        flag = true;
-      }
-      if(flag)
-        continue;
-    }
-
-    vector<int> res(n+1,0);
-    int mx = n;
-    for(int i=1;i<arr[0];i++){
-      res[i] = mx--;
-    }
-    for(int i=arr[0]+1;i<arr[1];i++){
-      res[i] = mx--;
-    }
-    for(int i=k-1;i>=0;i--){
-      res[arr[i]] = mx--;
-    }
-    for(int i=1;i<=n;i++){
-      if(!res[i])
-        res[i] = mx--;
-    }
-    cout<<"YES"<<endl;
-    for(int i=1;i<=n;i++) cout<<res[i]<<" ";
-    cout<<endl;
-  }
+    return 0;
 }

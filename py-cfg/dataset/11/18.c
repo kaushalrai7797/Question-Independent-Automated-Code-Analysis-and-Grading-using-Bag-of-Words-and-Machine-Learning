@@ -1,33 +1,45 @@
-#include<bits/stdc++.h>
-using namespace std;
-int main()
+#include <stdio.h>
+#include <string.h>
+
+int check_subsequence (char [], char[]);
+
+int main ()
 {
-    int t;
-    cin>>t;
-    while(t--)
-    {
-       string str1,str2;
-       cin>>str1;
-       cin>>str2;
-       int i,j,n,m,x[26]={0},y[26]={0},sum=0,sum2=0;
-       n=str1.length();
-       m=str2.length();
-       for(i=0;i<n;i++)
-       x[str1[i]-'a']++;
-       for(j=0;j<m;j++)
-       y[str2[j]-'a']++;
-       for(i=0;i<26;i++)
-       {
-           if((x[i]!=0)&&(y[i]!=0))
-           sum+=abs(x[i]-y[i]);
-           sum2+=abs(x[i]-y[i]);
-       }
-       if((sum==0)||(sum2==m+n))
-       {
-           cout<<"YES"<<endl;
-       }else 
-       {
-           cout<<"NO"<<endl;
-       }
-    }
+  int t;
+  scanf("%d",&t);
+  while(t--)
+  {
+   int flag;
+   char s1[1000], s2[1000];
+   scanf("%s",s1);
+   scanf("%s",s2);
+   if (strlen(s1) < strlen(s2))
+      flag = check_subsequence(s1, s2);
+   else
+      flag = check_subsequence(s2, s1);
+
+   (flag)?printf("YES\n"):printf("NO\n");
+ }
+
+   return 0;
+}
+
+int check_subsequence (char a[], char b[]) {
+   int c, d;
+
+   c = d = 0;
+
+   while (a[c] != '\0') {
+      while ((a[c] != b[d]) && b[d] != '\0') {
+         d++;
+      }
+      if (b[d] == '\0')
+         break;
+      d++;
+      c++;
+   }
+   if (a[c] == '\0')
+      return 1;
+   else
+      return 0;
 }

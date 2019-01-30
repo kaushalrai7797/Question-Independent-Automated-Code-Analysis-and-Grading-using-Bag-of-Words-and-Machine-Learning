@@ -1,207 +1,90 @@
-#include <bits/stdc++.h>
-#define EMPTY '.'
-using namespace std;
-vector<string> A;
-char ans[4][4];
-char ans1[][4] = {{'g','r','i','d'},{'s','n','o','t'},{'p','o','s','s'},{'i','b','l','e'}};
-int I[] = {0,1,2,3, 3,3,3,3, 3,2,1,0, 0,0,0,0};
-int J[] = {0,0,0,0, 0,1,2,3, 3,3,3,3, 3,2,1,0};
-int DI[] = {0,0,0,0, -1,-1,-1,-1, 0,0,0,0, 1,1,1,1};
-int DJ[] = {1,1,1,1, 0,0,0,0, -1,-1,-1,-1, 0,0,0,0};
-
-int check(string x,string y) {
-	int i;
-    for(i=0;i<4;i++) {
-        if(x[i]!=y[i]) {
-            break;
-        }
-    }
-    if(i==4) return 1;
-    for(i=0;i<4;i++) {
-        if(x[i] != y[4-i-1]) {
-            break;
-        }
-    }
-    if(i==4) return 1;
-    return 0;
-}
-
-void removeDuplicatesReverse() {
-    vector<string> V;
-    int i,j;
-    for(i=0;i<(int)A.size();i++) {
-        for(j=0;j<i;j++) {
-            if(check(A[j], A[i]) == 1) {
-                break;
+#include<stdio.h>
+//ALGO: Fixing head at a # and then tracing other #s for body formation of Snake (i.e. Movement Tracing)
+//Vertical movement is given priority over horizontal, thus we need to move only (up->down), (down->up) & (left->right)
+int main()
+{
+    int t,n;
+    scanf("%d",&t);
+    while(t--)
+    {
+        scanf("%d",&n);
+        getchar();	//To eat up newline
+        char a[2][n];
+        int headi,headj,i,iprev,j,jprev,bcnt,btotal=0,valid=0,headUpdate=0;
+        //bcnt = Black(#) count ; btotal = Black(#) total ; valid, headUpdate are flag variables
+        
+        for(i=0;i<2;i++)	//Taking Input--------------------------------
+        {
+		   	for(j=0;j<n;j++)
+            {
+                a[i][j]=getchar();
+                if(a[i][j]=='#')
+                btotal++;	//Count no. of #s
             }
-        }
-        if(j>=i){
-            V.push_back(A[i]);
-        }
-    }
-    A = V;
-}
-
-int checkValidity(char (&parentGrid)[4][4], int config, string str) {
-    int i = I[config];
-    int j = J[config]; 	
-    int k;
-    for(k=0;k<4;k++) {
-        if(parentGrid[i][j] == EMPTY || parentGrid[i][j] == str[k]) {
-            i += DI[config];
-            j += DJ[config];
-        }
-        else break;
-    }
-    //cout<<"a checkValidity"<<endl;
-    if(k == 4) return 1;
-    return 0;
-}
-
-void fillAs(char (&parentGrid)[4][4]) {
-	int i,j;
-    for(i=0;i<4;i++) {
-        for(j=0;j<4;j++) {
-            if(parentGrid[i][j] == EMPTY) {
-                parentGrid[i][j] = 'A';
-            }
-        }
-    }
-}
-
-void updateAns(char (&grid)[4][4]) {
-	int i,j;
-	//cout<<"in updateAns"<<endl;
-	//cout<<grid[0][1]<<endl;
-	if(ans[0][0] == 'g') {
-		for(i=0;i<4;i++) {
-            for(j=0;j<4;j++) {
-                ans[i][j] = grid[i][j];
-            }
-        }
-        return;
-	}
-
-    int flag = 0;
-    for(i=0;i<4;i++) {
-        for(j=0;j<4;j++) {
-            if(grid[i][j] < ans[i][j]) {
-                flag = 1;
-                break;
-            }
-            else if(grid[i][j] > ans[i][j]){
-            	flag = 2;
-            	break;
-			}
-        }
-        if(j!=4) break;
-    }
-    if(i!=4 && flag == 1) {
-        for(i=0;i<4;i++) {
-            for(j=0;j<4;j++) {
-                ans[i][j] = grid[i][j];
-            }
-        }
-    }
-}
-void updateTmpGrid(char (&parentGrid)[4][4], char (&tmpGrid)[4][4], string& str1, int config) {
-    int i = I[config];
-    int j = J[config];
-    //cout<<"A str1 = "<<str1<<endl;
-    for(i=0;i<4;i++) {
-        for(j=0;j<4;j++) {
-           tmpGrid[i][j] = parentGrid[i][j];
-        }
-    }
-    int k;
-    i = I[config];
-    j = J[config];
-    //cout<<"A str1 = "<<str1<<endl;
-    for(k=0;k<4;k++) {
-    	//cout<<str1[k]<<endl;
-        tmpGrid[i][j] = str1[k];
-        //cout<<str1[k]<<endl;
-        i += DI[config];
-        j += DJ[config];
-        //cout<<str1[k]<<endl;
-    }
-    //cout<<"A str1 = "<<str1<<endl;
-}
-void dfs(char (&parentGrid)[4][4], int index) {
-	//cout<<"dfs at index =  "<<index<<endl;
-    if(index == (int)A.size()) {
-    	//cout<<"b fillAs"<<endl;
-        fillAs(parentGrid);
-        //cout<<"a fillAs"<<endl;
-        updateAns(parentGrid);
-        //cout<<"a updateAns"<<endl;
-        return;
-    }
-    int config;
-    string str = A[index];
-    char tmpGrid[4][4];
-    for(config = 0;config <16; config++) {
-    	//str = A[index];
-    	//cout<<"A str = "<<str<<endl;
-        //str = A[index];
-        //cout<<"b checkValidity"<<endl;
-        if(checkValidity(parentGrid, config, str) == 1) {
-			//cout<<"A str = "<<str<<endl;
-			//cout<<"b updateTmpGrid"<<endl;
-            updateTmpGrid(parentGrid, tmpGrid, str, config);
-            //cout<<str<<endl;
-            //cout<<"a updateTmpGrid"<<endl;
-            //cout<<"A str = "<<str<<endl;
-			dfs(tmpGrid, index+1);
-            
-			//cout<<"a dfs of index = "<<index+1<<endl;
-            
-        }
-    }
-    //cout<<"closing dfs index = "<<index<<endl;
-} 
-
-void solve() {
-    char grid[4][4];
-    int i,j;
-    for(i=0;i<4;i++) {
-    	for(j=0;j<4;j++) {
-    		ans[i][j] = ans1[i][j];
-		}
-	}
-	
-    removeDuplicatesReverse();
-    //cout<<"A size = "<<A.size()<<endl;
-    for(i=0;i<4;i++) {
-        for(j=0;j<4;j++) {
-            grid[i][j] = EMPTY;
-        }
-    }
-    dfs(grid, 0);
-}
-
-
-int main() {
-	//freopen("in.txt","r",stdin);
-	int t;
-	string dd;
-	cin>>t;
-	int n,i,j;
-	while(t--) {
-		A.clear();
-	    cin>>n;
-	    for(i=0;i<n;i++) {
-	        cin>>dd;
-	        A.push_back(dd);
+            getchar();	//To eat up newline
+    	}
+    	//----------------------------------------------------------------
+    	
+    	if(btotal)	//If there exists atleast 1 #
+    	{
+    		headi=0,headj=0;	//Set head at (0,0)
+	        while(1)	//Loop for each different positions of head
+	        {
+	            while(a[headi][headj]!='#' || headUpdate)	//Update Head of Snake until it comes at a #
+	            {
+	                if(headi==0)
+	                    headi++;
+	                else
+	                {
+	                    headi--;
+	                    headj++;
+	                }
+	                headUpdate=0;	//Disabling flag so that further updation occurs a/c to loop entry control logic
+	            }
+	            if(headj>=n)	//If head crosses n on shifting itself to right
+	            	break;
+	            
+	            i=headi,j=headj,bcnt=1,iprev=headi,jprev=-1;
+	            //printf("\nhead: i=%d j=%d\n",headi,headj);	//To trace Head co-ordinates (headi,headj)
+	            while(1)
+	            {
+	                //printf("i=%d j=%d bcnt=%d\n",i,j,bcnt);	//To trace co-ordinates (i,j) of movement of line joining #s (or Snake body formation)
+	                if(i==0 && a[i+1][j]=='#' && (i==iprev && j!=jprev))	//Up to down movement
+	                {	
+						iprev=i;
+						jprev=j;
+					    i++;
+					    bcnt++;
+					}
+	                else if(i==1 && a[i-1][j]=='#' && (i==iprev && j!=jprev))	//Down to up movement
+	                {	
+						iprev=i;
+						jprev=j;
+					    i--;
+					    bcnt++;
+					}
+	                else if(j<n-1 && a[i][j+1]=='#')	//Left to right movement
+	                {	
+	                	iprev=i;
+						jprev=j;
+					    j++;
+					    bcnt++;
+					}
+	                else	//No # found to move further
+	                    break;
+	            }
+	            if(bcnt==btotal)	//#s covered equals to total no. of #s
+	            {
+	                valid=1;
+	                break;
+	            }
+	            headUpdate=1;	//To ensure one time entry in head updating loop
+	        }
 	    }
-	    solve();
-	    for(i=0;i<4;i++) {
-	    	for(j=0;j<4;j++) {
-	    		cout<<ans[i][j];
-			}
-			cout<<endl;
-		}
-		cout<<endl;
-	}
-	return 0;
+        if(valid)	//Checking 'valid' flag to print output
+    	    printf("yes\n");
+        else
+        	printf("no\n");
+    }
+    return 0;
 }

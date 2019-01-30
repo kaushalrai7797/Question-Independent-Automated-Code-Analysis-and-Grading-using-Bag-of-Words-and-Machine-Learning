@@ -1,88 +1,33 @@
-#include<bits/stdc++.h>
-using namespace std;
-
-#define ll long long
-#define ld long double
-#define vl vector<ll>
-#define vb vector<bool>
-#define vs vector<string>
-#define pb push_back
-#define mp make_pair
-#define test() ll tt;cin>>tt;for(ll testcase=1;testcase<=tt;testcase++)
-#define all(v) v.begin(),v.end()
-#define vivek_ghosh ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL);
-#define MAX 1000055
-#define mod 1000000007
-#define ff first
-#define ss second
-const int INF=0x3f3f3f3f;
-
-ll power(ll x,ll n,ll M)
-{
-    if(n==0)
-        return 1;
-    else if(n%2 == 0)
-        return power((x*x)%M,n/2,M);
-    else
-        return (x*power((x*x)%M,(n-1)/2,M))%M;
-}
-
-ll modinv(ll a,ll m)
-{
-    ll g =__gcd(a, m);
-    ll res=power(a, m-2, m);
-    return res;
-}
-
-ll n,m,i,j,k,ans=0,cnt=0,sum=0,mx=-1,mn=INT_MAX;
-
+#include<stdio.h>
+#include<math.h>
 int main()
 {
-    vivek_ghosh;
-
-    test()
+    long long int t,a,b,c,d,i,a1,b1,rem,e;
+    scanf("%lld",&t);
+    while(t--)
     {
-        cin>>n>>m;
-        ll suma=0,sumb=0;
-        vl a,b;
-        bool eq = true;
-        for(i=0;i<n;i++)
-        {
-            cin>>j;
-            if(j)
-                a.pb(j);
-            suma+=j;
-        }
-
-        for(i=0;i<m;i++)
-        {
-            cin>>j;
-            if(j)
-                b.pb(j);
-            sumb+=j;
-        }
-
-        sort(all(a));
-        sort(all(b));
-        if(suma==sumb)
-        {
-            for(i=0;i<a.size();i++)
+        e=0;
+    scanf("%lld %lld",&a,&b);
+        a1=sqrt(a);
+        if(a!=(a1*a1))
+            a1++;
+        b1=sqrt(b);
+        for(i=a1;i<=b1;i++)
+        {d=1;
+            c=i*i;
+            while(c!=0)
             {
-                if(a[i]!=b[i])
-                {
-                    eq = false;
-                    break;
-                }
+                rem=c%10;
+            if(rem!=0 && rem!=1 && rem!=4 && rem!=9)
+            {
+                d=0;break;
             }
-            if(!eq)
-                cout<<"Alice";
-            else
-                cout<<"Bob";
+            c=c/10;
+            }
+            if(d==1)
+                {e++;}
         }
-        else
-            cout<<"Alice";
-        cout<<endl;
+      printf("%lld\n",e);
+      }
     }
 
-    return 0;
-}

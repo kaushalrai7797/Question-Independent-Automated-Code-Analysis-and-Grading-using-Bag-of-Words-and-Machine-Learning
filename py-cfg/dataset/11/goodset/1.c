@@ -1,83 +1,43 @@
-#include<bits/stdc++.h>
-
-using namespace std;
-
-/*
-
-	   ///////////////////////////////////////////////////////////////////////|
-	  ////////////////////////////           ////////////////////////////////||
-	 //////////////////////////// 24CIRCLES ////////////////////////////////|||
-	////////////////////////////           ////////////////////////////////||||
-   ////////////////////////////////////////////////////////////////////////||||
-  ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||/////
-  ||||||||||||||||||||||||||||             |||||||||||||||||||||||||||||||////
-  ||||||||||||||||||||||||||||  24CIRCLES  |||||||||||||||||||||||||||||||///
-  ||||||||||||||||||||||||||||             |||||||||||||||||||||||||||||||//
-  ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||/
-
-
-
-*/
-
-
-
-void solve(){
-
-	int t,b1[26],b2[26];
-
-	bool k1,k2;
-
-	string s1,s2;
-
-	cin>>t;
-
-	while(t--){
-
-		k1=k2=0;
-
-		cin>>s1>>s2;
-
-		for(int i=0;i<26;i++){
-
-			b1[i]=b2[i]=0;
-		}
-
-		for(int i=0;i<s1.length();i++)b1[s1[i]-'a']++;
-
-		for(int i=0;i<s2.length();i++)b2[s2[i]-'a']++;
-
-		for(int i=0;i<26;i++)if((b1[i]&&(!b2[i]))||(b2[i]&&(!b1[i])))k1=1;
-
-		if(!k1){
-
-			for(int i=0;i<26;i++){
-
-				if(b1[i]!=b2[i])k2=1;
-			}
-		}
-
-		if(k1==0&&k2==1)cout<<"NO\n";
-
-		else cout<<"YES\n";
-	}
-	
+#include<stdio.h>
+#include<string.h>
+int main()
+{
+    int t;
+    scanf("%d",&t);
+    while(t--)
+    {
+        
+        char str[25000];
+        char str2[25000];
+        char str3[25000];
+        scanf(" %s",str);
+        scanf(" %s",str2);
+        int l1=strlen(str);
+        int l2=strlen(str2);
+        int i=0,j=0;
+        if(l2>l1){
+        for(i=0;i<l2;i++)
+        {
+            if(str[j]==str2[i])
+            ++j;
+        }
+        if(j==l1)
+        printf("YES\n");
+        else
+        printf("NO\n");}
+        else 
+        {
+            for(i=0;i<l1;i++)
+        {
+            if(str2[j]==str[i])
+            ++j;
+        }
+        if(j==l2)
+        printf("YES\n");
+        else
+        printf("NO\n");
+            
+        }
+    }
+    return 0;
 }
-
-int main(){
-
-	/*#ifndef ONLINE_JUDGE
-            freopen("inputNaNtxt", "rt", stdin);
-            freopen("output.txt", "wt", stdout);
-    #endif*/
-
-	ios_base::sync_with_stdio(0);
-    cin.tie(NULL);
-
-    solve();
-
-
-	return 0;
-
-}
-
- 

@@ -1,56 +1,66 @@
-#include<iostream>
-#include<bits/stdc++.h>
-using namespace std;
-int find_seqln(long long int no){
-        long long int constant=10,value=0;
-        while(no>0){
-                constant=10;
-                while(no/constant!=0){
-                    constant*=10;
-                }
-                constant/=10;
-                 int frstdigit=no/constant;
-                int remain=no%constant;
-                int casespossible=remain/frstdigit;
-                value+=casespossible;
-                no-=casespossible*frstdigit;;
-               
-                no-=frstdigit;
-                ++value;
-                
-
-        }
-        return (value+1);
-        
-}
-
-int find_seq(long long int desired){
-    long int right=desired*10;
-    long int left=desired;
-    long int mid=(left+right)/2;
-    long long output=find_seqln(mid);
-    while(output!=desired){
-       if(output<desired) left=mid;
-        else right=mid;
-        mid=(left+right)/2;
-        output=find_seqln(mid);
-        
-    }
-    while(output==desired){
-        mid++;
-        output=find_seqln(mid);
-
-    }
-    return(mid-1);
-
-}
+#include<stdio.h>
+#include<string.h>
+char check[5000001];
+char c[5000001];
+long long int top=-1;
+int expression(long long int n);
+int Arepair(char ,char);
 int main(){
-    long int testcases;
-    cin>>testcases;
-     for(int i=0;i<testcases;i++){
-        long long int desired;
-        cin>>desired;
-        long long int output=find_seq(desired);
-        cout<<output<<endl;
-    }
+	int t,q;
+	long long int l;
+	scanf("%d",&t);
+	while(t>0)
+	{ t--;
+	scanf("%s",c);
+	l=strlen(c);
+	q=expression(l);
+	if(q==1)
+	{
+	
+	 printf("%lld\n",l);
+   }      
+	if(q==0)
+	{
+		printf("0\n");
+	}
+	}
 }
+int expression(long long int n)
+{  long long int i;
+  for(i=0;i<n;i++)
+  { 
+    if(c[i]=='<')
+    { top=top+1;
+      check[top]=c[i];
+	}
+    if(c[i]=='>')
+  {  
+  	if(Arepair( check[top], c[i])==0){
+  		return 0;
+	  }
+	  if(Arepair( check[top], c[i])==1)
+	  {
+	  	top=top-1;
+	  }
+   }
+  }
+  if(top==-1)
+  { return 1;
+
+  }
+  else
+  {
+  	return 0;
+  }
+  }
+int Arepair(char q,char w)
+{
+	if(q=='<'&&w=='>')
+	{return 1;
+	}
+	else 
+	{
+		return 0;
+	}
+	}
+	
