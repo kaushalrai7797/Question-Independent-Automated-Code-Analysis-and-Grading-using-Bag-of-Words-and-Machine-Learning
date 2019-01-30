@@ -1,32 +1,41 @@
-#include<bits/stdc++.h>
-using namespace std;
-     
+#include<stdio.h>
 int main()
 {
-	long long int n,j,i;
-	cin>>n;
-	long long int a[n];
-	for(i=0;i<n;i++)
-	{
-		cin>>a[i];
-	}
-	
-	sort(a,a+n);
-	
-	for(i=1;i<n;i++)
-	{
-		a[i]=a[i]+a[i-1];
-	}
-	
-	long long int q;
-	cin>>q;
-	for(i=0;i<q;i++)
-	{
-		long long int k,x;
-		cin>>k;
-		x=a[n-1-k];
-		cout<<x<<"\n";
-	}	
-	
-			
+    long int b,n,q,w,max,k;
+    int t;
+    scanf("%d",&t);
+    while (t--)
+    {
+        scanf("%ld %ld",&n,&b);
+        q = n/2;
+        w = n-q;
+        if(b>=n)
+        {
+            max = 0;
+        }
+        else if(b>=n/2 && n>b)
+        {
+            max = n-b;
+        }
+        else
+        {
+            while(w>0)
+            {
+                if(q%b==0)
+                {
+                    max = w*(q/b);
+                    break;
+                }
+                else if(w%b==0)
+                {
+                    max = q*(w/b);
+                    break;
+                }
+                q++;
+                w--;
+            }
+        }
+        printf("%ld\n",max);
+    }
+    return 0;
 }

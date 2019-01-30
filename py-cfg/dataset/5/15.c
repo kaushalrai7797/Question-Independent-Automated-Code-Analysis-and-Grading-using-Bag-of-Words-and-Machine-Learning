@@ -1,33 +1,24 @@
-#include <bits/stdc++.h>
-#define ll long long 
-using namespace std;
-
-int main()
-{
-    int t = 0;
-    cin>>t;
-    while(t--){
-        ll n, m; 
-        cin>>n>>m;
-        ll A[n], B[m], c1 = 0, c2 = 0, sum1 = 0, sum2 = 0;
-        for(int i = 0; i < n; i++){
-            cin>>A[i];
-            sum1 += A[i];
-            if(A[i] > 0 ) c1++;
-        }
-        for(int j = 0; j < m; j++){
-            cin>>B[j];
-            sum2 += B[j];
-            if(B[j] > 0 ) c2++;
-        }
-        if(c1 == c2 && sum1 == sum2 ){
-            cout<<"Bob"<<"\n";
-        }
-        else 
-        cout<<"Alice"<<"\n";
-        
-        
-    }
-    
-    return 0;
+#include<stdio.h>
+int main(){
+	long long t,d,c,f,a,ra ,b,i,j,num[120];
+	scanf("%d",&t);
+	for(i=1,j=0;i<=100000;i++){
+		a=i*i;
+		f=0;
+		while(a>0){
+			d=a%10;
+			if(d!=0&&d!=1&&d!=4&&d!=9){
+				f=1;
+				break;
+			}
+			a/=10;
+		}
+		if(f==0) num[j++]=i*i;
+	}
+	while(t--){
+		scanf("%lld%lld",&a,&b);
+		c=0;
+		for(i=0;i<120;i++) if(a<=num[i]&&num[i]<=b) c++;
+		printf("%d\n",c);
+	}
 }

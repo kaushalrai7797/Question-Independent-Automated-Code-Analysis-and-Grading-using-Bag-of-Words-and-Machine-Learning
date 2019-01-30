@@ -1,21 +1,42 @@
-#include <bits/stdc++.h>
-using namespace std;
-
-int main() {
-	// your code goes here
-	int t;
-	cin>>t;
-	while(t--){
-	    int n,c=0;
-	    cin>>n;
-	    char *str=new char[n+1];
-	    for(int i=0;i<n;i++){
-	        cin>>str[i];
-	        if(str[i]=='1') c++;
-	    }
-	    str[n]='\0';
-	    double ans=(c*(c+1))/2;
-	    cout<<ans<<endl;
+#include<stdio.h>
+int chck(long int, int);
+long int sv[100010];
+int main(){
+	int k;
+	long int a, b, d=0, t;
+	scanf("%ld", &t);
+	for(long int i=0;i<=100000;i++)
+		sv[i]=0;
+	for(long int i=2;i*i<=100000;i++){
+		if(sv[i]==0){
+			for(long int j=i*i; j<=100000;j+=i)
+				sv[j]=1;
+		}
 	}
-	return 0;
+	for(long int j=0;j<t;j++){
+		d=0;
+		scanf("%ld %ld %d", &a, &b, &k);
+		for(long int i=a;i<=b;i++){
+				if(chck(i, k)){
+					d++;
+				}
+			
+		}
+		printf("%ld\n", d);
+	}
+	
+return 0;
+}
+int chck(long int a, int k){
+	long int c=0;
+	for(long int i=2;i<=a;i++){
+		if(sv[i]==0){
+			if(a%i==0)
+				c++;
+		}
+	}
+	if(c==k)
+		return 1;
+	else
+		return 0;
 }

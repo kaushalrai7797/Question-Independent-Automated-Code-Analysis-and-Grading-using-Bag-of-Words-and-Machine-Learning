@@ -1,253 +1,99 @@
- #include<iostream>
-#include<string>
-#include<map>
-#include<algorithm>
-#include<vector>
-using namespace std;
-vector<string> IMPOSSIBLE = {"grid","snot","poss","ible"};
-bool isPalindrome(string a){
-	int count = a.size()-1;
-	int i =0;
-	for(;i!=count;i++,count--){
-		if(a[i] != a[count]){
-			return false;
-		}
-	}
-	return true;
-}
-string Reverse(string a){
-	string b;
-	for(int i = a.size()-1;i >=0; i--){
-		b.push_back(a[i]);
-	}
-	return b;
-}
-void Printing(vector<string> str){
-	cout<<endl;
-	for(string &s : str){
-		cout<<s<<endl;
-	}
-}
-vector<string>Addingh(vector<string>already,vector<string>allwords){
-	vector<string>imposs = {"ZZZZ","ZZZZ","ZZZZ","ZZZZ"};
-	for(vector<string>::reverse_iterator it = allwords.rbegin(); it != allwords.rend(); it++){
-		for(vector<string> ::reverse_iterator it1 = already.rbegin(); it1 != already.rend(); it1++){
-			bool fits = 1;
-			for(int i = 3; i >= 0; i--){
-				if((*it1)[i] == '/'){
-					
-				}				
-				else if((*it1)[i] != (*it)[i]){
-					fits = 0;
-					break;
-				}
-			}
-			if (fits){
-				*it1 = *it;
-				return already; 
-			}
-		}
+#include<stdio.h>
 
-	}
-	return imposs;
-}
-vector<string>Rotate(vector<string>previous){
-	vector<string>toReturn(4);
-	for(vector<string>::iterator it = previous.begin(); it!= previous.end();it++){
-		for(int i = 0; i <4; i++){
-			toReturn[i].push_back((*it)[i]);
-		}
-	}
-	return toReturn;
-}
-vector<string>Addingv(vector<string>already,vector<string>allwords){
-	vector<string>rough = Rotate(already);
-	rough = Addingh(rough,allwords);
-	rough = Rotate(rough);
-	return rough;
 
-}
-vector<string> wordsleft(vector<string>already,vector<string>allwords){
-	vector<string>imposs = {"ZZZZ","ZZZZ","ZZZZ","ZZZZ"};
-	vector<string> toReturn;
-	map<string,int>mymap;
-	vector<string>rough = Rotate(already);
-	for(vector<string>::iterator it = already.begin(); it!= already.end(); it++){
-		if((*it)[0]=='/'||(*it)[1] == '/'||(*it)[2] =='/' ||(*it)[3] == '/'){
-			
+void main()
+{	int n,i,j,k,t;
+    scanf("%d",&t);
+    for(k=0;k<t;k++)
+    {
+	 	int count=0;
+  		scanf("%d",&n);
+ 
+ 		char a[2][n+1];
+ 		scanf("%s",a[0]);
+ 		scanf("%s",a[1]);
+ 		
+		 for(i=0;i<2;i++)
+ 			for(j=0;j<n;j++)
+ 			{
+  				if(a[i][j]=='#')
+  				count++;
+ 			}
+ 		
+ 
+ 		for(i=0;i<n;i++)
+ 		{ 	j=0;
+  			if(a[j][i]=='#')
+  			break;
+  			j=1;
+  			if(a[j][i]=='#')
+  			break; 
 		}
-		else{
-			string temp = Reverse(*it);
-			mymap[temp]+=1;
-			mymap[*it]+=1;
+ 
+ 		if(a[0][i]=='#' && a[1][i]=='#')
+ 		{	int nci1,nci2,dci1,dci2;
+		 	nci1=dci2=j;
+		 	dci1=nci2=1-j;
+  			int c1=0,c2=0;
+			int l=i;
+  			
+			for(i;i<n;i++)
+ 			{	if(a[nci1][i]=='#')
+  				c1++;
+  				else
+  				break;
+  
+  				if(a[dci1][i]=='#')
+  				{	c1++;
+   					nci1=1-nci1;
+   					dci1=1-dci1;
+  				}
+  
+ 			}
+ 
+ 			for(l;l<n;l++)
+ 			{	if(a[nci2][l]=='#')
+  				c2++;
+  				else
+  				break;
+  
+  				if(a[dci2][l]=='#')
+  				{	c2++;
+   					nci2=1-nci2;
+   					dci2=1-dci2;
+  				}
+  
+ 			}
+ 
+ 			if(c1==count || c2==count)
+ 			printf("yes\n");
+ 			else printf("no\n");
 		}
-	}
-	for(vector<string>::iterator it = rough.begin(); it!= rough.end(); it++){
-		if((*it)[0]=='/'||(*it)[1] == '/'||(*it)[2] =='/' ||(*it)[3] == '/'){
-			 
-		}
-		else{
-			string temp = Reverse(*it);
-			mymap[temp]+=1;
-			mymap[*it]+=1;
-		}
-	}
-	for(vector<string>::iterator it1 = allwords.begin(); it1 != allwords.end(); it1++){
-		if(mymap[*it1] == 0){
-			toReturn.push_back(*it1);
-		}
-		else if(mymap[*it1] > 1){
-			return imposs;
-		}
-	}
-	 
-	return toReturn;
-}
-vector<string>addpad(vector<string>already){
-	for(vector<string>:: iterator it = already.begin(); it != already.end(); it++){
-		for(string::iterator it1 = (*it).begin(); it1 != (*it).end(); it1++){
-			if(*it1 == '/'){
-				*it1 ='A';		
-			}
-		}
-	}
-	return already;
-	
-}
-vector<string>tofill(vector<string>allwords,vector<string>already){
-	vector<string>badOmen = {"ZZZZ","ZZZZ","ZZZZ","ZZZZ"};
-	if(allwords.size() == 0){
-		already = addpad(already);
-		return already;
-	}
-	
-	else if(already == badOmen){
-		return badOmen;
-	}
-	else{
-		
-		 
-		
-		vector<string>hor = Addingh(already,allwords);
-		vector<string>ver = Addingv(already,allwords);
-		vector<string>horl = wordsleft(hor,allwords);
-		vector<string>verl = wordsleft(ver,allwords);
-		if(verl == horl && verl == badOmen){
-			 
-			return badOmen;
-		}
-		else if (verl == badOmen){
-			return tofill(horl,hor);
-
-		}
-		else if(horl == badOmen){
-			return tofill(verl, ver);
-		}
-		else{
-			
-			vector<string> c = tofill(horl,hor);
-			vector<string> d = tofill(verl, ver);
-			 
-			if( c < d){return c;}
-			else{return d;}
-		}
-	}
-
-}
-vector<string>Upsidedown(vector<string>a){
-	vector<string> f;
-	for(vector<string>::reverse_iterator rit = a.rbegin(); rit!=a.rend(); rit++){
-		f.push_back(*rit);
-	}
-	return f;
-}
-void finalise(vector<string>allWords){
-	
-	if(allWords.size() < 8){
-		int padded = (8- allWords.size())/2;
-		vector<string >toReturn;
-		string padding ="AAAA";
-		for(int counter = 0; counter < padded; counter++){
-			toReturn.push_back(padding);
-		}
-		for(int it = 0;it < (allWords.size())/2; it++ ){
-			toReturn.push_back(allWords[it]);
-		}
-		Printing(toReturn);cout<<endl;
-		return;
-	}
-	else{
-		vector<string> badomen = {"ZZZZ","ZZZZ","ZZZZ","ZZZZ"};
-		vector<string> minc = badomen;
-		vector<string> pre = {"////","////","////","////"};
-		 
-		for(vector<string>::iterator it = allWords.begin(); it != allWords.end(); it++){			
-			pre[3] = *it;			 
-			vector<string>left = wordsleft(pre,allWords);
-			vector<string>c = tofill(left,pre);
-			vector<string>d = Upsidedown(c);
-			if(d<c){c = d;}
-			if(c < minc){minc = c;}
-			pre= Rotate(pre);
-			c = tofill(left,pre);
-			d = Upsidedown(c);
-			if(d<c){c = d; }
-			if(c < minc){minc = c;}
-			pre = Rotate(pre);
-			
-		}
-		if(minc != badomen){
-			
-			Printing(minc);
-		}
-		else{
-			
-			Printing(IMPOSSIBLE);
+ 	
+ 		else
+		{
+ 			int nci=j;
+ 			int dci=1-j;
+ 			int c=0;
+  
+ 			for(i;i<n;i++)
+ 			{	if(a[nci][i]=='#')
+  				c++;
+  				else
+  				break;
+  
+  				if(a[dci][i]=='#')
+  				{	c++;
+   					nci=1-nci;
+   					dci=1-dci;
+  				}
+  			
+ 			}
+ 
+ 			if(c==count)
+ 			printf("yes\n");
+ 			else printf("no\n");
 		}
 	}
-	
-}
-int main(){
-	 int tests;
-	cin>>tests;
-	for(int i = 0; i <tests; i++){
-		int numW;
-		cin>>numW;
-		vector<string>allwords;
-		map<string,int>mymap;
-		bool cantdo = 0;
-		for(int j = 0; j < numW; j++){
-			string aword;
-			cin>>aword;
-			if(cantdo){
-
-			}
-			else if(isPalindrome(aword)){
-				cantdo = 1;
-			}
-			else if(mymap[aword]){
-
-			}
-			else{
-				string d = Reverse(aword);
-				allwords.push_back(aword);
-				allwords.push_back(d);
-				mymap[aword]+=1;
-				mymap[d]+=1;
-			}
-		}
-		 
-		if(cantdo){
-			
-			Printing(IMPOSSIBLE);
-			
-		}
-		else{
-			cout<<endl;
-			sort(allwords.begin(),allwords.end());
-			finalise(allwords);
-			 
-		}
-	}
-	
+ return 0;
 }

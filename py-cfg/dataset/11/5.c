@@ -1,38 +1,43 @@
-#include<iostream>
-using namespace std;
+#include <stdio.h>
+
+Issub(char m[],char w[])
+{
+    int i,pos=0,count=0,j;
+    for(i=0;i<strlen(m);i++)
+    {
+        for(j=pos;j<strlen(w);j++)
+        {
+            if(m[i]==w[j])
+            {
+                if(j>=pos)
+                {
+                    count++;
+                    pos=j;
+                    break;
+                }
+            }
+        }
+    }
+
+    if(count==strlen(m))
+    return 1;
+    else return 0;
+}
+
 int main()
 {
-int test;
-cin>>test;
-while(test--)
-{string a;
-string b;
-cin>>a>>b;
-int c[26]={0},d[26]={0},e[26]={0},f[26]={0},flag=0,flag2=0;
-for(int i=0;a[i]!=0;i++)
-{c[a[i]-'a']++;
-e[a[i]-'a']=1;
-}
-for(int i=0;b[i]!=0;i++)
-{
-d[b[i]-'a']++;
-f[a[i]-'a']=1;
-}
-for(int i=0;i<26;i++)
-{if(c[i]!=d[i])
-{flag=1;
-break;}
-}
-for(int i=0;i<26;i++)
-{if(e[i]!=f[i])
-{flag2=1;
-break;}
-}
-//cout<<flag<<" "<<flag2<<"\n";
-if(flag==flag2)
-cout<<"YES\n";
-else
-    cout<<"NO\n";
-}
-return 0;
+    int t,r1,n1,n2;
+    char m[100000],w[100000];
+    scanf("%d",&t);
+    while(t--)
+    {
+        scanf("%s %s",m,w);
+        n1=strlen(m);n2=strlen(w);
+        if(n1<=n2)
+        r1=Issub(m,w);
+        else r1=Issub(w,m);
+        if(r1)
+        printf("YES\n");
+        else printf("NO\n");
+    }
 }

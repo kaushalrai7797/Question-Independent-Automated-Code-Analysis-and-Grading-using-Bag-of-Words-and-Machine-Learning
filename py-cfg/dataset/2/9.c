@@ -1,85 +1,84 @@
-#include <iostream>
-using namespace std;
+#include<stdio.h>
+struct node
+{
+    int y;
+    struct node *next;
+};
+void push_data (struct node **head, int x)
+{
+    struct node *temp;
+    temp= malloc(sizeof(struct node));
+    temp->y= x;
+    temp->next = *head;
+    *head= temp;
+}
 
-int next(unsigned long long n){
-    int first;
-    while(n!=0){
-        n=n/10;
-        if(n/10==0)
-            first = n;
+int pop_data(struct node **head)
+{
+    struct node *temp;
+    temp= *head;
+    int x;
+    if(temp == NULL)
+    {
+        return -1;
     }
-    
-    int nextdigit;
-    if(first==9)
-        nextdigit = 1;
     else
-        nextdigit = first + 1;
-        
-    return nextdigit;
-}
-
-int current(unsigned long long n){
-    int first;
-    while(n!=0){
-        n=n/10;
-        if(n/10==0)
-            first = n;
+    {
+        x= temp->y;
+        temp= temp->next;
+        *head= temp;
+        return x;
     }
-
-    return first;
 }
 
-bool isboundary(unsigned long long n){
-    int first;
-    int size=0;
-    while(n!=0){
-        n=n/10;
-        if(n/10==0)
-            first = n;
-        size++;
+//void display(struct node *head)
+//{
+//    while(head != NULL)
+//    {
+//        printf("%d\n",head->y);
+//        head= head->next;
+//    }
+//}
+int main()
+{
+    int test;
+    scanf("%d",&test);
+    while(test--)
+    {
+        struct node *head=NULL;
+        char p[1000002];
+
+        scanf("%s",p);
+        int g,i,j,k=0;
+        g=strlen(p);
+
+        for(i=0;i<g;i++)
+        {
+            if(p[i] == '<')
+                push_data(&head,1);
+
+            else if(p[i] == '>')
+            {
+                j= pop_data(&head);
+
+                if(j == -1)
+                    break;
+                else
+                   k++;
+            }
+        }
+        printf("%d\n",2*k);
     }
-    
-    unsigned long long nextnum = first + 1;
-    
-    for(int i=0;i<size-1;i++){
-        nextnum*=10;
-    }
-    
-    int nextdigit;
-    
-    if(first==9)
-        nextdigit = 1;
-    else
-        nextdigit = first + 1;
-    
-    if(nextnum-nextdigit == n)
-        return true;
-    else
-        return false;
-    
-}
+    //struct node *head=NULL;
 
-int main() {
-	// your code goes here
-	int t;
-	cin>>t;
-	
-	for(int i=0;i<t;i++){
-	    unsigned long long k;
-	    cin>>k;
-	    unsigned long long num = 9;
-	    for(int j=2;j<k;j++){
-	        
-	        if(num==9)
-	           num=10;
-	        else if(isboundary(num))
-	           num = num + next(num);
-	        else
-	           num = num + current(num);
-	    }
-	   
-	    cout<<num;
-	}
-	return 0;
+   // push_data(&head,3);
+   // push_data(&head,7);
+    //push_data(&head,10);
+    //display(head);
+    //printf("\n");
+   // printf("%d\n",pop_data(&head));
+   // printf("%d\n",pop_data(&head));
+   // printf("%d\n",pop_data(&head));
+   // printf("%d\n",pop_data(&head));
+    return 0;
 }
-

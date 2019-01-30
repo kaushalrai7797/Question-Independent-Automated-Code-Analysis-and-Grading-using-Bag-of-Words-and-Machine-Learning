@@ -1,49 +1,37 @@
-#include <bits/stdc++.h>
-using namespace std;
+#include <stdio.h>
+#include <string.h>
+#define NAME_LIMIT 15
 
-int main()
-{
-    int t;
-    cin>>t;
-    
-    while(t--)
-    {
-        string m,w;
-        cin>>m>>w;
-        
-        int l1=m.length();
-        int l2=w.length();
-        //cout<<l1<<" "<<l2<<endl;
-        if(l1>l2)
-            cout<<"NO"<<endl;
-        else
-        {
+int main() {
+  int t, nl, persons;
+  char name[NAME_LIMIT];
+  scanf("%d", &t);
 
-                char ma[l1+1];
-                char wa[l2+1];
-                
-                strcpy(ma,m.c_str());
-                strcpy(wa,w.c_str());
-                
-                char ch=ma[0];
-                int k=0;
-                for(int i=0;i<l2;i++)
-                {
-                    //cout<<ch<<" "<<wa[i];
-                    if(wa[i]==ch)
-                     {
-                         k++;
-                         ch=ma[k];
-                     }
-                     //cout<<" "<<k<<endl;
-                }
-                //cout<<k<<endl;
-                if(k==l1)
-                    cout<<"YES"<<endl;
-                else
-                    cout<<"NO"<<endl;
-
-        }
+  while (t--) {
+    int heroes = 1, villains = 1, over = 0;
+    scanf("%d", &persons);
+    while (persons--) {
+      scanf("%s", name);
+      nl = strlen(name);
+      if (nl >= 3 && name[nl-3] == 'm' && name[nl-2] == 'a' && name[nl-1] =='n')
+        heroes++;
+      else
+        villains++;
+      if (heroes >= villains + 2) {
+        printf("superheroes\n");
+        over = 1;
+      } else if (villains >= heroes + 3) {
+        printf("villains\n");
+        over = 1;
+      }
     }
-    return 0;
+    if (over == 0) {
+      if (villains == 0 && heroes > 0)
+        printf("superheroes\n");
+      else if (heroes == 0 && villains > 0)
+        printf("villains\n");
+      else
+        printf("draw\n");
+    }
+  }
 }

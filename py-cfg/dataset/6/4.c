@@ -1,28 +1,24 @@
-#include <bits/stdc++.h>
-#define ll long long
+#include<stdio.h>
+int main(){
+int t,i;
+scanf("%d",&t);
+for(i=0;i<t;i++){
+int A;int B;int K;int j;int c;int d;int n;int l;int m=0;
+scanf("%d%d%d",&A,&B,&K);
+for(j=A;j<=B;j++){
+d=0;
+for(n=2;n<=j;n++){
+if(j%n==0){
+	c=0;
+for(l=1;l<n;l++){
+if(n%l==0){
+c=c+1;}}
+if(c==1){
+d=d+1;}}}
+if(d==K){
+m=m+1;}}
+printf("%d\n",m);}
+return 0;}
 
-using namespace std;
 
-int main()
-{
-    int test,n,cnt1,sum;
-    cin>>test;
-    //vector<int>v;
-    char a[100005];
-    while(test--)
-    {
-       // v.clear();
-        cnt1=sum=0;
-        cin>>n;
-        getchar();
-        for(int i=0;i<n;i++)
-        {
-            cin>>a[i];
-            if(a[i]=='1')
-                cnt1++;
-        }
-        sum=(cnt1*(cnt1-1))/2;
-        sum+=cnt1;
-        cout<<sum<<'\n';
-    }
-}
+

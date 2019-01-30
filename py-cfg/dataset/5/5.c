@@ -1,40 +1,27 @@
-#include<bits/stdc++.h>
-using namespace std;
-#define lli long long int 
-int main()
-{
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    int t,n,m;
-    lli a,b,x,y,z;
-    cin>>t;
-    while(t--)
-    {
-        cin>>n>>m;
-        x=y=a=b=0;
-        for(int i=0;i<n;i++)
-        {
-            cin>>z;
-            a+=z;
-            x^=z;
-        }
-        for(int i=0;i<m;i++)
-        {
-            cin>>z;
-            b+=z;
-            y^=z;
-        }
-        if(n==1&&m==1)
-            cout<<"Bob"<<endl;
-        else if(n==1||m==1)
-            cout<<"Alice"<<endl;
-        else if(a==b)
-            cout<<"Bob"<<endl;
-      /*  else if(x||y)
-            cout<<"Alice"<<endl;
-        else
-            cout<<"Bob"<<endl; */
-        else
-            cout<<"Alice"<<endl;
-    }
+#include<stdio.h>
+#include<math.h>
+int main(){
+int t;
+scanf("%d",&t);
+while(t--){
+long long int a,b,m,n,i,r,c1,c2,count=0,x;
+scanf("%lld %lld\n",&a,&b);
+m=(int)sqrt(a);
+if(a!=m*m)
+m++;
+n=(int)sqrt(b);
+for(i=m;i<=n;i++){
+x=i*i;c1=0;c2=0;
+while(x!=0){
+r=x%10;
+c1++;
+if(r==0||r==1||r==4||r==9)
+c2++;
+x=x/10;
+}
+if(c1==c2)
+count++;}
+printf("%lld\n",count);
+}
+return 0;
 }

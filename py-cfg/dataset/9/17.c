@@ -1,30 +1,58 @@
-#include<bits/stdc++.h>
-using namespace std;
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <math.h>
+
+int max(int x, int y, int z)
+{
+    if(x>=y && x>=z)
+        return x ;
+    if(y>=x && y>=z)
+        return y ;
+    if(z>=x && z>=y)
+        return z ;
+}
+
 int main()
 {
-long int n,k,q;
-cin>>n;
-long int a[n],i,j;
-for(i=0;i<n;i++)
-{
-cin>>a[i];
-}
-sort(a,a+n);
-cin>>q;
-for(i=0;i<q;i++)
-{
-long int s=0,j=0;
-cin>>k;
-long int w=n;
-while(w>0)
-{
+    int T ;
+    scanf("%d",&T) ;
 
-    s=s+a[j];
-    j++;
-    w=w-k-1;
-}
-cout<<s<<endl;
+    while(T--)
+    {
+        int nsteps, cost ;
 
-}
-return 0;
+        scanf("%d %d", &nsteps, &cost) ;
+
+        if(nsteps<=cost)
+            printf("0\n") ;
+        else
+        {
+            int k = nsteps/cost ;
+
+            if(k%2==0)
+            {
+               int p1, p2 ;
+               p1 = k/2 ;
+               p2 = p1+1 ;
+
+               long long int ans1 = p1*(nsteps-p1*cost) ;
+               long long int ans2 = p2*(nsteps-p2*cost) ;
+
+               if(ans1>=ans2)
+                    printf("%lld\n",ans1) ;
+               else
+                printf("%lld\n",ans2) ;
+            }
+            else
+            {
+                int p = k/2 ;
+                p = p+1 ;
+
+                long long int ans = p*(nsteps-p*cost) ;
+                printf("%lld\n",ans) ;
+            }
+        }
+    }
+    return 0;
 }

@@ -1,30 +1,22 @@
-#include<bits/stdc++.h>
-using namespace std;
-int main()
-{
-long int n,k,q;
-cin>>n;
-long int a[n],i,j;
-for(i=0;i<n;i++)
-{
-cin>>a[i];
-}
-sort(a,a+n);
-cin>>q;
-for(i=0;i<q;i++)
-{
-long int s=0;
-cin>>k;
-long int w=n;
-for(j=0;j<n-k;j++)
-{
-s=s+a[j];
-w=w-k-1;
-if(w<=0)
-break;
-}
-cout<<s<<endl;
+#include <stdio.h>
 
-}
-return 0;
+int main(void)
+{
+    int N=0,B=0,n=0,i=0;
+    scanf("%d",&i);
+    for(int k=0;k<i;k++)
+    {
+    if(N<=B)
+        {
+            n=0;
+        }
+    else
+        {
+            scanf("%d",&N);
+            scanf("%d",&B);
+            n=(N*N/(4*B));
+        }
+    printf("%d",n);
+    }
+    return 0;
 }

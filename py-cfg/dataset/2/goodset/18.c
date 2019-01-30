@@ -1,59 +1,38 @@
-#include<bits/stdc++.h>
-using namespace std;
-
-long long k;
-typedef long long ll;
-
-int fun(long long m)
-{
-    ll ans=0;
-  while(m){
-    string s=to_string(m);
-    ll d=s[0]-'0';
-    string s1=s.substr(1,s.size()-1);
-    ll rem=atoll(s1.c_str());
-    ll temp=((rem/d)+1);
-    m-=d*temp;
-    ans+=temp;
-  }
-  return (ans+1<=k);
-    
-}
-
-
+#include <stdio.h>
+#include <string.h>
 int main()
 {
-    ll t;
-    cin>>t;
-    
-    while(t--)
+    int n;
+    scanf("%d",&n);
+    while(n-->0)
     {
+        char a[5000001];
+        scanf("%s",&a);
+        long long int len=strlen(a);
+        long long int check;
+        long long int count=0;
+        long long int s=0,e=0;
         
-        cin>>k;
-        
-        long long l=1;
-        
-        long long h=10e18;
-        
-        long long ans=0;
-        
-        while(l<=h)
+        for(int i=0;i<len;i++)
         {
-            long long mid=(l+h)/2;
-            
-            if(fun(mid))
+            e++;
+            if(a[i]=='<')
             {
-                ans=mid;
-                l=mid+1;
+                s++;
             }
-            else
+            else if(a[i]=='>')
             {
-                h=mid-1;
+                s--;
+            }
+            
+            if(s<0)break;
+            
+            if(s==0)
+            {
+                count=e;
             }
         }
-        
-        cout<<ans<<endl;
-        
-        
+        printf("%d\n",count);
     }
+    return 0;
 }

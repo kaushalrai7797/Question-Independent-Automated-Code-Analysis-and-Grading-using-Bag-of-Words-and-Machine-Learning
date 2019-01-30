@@ -1,116 +1,105 @@
-#include <iostream>
-
-#include<iomanip>
-using namespace std;
-
-void polymultiply(int *a1,int *a2,int *o1,int *o2,int n1,int n2){
-    for(int i=n1+n2;i>=0;i--){
-        o1[i]= 0;
-    }
-    for(int i=0;i<=n1;i++){
-        for(int j=0;j<=n2;j++){
-            o1[i+j]+=a1[i]*a2[j];
-            
-        }
-    }
-    for(int i=n1+n2;i>=0;i--){
-        o2[i]= -o1[i];
-    }
-    o2[0]++;
-    return;
+#include<stdio.h>
+#define MAX 5000
+void swap(int *a, int *b)
+	{
+		int temp;
+		temp=*a;
+		*a=*b;
+		*b=temp;
+	}
+void merge(int arr[], int l, int m, int r) 
+{ 
+    int i, j, k; 
+    int n1 = m - l + 1; 
+    int n2 =  r - m; 
+    int L[n1], R[n2]; 
+    for (i = 0; i < n1; i++) 
+        L[i] = arr[l + i]; 
+    for (j = 0; j < n2; j++) 
+        R[j] = arr[m + 1+ j]; 
+    i = 0; 
+    j = 0; 
+    k = l; 
+    while (i < n1 && j < n2) 
+    { 
+        if (L[i] <= R[j]) 
+        { 
+            arr[k] = L[i]; 
+            i++; 
+        } 
+        else
+        { 
+            arr[k] = R[j]; 
+            j++; 
+        } 
+        k++; 
+    } 
+    while (i < n1) 
+    { 
+        arr[k] = L[i]; 
+        i++; 
+        k++; 
+    } 
+    while (j < n2) 
+    { 
+        arr[k] = R[j]; 
+        j++; 
+        k++; 
+    } 
+} 
+void mergeSort(int arr[], int l, int r) 
+{ 
+    if (l < r) 
+    { 
+        int m = l+(r-l)/2; 
+        mergeSort(arr, l, m); 
+        mergeSort(arr, m+1, r); 
+  
+        merge(arr, l, m, r); 
+    } 
 }
-double findpoly(int *a1,double j,int n){
-    double poly=a1[n];
-    for(int i=n-1;i>=0;i--){
-        poly*=j;
-        poly+=a1[i];
-    }
-    return poly;
-}
-
-double root(int *a,int n){
-    
-    
-    double js=0,je=1,j=0.5;
-    for(int i=0;i<40;i++){
-        
-        if(findpoly(a,j,n)<0.5){
-            js=j;
-        }else{
-            je=j;
-        }
-        j=(je+js)/2;
-    }
-    //cout<<j<<endl;
-   // while(cprabs(e,k)){
-        
-     //   e=(0.5-findpoly(a,j,n))/(findpoly(b,j,n-1));
-     //   j+=e;
-   // }
-    return j;
-}
-int main() {
-   // cout<<"this ran";
-    int t;
-    cin>>t;
-    while(t--){
-        int n;
-        cin>>n;
-        int *degree=new int[n];
-        int **poly=new int*[n];
-        int **npoly=new int*[n];
-        int type,i1,i2;
-        //cout<<"this ran";
-        for(int i=0;i<n;i++){
-            //cout<<"this ran";
-            cin>>type;
-            //cout<<"this ran";
-            switch(type){
-                case 0:
-                degree[i]=1;
-                poly[i]=new int[2];
-                npoly[i]=new int[2];
-                //cout<<"this ran";
-                poly[i][1]=1;
-                poly[i][0]=0;
-                //cout<<"this ran";
-                npoly[i][1]=-1;
-                npoly[i][0]=1;
-                //cout<<"this ran";
-                break;
-                case 1:
-                cin>>i1>>i2;
-                i1--;i2--;
-                //cout<<"this ran";
-                degree[i]=degree[i1]+degree[i2];
-                poly[i]=new int[degree[i]+1];
-                npoly[i]=new int[degree[i]+1];
-                polymultiply(npoly[i1],npoly[i2],npoly[i],poly[i],degree[i1],degree[i2]);
-                break;
-                case 2:
-                   cin>>i1>>i2;
-                i1--;i2--;
-                //cout<<"this ran";
-                degree[i]=degree[i1]+degree[i2];
-                poly[i]=new int[degree[i]+1];
-                npoly[i]=new int[degree[i]+1];
-                polymultiply(poly[i1],poly[i2],poly[i],npoly[i],degree[i1],degree[i2]);
-                break;
-                default:
-                cout<<"error";
-            }
-            //for(int k=0;k<=degree[i];k++){
-               // cout<<poly[i][k]<<"\t";
-           // }
-           // cout<<endl;
-          //  cout<<"this ran";
-        }
-        double banana=root(poly[n-1],degree[n-1]);
-        
-        
-        
-        cout<<setprecision(5)<<banana<<endl;
-        //cout<<j<<endl;
-    }
-	return 0;
+int arraySum(int *a, int beg, int end)
+{
+	int i,sum=0;
+	for(i=beg;i<=end;i++)
+	 sum+=a[i];
+	 return sum;
+ } 
+int main()
+{
+	int t,motu[MAX],tomu[MAX],a[2*MAX],n,k,i,l,j;
+	scanf("%d",&t);
+	while(t--)
+	{
+	   scanf("%d %d",&n,&k);
+	   for(i=0;i<n;i++)
+	      {
+	      	scanf("%d",a+i);
+	      	if(i%2==0)
+	      	motu[i/2]=a[i];
+	      	else
+	      	tomu[i/2]=a[i];
+		  }
+	//	l=(n%2==0)?n/2:n/2+1;
+		if(arraySum(motu,0,n/2-1)<arraySum(tomu,0,n/2-1))
+		 printf("YES\n");
+	   else
+	    {
+	    	mergeSort(tomu,0,n/2-1);
+		 // if(n%2==0) 
+	    	mergeSort(motu,0,n/2-1);
+		/*  else
+			mergeSort(motu,0,n/2);	*/	
+	   } 
+	   j=0;
+	   for(i=n/2-1;i>n/2-1-k;i--)
+	   {
+	   	swap(&tomu[j],&motu[i]);
+	   	 j++;
+	   }
+	   if(arraySum(motu,0,n/2-1)<arraySum(tomu,0,n/2-1))
+		 printf("YES\n");
+		 else
+		 printf("NO\n");
+	}
 }

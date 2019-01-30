@@ -1,34 +1,40 @@
-#include<bits/stdc++.h>
-using namespace std;
-int main()
+#include<stdio.h>
+#include<string.h>
+int main(){
+int t;
+scanf("%d",&t);
+while(t--){
+int l1,l2,i,j=0,f=0;
+char s1[25000],s2[25000],s3[25000];
+scanf("%s",s1);
+scanf("%s",s2);
+l1=strlen(s1);
+l2=strlen(s2);
+if(l1<l2)
 {
-    int t;
-    cin>>t;
-    while(t--)
-    {
-       string str1,str2;
-       cin>>str1;
-       cin>>str2;
-       int i,j,n,m,x[26]={0},y[26]={0},c=0,c1=0;
-       n=str1.length();
-       m=str2.length();
-       for(i=0;i<n;i++)
-       x[str1[i]-'a']++;
-       for(j=0;j<m;j++)
-       y[str2[j]-'a']++;
-       for(i=0;i<26;i++)
-       {
-           if((x[i]!=y[i])&&(x[i]!=0)&&(y[i]!=0))
-            c1++;
-            if(((x[i]!=0)&&(y[i]==0))||((x[i]==0)&&(y[i]!=0)))
-            c++;
-       }
-       if((c==0)&&(c1>0))
-       {
-           cout<<"NO"<<endl;
-       }else 
-       {
-           cout<<"YES"<<endl;
-       }
-    }
+int s=l1;
+    l1=l2;
+    l2=s;
+    strcpy(s3,s1);
+    strcpy(s1,s2);
+    strcpy(s2,s3);
+}
+for(i=0;i<l1;i++)
+{
+  if(s1[i]==s2[j])
+  {
+     j++;
+     if(j==l2-1)
+     {
+       f=1;
+      break;
+     }
+  }
+}
+if(f==1)
+printf("YES\n");
+else
+printf("NO\n");
+}
+return 0;
 }

@@ -1,42 +1,66 @@
-#include<iostream>
-#include<math.h>
-using namespace std;
-
-int last(long long n){
-   if(n/10)
-   return last(n/10);
-    else return n;
-}
-int noOfDigits(long long n){
-   int x=0;
-   while(n){
-      x++;
-      n /= 10;
-   }
-   return x;
-}
-
+#include<stdio.h>
+char check[30];
+char c[30];
+int top=-1;
+int expression(int n);
+int Arepair(char ,char);
 int main(){
-    long long n,k;
-    int count,t;
-    cin>>t;
-    while(t){
-        cin>>k;
-        int h = 0;
-        n = 9;
-        k = k-2;
-        while(k){
-         if(n<10)
-            {n++;}
-         else{
-            if(n+last(n)+1<(last(n)+1)*pow(10,noOfDigits(n)-1))
-               n += last(n);
-            else{
-                n += last(n)+1;                  
-            }
-         }
-         k--;   
-        }
-    cout<<n<<endl;
-    t--;}
+	int t;
+	int l,q;
+	scanf("%d",&t);
+	while(t>0)
+	{ t--;
+	scanf("%s",c);
+	for(l=0;c[l]!='\0';l++);
+	q=expression(l);
+	if(q==1)
+	{
+	
+	 printf("\n%d",l);
+   }      
+	if(q==0)
+	{
+		printf("\n0");
+	}
+	}
 }
+int expression(int n)
+{  int i,f;
+  for(i=0;i<n;i++)
+  { 
+    if(c[i]=='<')
+    { top=top+1;
+      check[top]=c[i];
+	}
+    if(c[i]=='>')
+  {  
+            f=c[i];  
+  	if(Arepair( check[top], f)==0){
+  		return 0;
+	  }
+	  if(Arepair( check[top], f)==1)
+	  {
+	  	top=top-1;
+	  }
+   }
+  }
+  if(top==-1)
+  { return 1;
+
+  }
+  else
+  {
+  	return 0;
+  }
+  }
+int Arepair(char q,char w)
+{
+	if(q=='<'&&w=='>')
+	{return 1;
+	}
+	else 
+	{
+		return 0;
+	}
+	}
+	

@@ -1,21 +1,23 @@
-#include <cstdio>
-#include <cstring>
-using namespace std;
+#include<stdio.h>
+int main(){
+int t,i;
+scanf("%d",&t);
+for(i=0;i<t;i++){
+int A;int B;int K;int j;int c;int d;int n;int l;int m=0;
+scanf("%d%d%d",&A,&B,&K);
+for(j=A;j<=B;j++){
+c=0;d=0;
+for(n=1;n<j;n++){
+if(j%n==0){
+for(l=1;l<n;l++){
+if(n%l==0){
+c=c+1;}}
+if(c==1){
+d=d+1;}}}
+if(d==K){
+m=m+1;}}
+printf("d",m);}
+return 0;}
 
-int TC, N;
-char str[200000];
-int main() {
-	scanf("%d", &TC);
-	while (TC--) {
-		scanf("%d", &N);
-		scanf("%s", str);
-		int ans = 0, sum = 0;
-		for (int i = 0; i < N; i++) {
-			if (str[i] == '1') {
-				sum++;
-				ans += sum;
-			}
-		}
-		printf("%d\n", ans);
-	}
-}
+
+
