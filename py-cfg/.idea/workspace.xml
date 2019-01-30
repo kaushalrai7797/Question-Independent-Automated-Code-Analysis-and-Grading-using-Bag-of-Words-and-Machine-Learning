@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="d3c5cabd-e663-44af-811f-beb605982bc0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/GetGraphs.py" beforeDir="false" afterPath="$PROJECT_DIR$/GetGraphs.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dataset/worksheet1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/dataset/worksheet1.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/get_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/get_data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/skl.py" beforeDir="false" afterPath="$PROJECT_DIR$/skl.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
