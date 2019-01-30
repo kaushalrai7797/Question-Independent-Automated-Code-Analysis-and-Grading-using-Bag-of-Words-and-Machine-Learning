@@ -1,0 +1,265 @@
+Question,Verdict,Memory 
+1question1,wrong answer,15.7M
+1question2,wrong answer,14.9M
+1question3,wrong answer,14.9M
+1question4,wrong answer,15.7M
+1question5,wrong answer,15.7M
+1question6,wrong answer,14.9M
+1question7,wrong answer,14.9M
+1question8,wrong answer,15.7M
+1question9,wrong answer,14.9M
+1question10,wrong answer,14.9M
+1question11,wrong answer,14.9M
+1question12,accepted,14.9M
+1question13,wrong answer,14.9M
+1question14,wrong answer,14.9M
+1question15,accepted,15M
+1question16,wrong answer,14.9M
+1question17,wrong answer,15.7M
+1question18,wrong answer,14.9M
+1question19,wrong answer,14.9M
+1question20,time limit exceeded,15.7M
+1question21,time limit exceeded,15.7M
+1question22,wrong answer,14.9M
+1question23,wrong answer,15.7M
+1question24,accepted,16.1M
+1question25,accepted,16.1M
+2question1,time limit exceeded,14.9M
+2question2,time limit exceeded,14.9M
+2question3,time limit exceeded,14.9M
+2question4,time limit exceeded,15.7M
+2question5,time limit exceeded,14.9M
+2question6,time limit exceeded,14.9M
+2question7,accepted,15.7M
+2question8,accepted,14.9M
+2question9,time limit exceeded,15.7M
+2question10,accepted,14.9M
+2question11,accepted,14.9M
+2question12,accepted,14.9M
+2question13,accepted,14.9M
+2question14,accepted,14.9M
+2question15,time limit exceeded,14.9M
+2question16,time limit exceeded,14.9M
+2question17,accepted,14.9M
+2question18,accepted,14.9M
+2question19,time limit exceeded,87.7M
+2question20,time limit exceeded,14.9M
+2question21,wrong answer,14.9M
+2question22,time limit exceeded,15.7M
+2question23,accepted,14.9M
+2question24,wrong answer,14.9M
+3question1,wrong answer,15.7M
+3question2,wrong answer,14.9M
+3question3,accepted,14.9M
+3question4,wrong answer,14.9M
+3question5,wrong answer,15.7M
+3question6,accepted,14.9M
+3question7,wrong answer,14.9M
+3question8,wrong answer,14.9M
+3question9,wrong answer,14.9M
+3question10,wrong answer,14.9M
+3question11,wrong answer,14.9M
+3question12,wrong answer,14.9M
+3question13,accepted,14.9M
+3question14,wrong answer,14.9M
+3question15,wrong answer,14.9M
+3question16,wrong answer,14.9M
+3question17,wrong answer,14.9M
+3question18,accepted,14.9M
+3question19,wrong answer,14.9M
+3question20,wrong answer,14.9M
+3question21,accepted,15.3M
+3question22,time limit exceeded,15.7M
+4question1,accepted,15.7M
+4question2,runtime error(SIGSEGV),14.9M
+4question3,accepted,14.9M
+4question4,accepted,14.9M
+4question5,wrong answer,15M
+4question6,accepted,14.9M
+4question7,accepted,15.7M
+4question8,wrong answer,14.9M
+4question9,accepted,15M
+4question10,accepted,14.9M
+4question11,accepted,15M
+4question12,wrong answer,14.9M
+4question13,wrong answer,14.9M
+4question14,accepted,14.9M
+4question15,wrong answer,15.7M
+4question16,accepted,14.9M
+4question17,accepted,14.9M
+4question18,accepted,14.9M
+4question19,wrong answer,14.9M
+4question20,wrong answer,14.9M
+4question21,accepted,14.9M
+4question22,accepted,15.7M
+4question23,wrong answer,14.9M
+4question24,accepted,14.9M
+4question25,accepted,15.7M
+5question1,accepted,14.9M
+5question2,wrong answer,14.9M
+5question3,wrong answer,14.9M
+5question4,wrong answer,14.9M
+5question5,wrong answer,14.9M
+5question6,wrong answer,14.9M
+5question7,wrong answer,14.9M
+5question8,wrong answer,14.9M
+5question9,accepted,14.9M
+5question10,wrong answer,14.9M
+5question11,wrong answer,14.9M
+5question12,wrong answer,15.7M
+5question13,accepted,14.9M
+5question14,accepted,15.7M
+5question15,wrong answer,14.9M
+5question16,accepted,14.9M
+5question17,accepted,14.9M
+5question18,wrong answer,15.7M
+5question19,wrong answer,14.9M
+5question20,wrong answer,14.9M
+5question21,accepted,14.9M
+5question22,accepted,14.9M
+5question23,wrong answer,14.9M
+5question24,wrong answer,14.9M
+6question1,accepted,15M
+6question2,accepted,14.9M
+6question3,wrong answer,14.9M
+6question4,wrong answer,14.9M
+6question5,accepted,15.9M
+6question6,wrong answer,15.1M
+6question7,accepted,14.9M
+6question8,wrong answer,15.7M
+6question9,accepted,15.7M
+6question10,wrong answer,14.9M
+6question11,accepted,15.7M
+6question12,wrong answer,14.9M
+6question13,accepted,14.9M
+6question14,wrong answer,15.7M
+6question15,time limit exceeded,57.1M
+6question16,runtime error(SIGXFSZ),14.9M
+6question17,accepted,14.9M
+6question18,wrong answer,14.9M
+6question19,wrong answer,14.9M
+6question20,wrong answer,14.9M
+6question21,wrong answer,15.1M
+6question22,wrong answer,15.1M
+6question23,wrong answer,15.1M
+6question24,accepted,15.7M
+7question1,accepted,14.9M
+7question2,accepted,14.9M
+7question3,wrong answer,14.9M
+7question4,wrong answer,14.9M
+7question5,accepted,14.9M
+7question6,accepted,14.9M
+7question7,accepted,14.9M
+7question8,accepted,14.9M
+7question9,accepted,15.7M
+7question10,accepted,14.9M
+7question11,wrong answer,14.9M
+7question12,wrong answer,14.9M
+7question13,wrong answer,14.9M
+7question14,accepted,14.9M
+7question15,accepted,14.9M
+7question16,accepted,14.9M
+7question17,accepted,14.9M
+7question18,wrong answer,14.9M
+7question19,accepted,15.7M
+7question20,accepted,14.9M
+7question21,wrong answer,14.9M
+7question22,accepted,14.9M
+7question23,accepted,14.9M
+7question24,accepted,15.7M
+7question25,accepted,14.9M
+8question1,accepted,30.9M
+8question2,accepted,14.9M
+8question3,wrong answer,14.9M
+8question4,accepted,15.7M
+8question5,accepted,14.9M
+8question6,accepted,15.7M
+8question7,wrong answer,15.7M
+8question8,wrong answer,15.4M
+8question9,wrong answer,15.4M
+8question10,wrong answer,15.4M
+8question11,accepted,3.4M
+8question12,wrong answer,3.4M
+8question13,accepted,3M
+8question14,time limit exceeded,3.1M
+8question15,time limit exceeded,3M
+8question16,accepted,3.2M
+8question17,accepted,3.2M
+8question18,accepted,3M
+8question19,accepted,3M
+8question20,wrong answer,3M
+8question21,wrong answer,3M
+8question22,wrong answer,3.1M
+8question23,wrong answer,3.4M
+9question1,accepted,15.7M
+9question2,accepted,15.1M
+9question3,wrong answer,15.1M
+9question4,accepted,15.9M
+9question5,accepted,15.5M
+9question6,wrong answer,15.5M
+9question7,accepted,15.5M
+9question8,time limit exceeded,15.1M
+9question9,time limit exceeded,15.1M
+9question10,accepted,14.9M
+9question11,accepted,15.5M
+9question12,accepted,15.5M
+9question13,accepted,15.5M
+9question14,accepted,15.1M
+9question15,accepted,15.1M
+9question16,wrong answer,15.1M
+9question17,time limit exceeded,15.5M
+9question18,time limit exceeded,15.5M
+9question19,accepted,15.5M
+9question20,accepted,15.5M
+9question21,time limit exceeded,15.9M
+9question22,accepted,16.3M
+9question23,wrong answer,15.5M
+9question24,accepted,15.5M
+10question1,wrong answer,14.9M
+10question2,accepted,15.7M
+10question3,wrong answer,14.9M
+10question4,accepted,15.7M
+10question5,wrong answer,15.7M
+10question6,accepted,14.9M
+10question7,accepted,15.7M
+10question8,wrong answer,15.7M
+10question9,wrong answer,15.7M
+10question10,accepted,15.7M
+10question11,wrong answer,14.9M
+10question12,wrong answer,15.7M
+10question13,wrong answer,15.7M
+10question14,wrong answer,15.7M
+10question15,accepted,15.7M
+10question16,accepted,3.1M
+10question17,wrong answer,3.1M
+10question18,accepted,3.1M
+10question19,wrong answer,3.1M
+10question20,time limit exceeded,14.6M
+10question21,time limit exceeded,16.9M
+10question22,runtime error(SIGSEGV),16.9M
+10question23,time limit exceeded,49.1M
+10question24,runtime error(SIGSEGV),14.6M
+11question1,accepted,15.7M
+11question2,wrong answer,14.9M
+11question3,wrong answer,14.9M
+11question4,accepted,15.7M
+11question5,wrong answer,14.9M
+11question6,wrong answer,14.9M
+11question7,accepted,14.9M
+11question8,wrong answer,14.9M
+11question9,wrong answer,14.9M
+11question10,wrong answer,14.9M
+11question11,wrong answer,14.9M
+11question12,wrong answer,14.9M
+11question13,accepted,14.9M
+11question14,accepted,14.9M
+11question15,wrong answer,14.9M
+11question16,wrong answer,14.9M
+11question17,accepted,14.9M
+11question18,wrong answer,14.9M
+11question19,wrong answer,14.9M
+11question20,accepted,14.9M
+11question21,accepted,14.9M
+11question22,accepted,14.9M
+11question23,wrong answer,14.9M
+11question24,wrong answer,14.9M
