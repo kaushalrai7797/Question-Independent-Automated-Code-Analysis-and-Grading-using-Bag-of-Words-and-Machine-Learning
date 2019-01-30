@@ -3,22 +3,24 @@ from myMiniModel import MyMiniModel
 import os
 import csv
 
-numOfQuestions = 12
 finalVector = []
-
-for i in range(1, numOfQuestions):
-    dirList = os.listdir("data/" + str(i))  # dir is your directory path
+questionList = os.listdir("data")
+print(questionList)
+for i in range(1, len(questionList)):
+    print(questionList[i])
+    dirList = os.listdir("data/" + questionList[i])  # dir is your directory path
     x = GetGraphs(len(dirList) - 1)
-    trainData = x.graphs(i, dirList)
+    trainData = x.graphs(questionList[i], dirList)
     # trainData = data[:10]
-    dirList = os.listdir("data/" + str(i) + "/goodset")
+    dirList = os.listdir("data/" + questionList[i] + "/goodset")
+    print(dirList)
     for train in trainData:
         model = MyMiniModel(0.6)
         # model.fit(train)
         mat = model.fit(train)
         maxm = -1
         for filename in dirList:
-            test = x.getTestGraph(i, filename)
+            test = x.getTestGraph(questionList[i], filename)
             testRes = model.transform(test)
             simMat = []
             for n in testRes:
@@ -39,7 +41,7 @@ with open('dataset/worksheet1.csv', 'rb') as f:
 print(rows[1])
 j = 0
 for i in range(1, len(rows)):
-    if rows[i][1] != 'accepted':
+    if rows[i][2] != 'accepted':
         rows[i].append(finalVector[j])
         j += 1
     else:

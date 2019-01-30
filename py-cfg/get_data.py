@@ -94,6 +94,6 @@ for x in problem_name:
     for i in range(n):
         fileNo = fileNo+1
         with open('worksheet' + ".csv", "a") as f:
-            f.write(str(q_num)+"question"+str(fileNo) +"," + verdicts[i] + "," + mems[i]+ "\n")
+            f.write("q" + str(q_num) + "," + "s" + str(fileNo) + "," + verdicts[i] + "," + mems[i] + "\n")
 
-    q_num = q_num+1;
+    q_num = q_num+1
