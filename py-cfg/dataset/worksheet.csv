@@ -1,101 +1,101 @@
-Question,Solution,Verdict,Memory
-q1,s1,wrong answer,9.1M,0.0
-q1,s2,accepted,27.4M,1
-q1,s3,wrong answer,20.6M,1.0
-q1,s4,wrong answer,20.6M,1.0
-q1,s5,wrong answer,20.6M,1.0
-q1,s6,wrong answer,20.6M,1.0
-q1,s7,wrong answer,20.6M,1.0
-q1,s8,wrong answer,20.6M,1.0
-q1,s9,wrong answer,20.6M,1.0
-q1,s10,accepted,26.3M,1
-q1,s11,wrong answer,26.3M,1.0
-q1,s12,accepted,15.7M,1
-q1,s13,wrong answer,14.8M,1.0
-q1,s14,wrong answer,14.8M,1.0
-q2,s1,accepted,18.7M,1
-q2,s2,wrong answer,10M,0.0
-q2,s3,accepted,19.6M,1
-q2,s4,wrong answer,18.7M,0.0
-q2,s5,wrong answer,86.3M,0.0
-q2,s6,wrong answer,86.3M,0.2
-q2,s7,wrong answer,86.3M,1.0
-q2,s8,wrong answer,86.9M,1.0
-q2,s9,wrong answer,86.3M,1.0
-q2,s10,wrong answer,86.3M,1.0
-q2,s11,accepted,14.7M,1
-q2,s12,accepted,10M,1
-q2,s13,wrong answer,10M,0.3
-q2,s14,wrong answer,11M,0.3
-q2,s15,wrong answer,18.7M,0.3
-q2,s16,wrong answer,18.7M,0.3
-q2,s17,wrong answer,18.7M,0.35
-q2,s18,accepted,14.7M,1
-q2,s19,wrong answer,18.7M,0.35
-q2,s20,wrong answer,18.7M,0.35
-q2,s21,wrong answer,18.7M,0.41
-q2,s22,runtime error(SIGSEGV),9.2M,0.41
-q2,s23,runtime error(SIGSEGV),9.2M,0.5266666666666666
-q3,s1,wrong answer,9.2M,0.39
-q3,s2,accepted,9.2M,1
-q3,s3,accepted,9.2M,1
-q3,s4,wrong answer,9.2M,0.5
-q3,s5,wrong answer,9.2M,0.5
-q3,s6,wrong answer,9.2M,0.2833333333333333
-q3,s7,wrong answer,9.2M,0.2833333333333333
-q3,s8,wrong answer,9.2M,0.2833333333333333
-q3,s9,wrong answer,9.2M,0.2833333333333333
-q3,s10,accepted,10.1M,1
-q3,s11,wrong answer,9.2M,0.4
-q3,s12,wrong answer,9.2M,0.6
-q3,s13,wrong answer,9.2M,0.6
-q3,s14,accepted,9.2M,1
-q3,s15,wrong answer,9.2M,0.9666666666666666
-q3,s16,accepted,9.2M,1
-q3,s17,runtime error(NZEC),10.1M,1.0
-q3,s18,accepted,9.2M,1
-q5,s1,wrong answer,9.2M,1.0
-q5,s2,wrong answer,9.2M,0.9800000000000001
-q5,s3,accepted,9.2M,1
-q5,s4,accepted,9.2M,1
-q5,s5,time limit exceeded,9.2M,0.5333333333333333
-q5,s6,time limit exceeded,9.2M,0.8550000000000001
-q5,s7,accepted,9.2M,1
-q5,s8,accepted,9.2M,1
-q5,s9,accepted,9.2M,1
-q5,s10,wrong answer,9.2M,0.9
-q5,s11,wrong answer,9.2M,1.0
-q5,s12,wrong answer,9.2M,1.0
-q5,s13,time limit exceeded,9.2M,1.0
-q5,s14,accepted,9.2M,1
-q5,s15,time limit exceeded,9.2M,0.9875
-q5,s16,accepted,9.2M,1
-q5,s17,accepted,9.2M,1
-q5,s18,accepted,9.2M,1
-q5,s19,wrong answer,9.2M,0.9875
-q5,s20,wrong answer,9.2M,0.525
-q5,s21,time limit exceeded,9.2M,0.95
-q6,s1,time limit exceeded,10.1M,0.9
-q6,s2,time limit exceeded,9.6M,1.0
-q6,s3,time limit exceeded,9.6M,1.0
-q6,s4,time limit exceeded,9.2M,1.0
-q6,s5,wrong answer,9.2M,1.0
-q6,s6,wrong answer,9.2M,0.85
-q6,s7,accepted,9.6M,1
-q6,s8,wrong answer,9.6M,0.95
-q6,s9,wrong answer,9.6M,0.8
-q6,s10,time limit exceeded,9.5M,1.0
-q6,s11,time limit exceeded,9.5M,0.9666666666666666
-q6,s12,time limit exceeded,9.5M,0.9
-q6,s13,time limit exceeded,9.5M,0.27
-q6,s14,time limit exceeded,9.5M,0.4
-q6,s15,time limit exceeded,9.5M,0.4
-q6,s16,accepted,9.9M,1
-q6,s17,accepted,12.7M,1
-q6,s18,time limit exceeded,9.5M,0.2
-q6,s19,accepted,12.4M,1
-q6,s20,wrong answer,11.5M,0.2
-q6,s21,time limit exceeded,10M,0.25
+Question,Solution,Verdict,Memory,Similarity,Grade
+q1,s1,wrong answer,9.1M,0.0,1
+q1,s2,accepted,27.4M,1,5
+q1,s3,wrong answer,20.6M,1.0,4
+q1,s4,wrong answer,20.6M,1.0,4
+q1,s5,wrong answer,20.6M,1.0,4
+q1,s6,wrong answer,20.6M,1.0,4
+q1,s7,wrong answer,20.6M,1.0,3
+q1,s8,wrong answer,20.6M,1.0,3
+q1,s9,wrong answer,20.6M,1.0,3
+q1,s10,accepted,26.3M,1,5
+q1,s11,wrong answer,26.3M,1.0,4
+q1,s12,accepted,15.7M,1,5
+q1,s13,wrong answer,14.8M,1.0,4
+q1,s14,wrong answer,14.8M,1.0,4
+q2,s1,accepted,18.7M,1,5
+q2,s2,wrong answer,10M,0.0,3
+q2,s3,accepted,19.6M,1,5
+q2,s4,wrong answer,18.7M,0.0,3
+q2,s5,wrong answer,86.3M,0.0,3
+q2,s6,wrong answer,86.3M,0.2,4
+q2,s7,wrong answer,86.3M,1.0,4
+q2,s8,wrong answer,86.9M,1.0,4
+q2,s9,wrong answer,86.3M,1.0,4
+q2,s10,wrong answer,86.3M,1.0,4
+q2,s11,accepted,14.7M,1,5
+q2,s12,accepted,10M,1,5
+q2,s13,wrong answer,10M,0.3,3
+q2,s14,wrong answer,11M,0.3,4
+q2,s15,wrong answer,18.7M,0.3,4
+q2,s16,wrong answer,18.7M,0.3,4
+q2,s17,wrong answer,18.7M,0.35,4
+q2,s18,accepted,14.7M,1,5
+q2,s19,wrong answer,18.7M,0.35,4
+q2,s20,wrong answer,18.7M,0.35,4
+q2,s21,wrong answer,18.7M,0.41,4
+q2,s22,runtime error(SIGSEGV),9.2M,0.41,3
+q2,s23,runtime error(SIGSEGV),9.2M,0.5266666666666666,4
+q3,s1,wrong answer,9.2M,0.39,3
+q3,s2,accepted,9.2M,1,5
+q3,s3,accepted,9.2M,1,5
+q3,s4,wrong answer,9.2M,0.5,4
+q3,s5,wrong answer,9.2M,0.5,4
+q3,s6,wrong answer,9.2M,0.2833333333333333,4
+q3,s7,wrong answer,9.2M,0.2833333333333333,4
+q3,s8,wrong answer,9.2M,0.2833333333333333,4
+q3,s9,wrong answer,9.2M,0.2833333333333333,4
+q3,s10,accepted,10.1M,1,5
+q3,s11,wrong answer,9.2M,0.4,4
+q3,s12,wrong answer,9.2M,0.6,4
+q3,s13,wrong answer,9.2M,0.6,1
+q3,s14,accepted,9.2M,1,5
+q3,s15,wrong answer,9.2M,0.9666666666666666,4
+q3,s16,accepted,9.2M,1,5
+q3,s17,runtime error(NZEC),10.1M,1.0,4
+q3,s18,accepted,9.2M,1,5
+q5,s1,wrong answer,9.2M,1.0,4
+q5,s2,wrong answer,9.2M,0.9800000000000001,4
+q5,s3,accepted,9.2M,1,5
+q5,s4,accepted,9.2M,1,5
+q5,s5,time limit exceeded,9.2M,0.5333333333333333,4
+q5,s6,time limit exceeded,9.2M,0.8550000000000001,4
+q5,s7,accepted,9.2M,1,5
+q5,s8,accepted,9.2M,1,5
+q5,s9,accepted,9.2M,1,5
+q5,s10,wrong answer,9.2M,0.9,4
+q5,s11,wrong answer,9.2M,1.0,4
+q5,s12,wrong answer,9.2M,1.0,4
+q5,s13,time limit exceeded,9.2M,1.0,3
+q5,s14,accepted,9.2M,1,5
+q5,s15,time limit exceeded,9.2M,0.9875,4
+q5,s16,accepted,9.2M,1,5
+q5,s17,accepted,9.2M,1,5
+q5,s18,accepted,9.2M,1,5
+q5,s19,wrong answer,9.2M,0.9875,4
+q5,s20,wrong answer,9.2M,0.525,4
+q5,s21,time limit exceeded,9.2M,0.95,4
+q6,s1,time limit exceeded,10.1M,0.9,3
+q6,s2,time limit exceeded,9.6M,1.0,4
+q6,s3,time limit exceeded,9.6M,1.0,4
+q6,s4,time limit exceeded,9.2M,1.0,4
+q6,s5,wrong answer,9.2M,1.0,4
+q6,s6,wrong answer,9.2M,0.85,3
+q6,s7,accepted,9.6M,1,5
+q6,s8,wrong answer,9.6M,0.95,4
+q6,s9,wrong answer,9.6M,0.8,4
+q6,s10,time limit exceeded,9.5M,1.0,4
+q6,s11,time limit exceeded,9.5M,0.9666666666666666,4
+q6,s12,time limit exceeded,9.5M,0.9,4
+q6,s13,time limit exceeded,9.5M,0.27,3
+q6,s14,time limit exceeded,9.5M,0.4,3
+q6,s15,time limit exceeded,9.5M,0.4,3
+q6,s16,accepted,9.9M,1,5
+q6,s17,accepted,12.7M,1,5
+q6,s18,time limit exceeded,9.5M,0.2,2
+q6,s19,accepted,12.4M,1,5
+q6,s20,wrong answer,11.5M,0.2,2
+q6,s21,time limit exceeded,10M,0.25,2
 q7,s1,accepted,9.2M,1
 q7,s2,wrong answer,9.2M,0.2
 q7,s3,accepted,10.1M,1

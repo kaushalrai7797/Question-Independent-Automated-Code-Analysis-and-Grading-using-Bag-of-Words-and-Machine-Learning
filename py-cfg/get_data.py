@@ -74,7 +74,7 @@ for x in problem_name:
         soup = BeautifulSoup(content, 'html.parser')
         code = soup.text.encode('utf-8')
         fileNo = fileNo + 1
-        if verdicts[i]=='accepted':
+        if verdicts[i] == 'accepted':
             os.chdir('goodset')
             with open(str(fileNo)+".c", "w") as f:
                 f.write(code)
@@ -92,8 +92,8 @@ for x in problem_name:
     print("populating csv files")
 
     for i in range(n):
-        fileNo = fileNo+1
+        fileNo = fileNo + 1
         with open('worksheet' + ".csv", "a") as f:
             f.write("q" + str(q_num) + "," + "s" + str(fileNo) + "," + verdicts[i] + "," + mems[i] + "\n")
 
-    q_num = q_num+1
+    q_num = q_num + 1
