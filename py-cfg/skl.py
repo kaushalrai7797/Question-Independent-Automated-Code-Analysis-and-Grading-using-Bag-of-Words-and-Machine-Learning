@@ -25,9 +25,10 @@ for i in range(1, len(questionList)):
             simMat = []
             for n in testRes:
                 simMat.append(n[1])
-            simMat.sort(reverse=True)
-            # find avg of top 10 values
-            avg = sum(simMat[:10]) / 10
+            simMat.sort()
+            # find avg of min 25 values
+            # length = len(simMat)/3
+            avg = sum(simMat[:25]) / 25
             if avg > maxm:
                 maxm = avg
         finalVector.append(maxm)
