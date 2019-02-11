@@ -11,8 +11,10 @@ int main()
 		int rev=0;
 		while(rev)
 		{
+		    if(1){
 			rev=rev*10 + num%10;
 			num=num/10;
+			}
 		}
 		printf("%d\n", rev);
 	}

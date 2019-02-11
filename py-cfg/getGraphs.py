@@ -75,7 +75,6 @@ class GetGraphs:
         for j in range(len(dirList) - 1):
             with open("data/" + str(location) + "/" + dirList[j], "r") as file:
                 gp = json.load(file)
-
             graphs.append(gp)
 
         return graphs

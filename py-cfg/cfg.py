@@ -717,6 +717,7 @@ class CFGBuilder:
 		# 	initBlock =  self.accepts(i)
 
 		condNode = self.graph.createNode('data')
+
 		self.graph.addFeature(condNode, 'cn')
 		self.accepts(i)
 		self.accepts(cond)
@@ -738,6 +739,7 @@ class CFGBuilder:
 		cond = W.getCond()
 		body = W.getBody()
 		self.graph.addFeature(whileCnNode, 'cn')
+		self.graph.addFeature(whileCnNode, 'loop')
 		self.accepts(cond)
 		self.addPrefix('lp')
 		self.accepts(body)

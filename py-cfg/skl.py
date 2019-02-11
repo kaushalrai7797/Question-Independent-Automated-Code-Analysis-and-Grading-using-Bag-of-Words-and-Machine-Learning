@@ -84,10 +84,6 @@ with open('dataset/worksheet.csv', 'wb') as f:
 # print(matrix)
 
 
-
-#
-#
-#
 # print (test)
 # train =[]
 # for t in data:
