@@ -94,9 +94,10 @@ class GraphBuilder:
             controlContext = ''.join(node.ids)
             self.controlContextEC.append(controlContext + ':' + expression)
             for var in node.lhsvars:
-                for ex in self.varMap[var]:
-                    exp = ex + '#' + expression
-                    self.exprDepend.append(exp)
+                if var in self.varMap:
+                    for ex in self.varMap[var]:
+                        exp = ex + '#' + expression
+                        self.exprDepend.append(exp)
 
             for var in node.variables:
                 if var not in self.varMap:
@@ -252,7 +253,7 @@ class GraphBuilder:
         jsonData['features'] = []
         jsonData['features'].append({
             'basic': self.basic,
-            'expr' : self.expr,
+            'expr': self.expr,
             'exprDepend': self.exprDepend,
             'controlContextEC': self.controlContextEC,
             'controlContextBC': self.controlContextBC

@@ -5,8 +5,6 @@ int cf[100000][5];
 
 int main()
 {
-
-	
 	int i,j,k,n,t,p,a,b;
 	for(i=2;i<=100000;i++)
 	{
