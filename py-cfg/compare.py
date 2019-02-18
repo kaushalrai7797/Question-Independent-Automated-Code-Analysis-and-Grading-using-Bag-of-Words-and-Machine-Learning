@@ -11,7 +11,7 @@ controlContextBCAll = []
 exprDependAll = []
 
 questionList = os.listdir("data")
-print(questionList)
+# print(questionList)
 # for i in range(1, len(questionList)):
 for i in range(len(questionList)):
     corpusB = []
@@ -25,7 +25,7 @@ for i in range(len(questionList)):
     x = GetGraphs(len(dirList) - 1)
     trainData = x.graphs(questionList[i], dirList)
     dirList = os.listdir("data/" + questionList[i] + "/goodset")
-    print(dirList)
+    # print(dirList)
     for filename in dirList:
         test = x.getTestGraph(questionList[i], filename)
         corpusB.append(" ".join(test['features'][0]['basic']))
@@ -57,19 +57,14 @@ for i in range(len(questionList)):
     # corpusEC = map(lambda a: a if len(a) > 0 else "\0", corpusEC)
     # print "*******************************"
     # print corpusED
-    j = 0
-    indexListBC = []
-    for word in corpusED:
-        if len(word) == 0:
-            indexListBC.append(j)
-            j += 1
+    # j = 0
+    # indexListBC = []
+    # for word in corpusED:
+    #     if len(word) == 0:
+    #         indexListBC.append(j)
+    #         j += 1
 
-    corpusED = list(filter(lambda a: len(a) > 0, corpusED))
-    # print(len(corpusB))
-    # print(len(corpusE))
-    # print(len(corpusED))
-    # print(len(corpusBC))
-    # print(len(corpusEC))
+    # corpusED = list(filter(lambda a: len(a) > 0, corpusED))
 
     if corpusB:
         XB = vectorizer.fit_transform(corpusB)
@@ -82,19 +77,34 @@ for i in range(len(questionList)):
         XE = XE.toarray()
     else:
         XE = [[]]
-    print corpusED
+
+    dict = {}
+    j = 0
     if corpusED:
-        XED = vectorizer.fit_transform(corpusED)
-        XED = XED.toarray()
-    else:
-        XED = [[]]
+        for sentence in corpusED:
+            for word in sentence:
+                if word not in dict:
+                    dict[word] = j
+                    j = j + 1
 
-    # print indexListBC
-    for j in indexListBC:
-        XED = numpy.insert(XED, j+1, numpy.zeros(XED.shape[1]), 0)
-
+        XED = numpy.zeros([len(corpusED), len(dict)])
+        j = 0
+        for sentence in corpusED:
+            # arr = numpy.zeros(len(dict))
+            for word in sentence:
+                XED[j][dict[word]] += 1
+            j += 1
+            # XED = numpy.append(XED, arr)
     # print XED
-    # print(XED.shape)
+    # print corpusED
+    # if corpusED:
+    #     XED = vectorizer.fit_transform(corpusED)
+    #     XED = XED.toarray()
+    # else:
+    #     XED = [[]]
+    #
+    # for j in indexListBC:
+    #     XED = numpy.insert(XED, j+1, numpy.zeros(XED.shape[1]), 0)
 
     if corpusBC:
         XBC = vectorizer.fit_transform(corpusBC)
@@ -113,12 +123,6 @@ for i in range(len(questionList)):
     controlContextECVector = []
     controlContextBCVector = []
     exprDependVector = []
-
-    # print XB.shape
-    # print XE.shape
-    # print XBC.shape
-    # print XED.shape
-    # print XEC.shape
 
     for j in range(len(dirList), len(corpusB)):
         for k in range(len(dirList)):
@@ -171,13 +175,18 @@ with open('dataset/worksheet.csv', 'rb') as f:
 
 print(rows[1])
 j = 0
-for i in range(1, len(rows)):
+print len(rows)
+print len(basicAll)
+print len(controlContextBCAll)
+for i in range(1, 193):
     if rows[i][2] != 'accepted':
         rows[i].append(basicAll[j])
         rows[i].append(controlContextECAll[j])
         rows[i].append(exprAll[j])
         rows[i].append(controlContextBCAll[j])
         rows[i].append(exprDependAll[j])
+        print i
+        print j
         j += 1
     else:
         rows[i].append(1)
