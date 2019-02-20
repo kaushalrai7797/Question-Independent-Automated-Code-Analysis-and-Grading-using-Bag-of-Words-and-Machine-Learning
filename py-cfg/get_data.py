@@ -4,12 +4,16 @@ import os
 
 problem_name = ['CIELAB' , 'CIRCUITS' , 'AMR15D' , 'TRMAG' , 'GRANAMA'];
 
-# with open('worksheet' + ".csv", "a") as f:
-#     f.write("question, verdict, memory \n")
 
-q_num=14
-# os.mkdir('dataset')
-os.chdir('dataset')
+q_num=1
+os.mkdir('dataset1')
+os.chdir('dataset1')
+
+with open('worksheet' + ".csv", "a") as f:
+    f.write("question, verdict, memory \n")
+
+with open('question_name' + ".csv", "a") as f:
+    f.write("question no, name \n")
 
 for x in problem_name :
 
@@ -18,6 +22,9 @@ for x in problem_name :
     badcode = []
     verdicts = []
     mems = []
+
+    with open('question_name' + ".csv", "a") as f:
+        f.write(str(q_num) + "," + problem_name + "\n")
 
     gen_url = 'https://www.codechef.com/status/'+x+'?sort_by=All&sorting_order=asc&language=11&status=All&handle=&Submit=GO'
     print(gen_url);
@@ -93,6 +100,6 @@ for x in problem_name :
     for i in range(n):
         fileNo = fileNo+1
         with open('worksheet' + ".csv", "a") as f:
-            f.write(str(q_num)+"question"+str(fileNo) +"," + verdicts[i] + "," + mems[i]+ "\n")
+            f.write("q" + str(q_num) +", s" + str(fileNo) + "," + verdicts[i] + "," + mems[i]+ "\n")
 
     q_num = q_num+1;
