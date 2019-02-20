@@ -12,7 +12,7 @@ questionList = os.listdir("dataset")
 for i in range(1, len(questionList)):
     dirList = os.listdir("dataset/" + questionList[i])  # dir is your directory path
     os.mkdir("data/" + questionList[i])
-    for j in range(1, len(dirList) - 1):
+    for j in range(len(dirList) - 1):
         print(dirList[j])
         cfg = buildCFG("dataset/" + questionList[i] + "/" + dirList[j], 'main')
         with open('graph.json', "r") as f1:
