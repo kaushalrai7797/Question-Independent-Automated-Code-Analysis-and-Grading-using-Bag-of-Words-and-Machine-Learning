@@ -35,8 +35,18 @@ class GraphBuilder:
         self.visited = []
         self.inLHS = False
         self.prefixString = []
+
+        self.basic = []
+        self.expr = []
+        self.exprDepend =[]
+        self.controlContextBC =[]
+        self.controlContextEC =[]
+        self.controlContextED =[]
+        self.varMap = {}
+
         self.inFea = ['scanf', 'cin', 'gets']
         self.outFea = ['printf', 'cout']
+
     def createNode(self, type, feature = None):
         newNode = Node(type, self.numberOfNodes, feature)
         self.numberOfNodes = self.numberOfNodes + 1
@@ -56,6 +66,47 @@ class GraphBuilder:
         if feature not in self.Nodes[node].features:
             self.Nodes[node].featuresSelf.append(str(feature))
 
+    def addBasic(self):
+        for node in self.Nodes:
+            controlContext = ''.join(node.ids)
+            self.basic.extend(node.operators)
+            for op in node.operators:
+                self.controlContextBC.append(controlContext + ':' + op)
+            for con in node.constants:
+                self.controlContextBC.append(controlContext + ':' + con)
+            self.basic.extend(node.constants)
+
+            if 'cn' in node.featuresSelf:
+                self.basic.append('loop')
+
+            if 'switch' in node.featuresSelf:
+                self.controlContextBC.append(controlContext + ':' + 'switch')
+
+    def addExpr(self):
+        for node in self.Nodes:
+            expression = ''
+            for op in node.operators:
+                expression += str(len(node.variables)) + ';' + op + ';'
+            for con in node.constants:
+                expression += str(con)
+            self.expr.append(expression)
+
+            controlContext = ''.join(node.ids)
+            self.controlContextEC.append(controlContext + ':' + expression)
+            for var in node.lhsvars:
+                if var in self.varMap:
+                    for ex in self.varMap[var]:
+                        exp = ex + '#' + expression
+                        self.exprDepend.append(exp)
+
+            for var in node.variables:
+                if var not in self.varMap:
+                    self.varMap[var] = [expression]
+                else:
+                    self.varMap[var].append(expression)
+
+
+
     def addOperator(self, node, operator):
         if (operator == '='): return
 
@@ -66,6 +117,7 @@ class GraphBuilder:
 
     def addString(self, node, string):
         self.Nodes[node].string = string
+
     def addLink(self, node1, node2):
         self.Nodes[node1].links.append(node2)
 
@@ -159,18 +211,29 @@ class GraphBuilder:
             for link in self.Nodes[i].links:
                 self.Nodes[i].featuresDerived.extend(self.Nodes[link].featuresSelf)
             i = i+1
+
     def makeUnique(self):
         for node in self.Nodes:
             node.features = list(set(node.featuresSelf) | set(node.featuresDerived) )
+
     def printGraph(self):
         # self.dfs(self.Nodes[0], None)
-        self.preProcess()
-        self.passFeatures()
-        self.varFeatures()
-        self.makeUnique()
+        # self.preProcess()
+        # self.passFeatures()
+        # self.varFeatures()
+        # self.makeUnique()
         # print "-----------------------------------"
-        for node in self.Nodes:
-            self.printNode(node.id)
+        self.addBasic()
+        self.addExpr()
+
+        print self.basic
+        print self.expr
+        print self.exprDepend
+        print self.controlContextBC
+        print self.controlContextED
+        print self.controlContextEC
+        # for node in self.Nodes:
+        #     self.printNode(node.id)
 
 
         jsonData = {}
@@ -185,8 +248,16 @@ class GraphBuilder:
                 'links': node.links,
                 'ids': node.ids,
                 'constants': node.constants,
-                'string' : node.string
+                'string': node.string
             })
+        jsonData['features'] = []
+        jsonData['features'].append({
+            'basic': self.basic,
+            'expr': self.expr,
+            'exprDepend': self.exprDepend,
+            'controlContextEC': self.controlContextEC,
+            'controlContextBC': self.controlContextBC
+        })
         with open("graph.json", "w") as file:
             json.dump(jsonData, file)
 

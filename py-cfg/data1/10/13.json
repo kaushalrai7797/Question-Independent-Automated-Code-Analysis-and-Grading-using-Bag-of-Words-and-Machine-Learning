@@ -1,0 +1,1 @@
+{"nodes": [{"string": "printf", "links": [], "variables": [], "ids": [], "nodeId": 0, "featuresSelf": ["out", "WORDGRID"], "operators": [], "constants": ["WORDGRID"], "features": ["WORDGRID", "out"]}]}

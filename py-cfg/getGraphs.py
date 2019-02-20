@@ -77,7 +77,6 @@ class GetGraphs:
             gp = None
             with open("data/" + str(i) + ".json", "r") as file:
                 gp = json.load(file)
-
             graphs.append(gp)
 
         return graphs
