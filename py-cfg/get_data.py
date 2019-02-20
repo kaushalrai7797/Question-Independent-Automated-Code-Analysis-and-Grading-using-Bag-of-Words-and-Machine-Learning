@@ -2,20 +2,20 @@ from bs4 import BeautifulSoup
 import urllib2
 import os
 
-problem_name = ['CIELAB' , 'CIRCUITS' , 'AMR15D' , 'TRMAG' , 'GRANAMA'];
+problem_name = [ 'QUADROOT','PCJ18C','TWONMS','FLOW015','SEBIHWY','SNELECT','SURVIVE','CHEFSQ','HS08TEST', 'SINS', 'CHEGLOVE', 'FCTRL2', 'CATSDOGS', 'SMRSTR', 'KFIB', 'XORNEY']
 
+# 'SUBINC','NOTINCOM','TLG','LTM40AB',
+q_num=5
+# os.mkdir('dataset_new')
+os.chdir('dataset_new')
 
-q_num=1
-os.mkdir('dataset1')
-os.chdir('dataset1')
+# with open('worksheet' + ".csv", "a") as f:
+#     f.write("question, verdict, memory \n")
+#
+# with open('question_name' + ".csv", "a") as f:
+#     f.write("question no, name \n")
 
-with open('worksheet' + ".csv", "a") as f:
-    f.write("question, verdict, memory \n")
-
-with open('question_name' + ".csv", "a") as f:
-    f.write("question no, name \n")
-
-for x in problem_name :
+for x in problem_name:
 
     no_name = []
     sources = []
@@ -23,8 +23,6 @@ for x in problem_name :
     verdicts = []
     mems = []
 
-    with open('question_name' + ".csv", "a") as f:
-        f.write(str(q_num) + "," + problem_name + "\n")
 
     gen_url = 'https://www.codechef.com/status/'+x+'?sort_by=All&sorting_order=asc&language=11&status=All&handle=&Submit=GO'
     print(gen_url);
@@ -39,6 +37,9 @@ for x in problem_name :
         page = urllib2.urlopen(req)
     except urllib2.HTTPError, e:
         print e.fp.read()
+
+    with open('question_name' + ".csv", "a") as f:
+        f.write(str(q_num) + "," + x + "\n")
 
     content = page.read()
 
@@ -80,7 +81,7 @@ for x in problem_name :
         soup = BeautifulSoup(content, 'html.parser')
         code = soup.text.encode('utf-8')
         fileNo = fileNo + 1
-        if(verdicts[i]=='accepted') :
+        if verdicts[i] == 'accepted':
             os.chdir('goodset')
             with open(str(fileNo)+".c", "w") as f:
                 f.write(code)
@@ -98,8 +99,8 @@ for x in problem_name :
     print("populating csv files")
 
     for i in range(n):
-        fileNo = fileNo+1
+        fileNo = fileNo + 1
         with open('worksheet' + ".csv", "a") as f:
             f.write("q" + str(q_num) +", s" + str(fileNo) + "," + verdicts[i] + "," + mems[i]+ "\n")
 
-    q_num = q_num+1;
+    q_num = q_num + 1
