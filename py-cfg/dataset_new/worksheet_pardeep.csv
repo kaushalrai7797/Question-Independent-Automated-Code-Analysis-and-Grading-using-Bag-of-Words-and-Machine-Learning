@@ -1,0 +1,479 @@
+question, solution,verdict,memory,grade
+q1, s1,,9.2M,
+q1, s2,,9.2M,
+q1, s3,,9.2M,
+q1, s4,wrong answer,9.2M,
+q1, s5,wrong answer,9.2M,
+q1, s6,wrong answer,9.2M,
+q1, s7,runtime error(NZEC),0M,
+q1, s8,,7640M,
+q1, s9,wrong answer,7640M,
+q1, s10,,9.5M,
+q1, s11,,9.5M,
+q1, s12,,10.3M,
+q1, s13,,9.2M,
+q1, s14,,9.9M,
+q1, s15,,10.1M,
+q1, s16,,10.7M,
+q1, s17,wrong answer,9.9M,
+q1, s18,,10.7M,
+q1, s19,,9.9M,
+q1, s20,,10.7M,
+q1, s21,,9.2M,
+q1, s22,,10.1M,
+q1, s23,,9.2M,
+q2, s1,,9.2M,
+q2, s2,,16.8M,
+q2, s3,,16.7M,
+q2, s4,,9.2M,
+q2, s5,,9.2M,
+q2, s6,,9.2M,
+q2, s7,,9.2M,
+q2, s8,wrong answer,0M,
+q2, s9,wrong answer,0M,
+q2, s10,wrong answer,0M,
+q2, s11,,10.1M,
+q2, s12,,9.9M,
+q2, s13,,9.2M,
+q2, s14,,9.2M,
+q2, s15,wrong answer,0M,
+q2, s16,wrong answer,0M,
+q2, s17,,16.7M,
+q2, s18,,9.2M,
+q2, s19,,9.2M,
+q2, s20,,9.2M,
+q2, s21,,9.9M,
+q2, s22,,9.2M,
+q2, s23,runtime error(SIGSEGV),0M,
+q2, s24,runtime error(SIGSEGV),0M,
+q3, s1,wrong answer,9.2M,
+q3, s2,wrong answer,9.2M,
+q3, s3,wrong answer,9.3M,
+q3, s4,wrong answer,20.5M,
+q3, s5,wrong answer,10.2M,
+q3, s6,wrong answer,10.2M,
+q3, s7,wrong answer,10.2M,
+q3, s8,runtime error(SIGSEGV),9.2M,
+q3, s9,runtime error(SIGSEGV),9.2M,
+q3, s10,runtime error(SIGSEGV),9.2M,
+q3, s11,runtime error(SIGSEGV),9.2M,
+q3, s12,runtime error(SIGSEGV),9.2M,
+q3, s13,runtime error(SIGSEGV),9.2M,
+q3, s14,wrong answer,9.2M,
+q3, s15,wrong answer,9.2M,
+q3, s16,wrong answer,9.2M,
+q3, s17,accepted,9.2M,
+q3, s18,accepted,9.2M,
+q3, s19,time limit exceeded,9.2M,
+q3, s20,wrong answer,9.2M,
+q3, s21,accepted,9.2M,
+q3, s22,wrong answer,9.2M,
+q3, s23,wrong answer,9.2M,
+q3, s24,wrong answer,9.2M,
+q4, s1,time limit exceeded,0M,
+q4, s2,,9.2M,
+q4, s3,,9.2M,
+q4, s4,,9.2M,
+q4, s5,,9.2M,
+q4, s6,,9.2M,
+q4, s7,wrong answer,0M,
+q4, s8,wrong answer,0M,
+q4, s9,wrong answer,0M,
+q4, s10,,9.2M,
+q4, s11,wrong answer,0M,
+q4, s12,,9.2M,
+q4, s13,wrong answer,0M,
+q4, s14,,9.2M,
+q4, s15,wrong answer,0M,
+q4, s16,,9.2M,
+q4, s17,,9.2M,
+q4, s18,wrong answer,0M,
+q4, s19,wrong answer,0M,
+q4, s20,wrong answer,0M,
+q4, s21,wrong answer,0M,
+q4, s22,wrong answer,0M,
+q4, s23,wrong answer,0M,
+q5, s1,accepted,9.2M,
+q5, s2,wrong answer,10.1M,
+q5, s3,wrong answer,9.2M,
+q5, s4,accepted,10.1M,
+q5, s5,wrong answer,9.2M,
+q5, s6,accepted,9.2M,
+q5, s7,accepted,10.1M,
+q5, s8,wrong answer,10.1M,
+q5, s9,wrong answer,10.1M,
+q5, s10,wrong answer,9.2M,
+q5, s11,wrong answer,9.2M,
+q5, s12,accepted,9.2M,
+q5, s13,wrong answer,9.2M,
+q5, s14,accepted,9.2M,
+q5, s15,accepted,9.2M,
+q5, s16,accepted,9.2M,
+q5, s17,wrong answer,9.2M,
+q5, s18,accepted,9.2M,
+q5, s19,wrong answer,10.1M,
+q5, s20,accepted,10.1M,
+q5, s21,wrong answer,9.2M,
+q5, s22,wrong answer,9.2M,
+q5, s23,wrong answer,9.2M,
+q5, s24,wrong answer,9.2M,
+q5, s25,wrong answer,9.2M,
+q6, s1,accepted,10.1M,
+q6, s2,wrong answer,9.2M,
+q6, s3,wrong answer,9.2M,
+q6, s4,wrong answer,9.2M,
+q6, s5,wrong answer,9.2M,
+q6, s6,accepted,9.2M,
+q6, s7,wrong answer,9.2M,
+q6, s8,wrong answer,9.2M,
+q6, s9,wrong answer,9.2M,
+q6, s10,wrong answer,9.2M,
+q6, s11,wrong answer,9.2M,
+q6, s12,wrong answer,9.2M,
+q6, s13,wrong answer,9.2M,
+q6, s14,accepted,9.2M,
+q6, s15,accepted,9.2M,
+q6, s16,wrong answer,9.2M,
+q6, s17,wrong answer,9.2M,
+q6, s18,accepted,9.2M,
+q6, s19,accepted,9.2M,
+q6, s20,accepted,9.2M,
+q6, s21,accepted,10.1M,
+q6, s22,accepted,9.2M,
+q6, s23,wrong answer,9.2M,
+q6, s24,wrong answer,9.2M,
+q6, s25,wrong answer,9.2M,
+q7, s1,,9.2M,
+q7, s2,,9.2M,
+q7, s3,,9.2M,
+q7, s4,,9.2M,
+q7, s5,,9.2M,
+q7, s6,,9.2M,
+q7, s7,wrong answer,0M,
+q7, s8,wrong answer,0M,
+q7, s9,,9.2M,
+q7, s10,,10.1M,
+q7, s11,,9.2M,
+q7, s12,wrong answer,0M,
+q7, s13,,9.2M,
+q7, s14,,9.2M,
+q7, s15,,9.2M,
+q7, s16,,10.1M,
+q7, s17,,9.2M,
+q7, s18,,9.2M,
+q7, s19,wrong answer,0M,
+q7, s20,wrong answer,0M,
+q7, s21,wrong answer,0M,
+q7, s22,wrong answer,0M,
+q7, s23,,32M,
+q8, s1,wrong answer,9.2M,
+q8, s2,wrong answer,9.2M,
+q8, s3,wrong answer,9.2M,
+q8, s4,accepted,9.2M,
+q8, s5,wrong answer,9.2M,
+q8, s6,accepted,9.2M,
+q8, s7,wrong answer,9.2M,
+q8, s8,wrong answer,9.2M,
+q8, s9,wrong answer,9.2M,
+q8, s10,accepted,9.2M,
+q8, s11,wrong answer,9.2M,
+q8, s12,wrong answer,9.2M,
+q8, s13,wrong answer,9.2M,
+q8, s14,wrong answer,9.2M,
+q8, s15,wrong answer,9.2M,
+q8, s16,wrong answer,9.2M,
+q8, s17,wrong answer,9.2M,
+q8, s18,wrong answer,9.2M,
+q8, s19,accepted,9.2M,
+q8, s20,wrong answer,9.2M,
+q8, s21,wrong answer,9.2M,
+q8, s22,accepted,9.2M,
+q9, s1,accepted,9.2M,
+q9, s2,wrong answer,9.2M,
+q9, s3,accepted,9.2M,
+q9, s4,accepted,9.2M,
+q9, s5,wrong answer,9.2M,
+q9, s6,wrong answer,10.1M,
+q9, s7,wrong answer,9.2M,
+q9, s8,wrong answer,9.2M,
+q9, s9,accepted,9.2M,
+q9, s10,accepted,9.2M,
+q9, s11,wrong answer,9.2M,
+q9, s12,wrong answer,9.2M,
+q9, s13,accepted,9.2M,
+q9, s14,accepted,9.2M,
+q9, s15,wrong answer,9.2M,
+q9, s16,accepted,9.2M,
+q9, s17,wrong answer,9.2M,
+q9, s18,wrong answer,9.2M,
+q9, s19,accepted,10.1M,
+q9, s20,accepted,9.2M,
+q9, s21,wrong answer,9.2M,
+q9, s22,wrong answer,9.2M,
+q9, s23,wrong answer,9.2M,
+q9, s24,wrong answer,9.2M,
+q10, s1,wrong answer,9.2M,
+q10, s2,accepted,9.2M,
+q10, s3,accepted,9.2M,
+q10, s4,accepted,9.2M,
+q10, s5,wrong answer,9.2M,
+q10, s6,wrong answer,9.2M,
+q10, s7,wrong answer,9.2M,
+q10, s8,wrong answer,9.2M,
+q10, s9,wrong answer,9.2M,
+q10, s10,wrong answer,9.2M,
+q10, s11,accepted,9.2M,
+q10, s12,accepted,9.2M,
+q10, s13,accepted,9.2M,
+q10, s14,wrong answer,9.2M,
+q10, s15,wrong answer,9.2M,
+q10, s16,wrong answer,9.2M,
+q10, s17,wrong answer,9.2M,
+q10, s18,wrong answer,9.2M,
+q10, s19,accepted,14M,
+q10, s20,wrong answer,9.2M,
+q10, s21,wrong answer,9.2M,
+q10, s22,wrong answer,9.2M,
+q10, s23,wrong answer,9.2M,
+q11, s1,wrong answer,9.2M,
+q11, s2,wrong answer,9.2M,
+q11, s3,accepted,9.2M,
+q11, s4,wrong answer,9.2M,
+q11, s5,wrong answer,9.2M,
+q11, s6,accepted,9.2M,
+q11, s7,accepted,9.2M,
+q11, s8,accepted,9.2M,
+q11, s9,wrong answer,9.2M,
+q11, s10,wrong answer,9.2M,
+q11, s11,wrong answer,9.2M,
+q11, s12,wrong answer,9.2M,
+q11, s13,wrong answer,9.2M,
+q11, s14,wrong answer,9.2M,
+q11, s15,wrong answer,9.2M,
+q11, s16,wrong answer,9.2M,
+q11, s17,wrong answer,9.2M,
+q11, s18,wrong answer,9.2M,
+q11, s19,wrong answer,9.2M,
+q11, s20,wrong answer,10.1M,
+q11, s21,wrong answer,9.2M,
+q11, s22,wrong answer,9.2M,
+q11, s23,wrong answer,9.2M,
+q11, s24,accepted,9.2M,
+q12, s1,wrong answer,9.2M,10
+q12, s2,wrong answer,9.2M,10
+q12, s3,wrong answer,9.2M,10
+q12, s4,wrong answer,9.2M,13
+q12, s5,wrong answer,9.2M,13
+q12, s6,wrong answer,9.2M,13
+q12, s7,accepted,9.2M,25
+q12, s8,wrong answer,9.2M,14
+q12, s9,accepted,10M,25
+q12, s10,runtime error(SIGSEGV),10.1M,12
+q12, s11,accepted,9.2M,25
+q12, s12,accepted,9.2M,25
+q12, s13,accepted,9.2M,25
+q12, s14,accepted,9.2M,25
+q12, s15,wrong answer,9.2M,14
+q12, s16,wrong answer,10.1M,14
+q12, s17,wrong answer,9.2M,14
+q12, s18,wrong answer,9.2M,11
+q12, s19,accepted,13.7M,25
+q12, s20,accepted,9.2M,25
+q12, s21,accepted,10.1M,25
+q12, s22,wrong answer,9.2M,16
+q12, s23,wrong answer,9.2M,16
+q12, s24,accepted,9.2M,25
+q12, s25,accepted,9.2M,25
+q13, s1,wrong answer,9.2M,18
+q13, s2,wrong answer,9.2M,15
+q13, s3,accepted,10.1M,25
+q13, s4,wrong answer,9.2M,17
+q13, s5,wrong answer,0M,18
+q13, s6,wrong answer,9.2M,18
+q13, s7,wrong answer,9.2M,16
+q13, s8,accepted,9.2M,25
+q13, s9,wrong answer,9.2M,16
+q13, s10,wrong answer,9.2M,17
+q13, s11,wrong answer,9.2M,16
+q13, s12,wrong answer,9.2M,18
+q13, s13,wrong answer,9.2M,9
+q13, s14,wrong answer,9.2M,14
+q13, s15,wrong answer,9.2M,9
+q13, s16,accepted,9.2M,25
+q13, s17,accepted,9.2M,25
+q13, s18,wrong answer,0M,13
+q13, s19,accepted,9.2M,25
+q13, s20,wrong answer,9.2M,11
+q13, s21,wrong answer,0M,20
+q13, s22,wrong answer,0M,20
+q13, s23,wrong answer,0M,20
+q13, s24,wrong answer,0M,20
+q13, s25,wrong answer,0M,20
+q14, s1,time limit exceeded,9.2M,10
+q14, s2,accepted,9.2M,25
+q14, s3,wrong answer,10.1M,8
+q14, s4,time limit exceeded,9.2M,11
+q14, s5,time limit exceeded,10.1M,11
+q14, s6,time limit exceeded,10.1M,11
+q14, s7,accepted,9.2M,25
+q14, s8,time limit exceeded,9.2M,14
+q14, s9,time limit exceeded,9.2M,14
+q14, s10,time limit exceeded,9.2M,14
+q14, s11,time limit exceeded,10.1M,13
+q14, s12,time limit exceeded,9.2M,13
+q14, s13,time limit exceeded,9.2M,13
+q14, s14,time limit exceeded,9.2M,13
+q14, s15,accepted,9.2M,25
+q14, s16,time limit exceeded,9.2M,16
+q14, s17,time limit exceeded,9.2M,13
+q14, s18,time limit exceeded,9.2M,13
+q14, s19,wrong answer,9.2M,12
+q14, s20,time limit exceeded,9.2M,13
+q14, s21,wrong answer,10.1M,12
+q14, s22,wrong answer,9.2M,12
+q14, s23,accepted,9.2M,25
+q14, s24,time limit exceeded,9.2M,13
+q14, s25,time limit exceeded,9.2M,13
+q15, s1,,10.6M,
+q15, s2,,9.9M,
+q15, s3,,9.9M,
+q15, s4,,10.7M,
+q15, s5,,9.9M,
+q15, s6,,9.9M,
+q15, s7,,10.7M,
+q15, s8,,32.2M,
+q15, s9,,9.9M,
+q15, s10,,9.9M,
+q15, s11,,9.9M,
+q15, s12,,9.9M,
+q15, s13,,10.6M,
+q15, s14,wrong answer,0M,
+q15, s15,wrong answer,0M,
+q15, s16,wrong answer,0M,
+q15, s17,wrong answer,0M,
+q15, s18,wrong answer,0M,
+q15, s19,wrong answer,0M,
+q15, s20,wrong answer,0M,
+q15, s21,wrong answer,0M,
+q15, s22,,9.9M,
+q15, s23,,9.9M,
+q15, s24,,10.6M,
+q15, s25,,10.6M,
+q16, s1,wrong answer,9.2M,
+q16, s2,wrong answer,9.2M,
+q16, s3,wrong answer,9.2M,
+q16, s4,wrong answer,9.2M,
+q16, s5,wrong answer,10.1M,
+q16, s6,wrong answer,9.2M,
+q16, s7,wrong answer,9.2M,
+q16, s8,wrong answer,9.2M,
+q16, s9,wrong answer,9.2M,
+q16, s10,wrong answer,9.2M,
+q16, s11,wrong answer,9.2M,
+q16, s12,wrong answer,9.2M,
+q16, s13,wrong answer,9.2M,
+q16, s14,wrong answer,9.2M,
+q16, s15,wrong answer,9.2M,
+q16, s16,wrong answer,9.2M,
+q16, s17,wrong answer,10.1M,
+q16, s18,wrong answer,9.2M,
+q16, s19,wrong answer,9.2M,
+q16, s20,wrong answer,9.2M,
+q16, s21,wrong answer,10.1M,
+q16, s22,time limit exceeded,9.1M,
+q16, s23,wrong answer,9.2M,
+q16, s24,wrong answer,9.2M,
+q16, s25,wrong answer,10.1M,
+q17, s1,,10.1M,
+q17, s2,,9.2M,
+q17, s3,,9.2M,
+q17, s4,,9.2M,
+q17, s5,,9.2M,
+q17, s6,,10.1M,
+q17, s7,wrong answer,0M,
+q17, s8,wrong answer,0M,
+q17, s9,wrong answer,0M,
+q17, s10,wrong answer,0M,
+q17, s11,wrong answer,0M,
+q17, s12,wrong answer,0M,
+q17, s13,wrong answer,0M,
+q17, s14,wrong answer,0M,
+q17, s15,wrong answer,0M,
+q17, s16,wrong answer,0M,
+q17, s17,wrong answer,0M,
+q17, s18,,9.2M,
+q17, s19,,9.2M,
+q17, s20,wrong answer,0M,
+q17, s21,,9.2M,
+q17, s22,,9.2M,
+q17, s23,wrong answer,0M,
+q18, s1,,9.2M,
+q18, s2,,9.2M,
+q18, s3,,9.2M,
+q18, s4,,9.2M,
+q18, s5,,9.2M,
+q18, s6,,9.2M,
+q18, s7,,9.2M,
+q18, s8,,9.2M,
+q18, s9,,9.9M,
+q18, s10,,9.9M,
+q18, s11,,9.9M,
+q18, s12,,9.2M,
+q18, s13,,9.2M,
+q18, s14,wrong answer,0M,
+q18, s15,wrong answer,0M,
+q18, s16,wrong answer,0M,
+q18, s17,,10.6M,
+q18, s18,,10.6M,
+q18, s19,,9.2M,
+q18, s20,,9.2M,
+q18, s21,,9.2M,
+q18, s22,,9.2M,
+q18, s23,,9.2M,
+q18, s24,wrong answer,0M,
+q18, s25,runtime error(SIGSEGV),0M,
+q19, s1,wrong answer,10.6M,
+q19, s2,wrong answer,10.6M,
+q19, s3,runtime error(SIGSEGV),10.6M,
+q19, s4,runtime error(SIGSEGV),10.6M,
+q19, s5,,9.2M,
+q19, s6,,10.6M,
+q19, s7,,11.5M,
+q19, s8,wrong answer,9.9M,
+q19, s9,,10.6M,
+q19, s10,,10.6M,
+q19, s11,,10.6M,
+q19, s12,wrong answer,10.6M,
+q19, s13,wrong answer,9.9M,
+q19, s14,time limit exceeded,9.2M,
+q19, s15,,9.2M,
+q19, s16,time limit exceeded,9.2M,
+q19, s17,wrong answer,9.2M,
+q19, s18,wrong answer,10.6M,
+q19, s19,wrong answer,10.9M,
+q19, s20,wrong answer,10.6M,
+q19, s21,,10.6M,
+q19, s22,wrong answer,10.6M,
+q19, s23,wrong answer,9.9M,
+q19, s24,wrong answer,9.9M,
+q19, s25,wrong answer,9.9M,
+q20, s1,time limit exceeded,9.2M,12
+q20, s2,time limit exceeded,9.2M,12
+q20, s3,time limit exceeded,9.2M,12
+q20, s4,wrong answer,9.2M,8
+q20, s5,time limit exceeded,9.2M,10
+q20, s6,time limit exceeded,9.2M,10
+q20, s7,time limit exceeded,9.2M,10
+q20, s8,time limit exceeded,10.1M,10
+q20, s9,time limit exceeded,9.2M,10
+q20, s10,time limit exceeded,9.2M,10
+q20, s11,accepted,9.2M,25
+q20, s12,time limit exceeded,9.2M,10
+q20, s13,accepted,9.2M,25
+q20, s14,accepted,9.2M,25
+q20, s15,time limit exceeded,9.2M,10
+q20, s16,wrong answer,9.2M,9
+q20, s17,runtime error(SIGXFSZ),9.2M,9
+q20, s18,time limit exceeded,9.2M,10
+q20, s19,time limit exceeded,9.2M,10
+q20, s20,runtime error(OTHER),9.2M,7
