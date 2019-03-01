@@ -1,1 +1,0 @@
-{"nodes": [{"string": "printf", "links": [], "variables": [], "ids": [], "nodeId": 0, "featuresSelf": ["out"], "operators": [], "constants": ["WORDGRID"], "features": []}], "features": [{"controlContextEC": [":WORDGRID"], "expr": ["WORDGRID"], "basic": ["WORDGRID"], "exprDepend": [], "controlContextBC": [":WORDGRID"]}]}

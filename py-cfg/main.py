@@ -6,25 +6,26 @@ from sklearn.feature_extraction.text import CountVectorizer
 import json
 import os
 
-questionList = os.listdir("dataset")
+questionList = os.listdir("dataset_new1")
+print questionList
 # isTest = 6
 # if (isTest < 5):
-for i in range(1, len(questionList)):
-    dirList = os.listdir("dataset/" + questionList[i])  # dir is your directory path
+for i in range(len(questionList) - 2):
+    dirList = os.listdir("dataset_new1/" + questionList[i])  # dir is your directory path
     os.mkdir("data/" + questionList[i])
-    for j in range(1, len(dirList) - 1):
+    for j in range(len(dirList) - 1):
         print(dirList[j])
-        cfg = buildCFG("dataset/" + questionList[i] + "/" + dirList[j], 'main')
+        cfg = buildCFG("dataset_new1/" + questionList[i] + "/" + dirList[j], 'main')
         with open('graph.json', "r") as f1:
             dta = json.load(f1)
             with open("data/" + questionList[i] + "/" + dirList[j][:-2] + ".json", "w") as f2:
                 json.dump(dta, f2)
 
-    dirList = os.listdir("dataset/" + questionList[i] + "/goodset")
+    dirList = os.listdir("dataset_new1/" + questionList[i] + "/goodset")
     os.mkdir("data/" + questionList[i] + "/goodset")
-    for j in range(1, len(dirList)):
+    for j in range(len(dirList)):
         print(dirList[j])
-        cfg = buildCFG("dataset/" + questionList[i] + "/goodset/" + dirList[j], 'main')
+        cfg = buildCFG("dataset_new1/" + questionList[i] + "/goodset/" + dirList[j], 'main')
         with open('graph.json', "r") as f1:
             dta = json.load(f1)
             with open("data/" + questionList[i] + "/goodset/" + dirList[j][:-2] + ".json", "w") as f2:

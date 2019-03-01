@@ -1,4 +1,4 @@
-from getGraphs import GetGraphs
+from GetGraphs import GetGraphs
 import numpy
 import os
 import csv
@@ -168,7 +168,7 @@ for i in range(len(questionList)):
 
 
 rows = []
-with open('dataset/worksheet.csv', 'rb') as f:
+with open('dataset_new1/worksheet.csv', 'rb') as f:
     reader = csv.reader(f)
     for row in reader:
         rows.append(row)
@@ -178,7 +178,7 @@ j = 0
 print len(rows)
 print len(basicAll)
 print len(controlContextBCAll)
-for i in range(1, 193):
+for i in range(1, len(rows)):
     if rows[i][2] != 'accepted':
         rows[i].append(basicAll[j])
         rows[i].append(controlContextECAll[j])
@@ -191,6 +191,6 @@ for i in range(1, 193):
     else:
         rows[i].append(1)
 
-with open('dataset/worksheet.csv', 'wb') as f:
+with open('dataset_new1/worksheet.csv', 'wb') as f:
     writer = csv.writer(f)
     writer.writerows(rows)
