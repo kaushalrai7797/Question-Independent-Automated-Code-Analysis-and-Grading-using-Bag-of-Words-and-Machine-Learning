@@ -6,6 +6,7 @@ problem_name = ['QUADROOT', 'PCJ18C', 'TWONMS', 'FLOW015', 'SEBIHWY', 'SNELECT',
 
 # 'SUBINC','NOTINCOM','TLG','LTM40AB',
 q_num = 5
+
 # os.mkdir('dataset_new')
 os.chdir('dataset_new')
 
