@@ -2,42 +2,44 @@
 # import json
 # import os
 from utils import buildCFG
-from sklearn.feature_extraction.text import CountVectorizer
+# from sklearn.feature_extraction.text import CountVectorizer
 import json
 import os
 
 questionList = os.listdir("dataset_new1")
+questionList.sort()
 print questionList
 # isTest = 6
 # if (isTest < 5):
 for i in range(len(questionList) - 2):
-    dirList = os.listdir("dataset_new1/" + questionList[i])  # dir is your directory path
-    os.mkdir("data/" + questionList[i])
-    for j in range(len(dirList) - 1):
-        print(dirList[j])
-        cfg = buildCFG("dataset_new1/" + questionList[i] + "/" + dirList[j], 'main')
-        with open('graph.json', "r") as f1:
-            dta = json.load(f1)
-            with open("data/" + questionList[i] + "/" + dirList[j][:-2] + ".json", "w") as f2:
-                json.dump(dta, f2)
+	dirList = os.listdir("dataset_new1/" + questionList[i])  # dir is your directory path
+	dirList.sort()
+	os.mkdir("data/" + questionList[i])
+	for j in range(len(dirList) - 1):
+		print(dirList[j])
+		cfg = buildCFG("dataset_new1/" + questionList[i] + "/" + dirList[j])
+		with open('graph.json', "r") as f1:
+			dta = json.load(f1)
+			with open("data/" + questionList[i] + "/" + dirList[j][:-2] + ".json", "w") as f2:
+				json.dump(dta, f2)
 
-    dirList = os.listdir("dataset_new1/" + questionList[i] + "/goodset")
-    os.mkdir("data/" + questionList[i] + "/goodset")
-    for j in range(len(dirList)):
-        print(dirList[j])
-        cfg = buildCFG("dataset_new1/" + questionList[i] + "/goodset/" + dirList[j], 'main')
-        with open('graph.json', "r") as f1:
-            dta = json.load(f1)
-            with open("data/" + questionList[i] + "/goodset/" + dirList[j][:-2] + ".json", "w") as f2:
-                json.dump(dta, f2)
+	dirList = os.listdir("dataset_new1/" + questionList[i] + "/goodset")
+	os.mkdir("data/" + questionList[i] + "/goodset")
+	dirList.sort()
+	for j in range(len(dirList)):
+		print(dirList[j])
+		cfg = buildCFG("dataset_new1/" + questionList[i] + "/goodset/" + dirList[j])
+		with open('graph.json', "r") as f1:
+			dta = json.load(f1)
+			with open("data/" + questionList[i] + "/goodset/" + dirList[j][:-2] + ".json", "w") as f2:
+				json.dump(dta, f2)
 
 
 # if (isTest < 10):
-#     cfg = buildCFG("test.c", 'main')
-#     with open('graph.json', "r") as f1:
-#         dta = json.load(f1)
-#         with open("data/graph.json", "w") as f2:
-#             json.dump(dta, f2)
+# cfg = buildCFG("test.c" )
+
+
+# print cfg.printer()
 
 
 # cfg = buildCFG('test.c', 'main')
