@@ -34,6 +34,8 @@ class CFGBuilder:
 		self.graph = GraphBuilder()
 		self.curNode = -1
 
+
+
 	def addPrefix(self, ch):
 		self.graph.prefixString.append(ch)
 
@@ -55,9 +57,12 @@ class CFGBuilder:
 		None
 			If the CFG construction fails.
 		"""
+		self.graph.prefixString = []
 		if not statement:
 			return None
 
+		# print self.graph
+		# print self.curNode
 		# Create an empty block that will serve as the exit block for the CFG.
 		# Is the first block added to the CFG and registered as exit block
 
