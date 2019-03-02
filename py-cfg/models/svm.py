@@ -13,7 +13,9 @@ Y = (data['Grade'])
 # print(Y[:10])
 X['Memory'] = X['Memory'].apply(lambda x: float(str(x)[:-1]))
 X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=0.20)
-svclassifier = SVC(kernel='poly', degree=3)
+svclassifier = SVC(kernel='poly', degree=4)
+# svclassifier = SVC(kernel='linear')
+
 svclassifier.fit(X_train, y_train)
 
 y_pred = svclassifier.predict(X_test)
