@@ -20,7 +20,7 @@ for i in range(len(questionList)):
     corpusED = []
     corpusE = []
 
-    print(questionList[i])
+    # print(questionList[i])
     dirList = os.listdir("data/" + questionList[i])  # dir is your directory path
     x = GetGraphs(len(dirList) - 1)
     trainData = x.graphs(questionList[i], dirList)
@@ -160,12 +160,15 @@ for i in range(len(questionList)):
         controlContextBCVector.sort()
         exprDependVector.sort()
 
-        basicAll.append(numpy.sum(basicVector[:25]) / 25)
-        controlContextECAll.append(numpy.sum(controlContextECVector[:25]) / 25)
-        exprAll.append(numpy.sum(exprVector[:25]) / 25)
-        controlContextBCAll.append(numpy.sum(controlContextBCVector[:25]) / 25)
-        exprDependAll.append(numpy.sum(exprDependVector[:25]) / 25)
-
+        # print "***************"
+        # print numpy.sum(basicVector[:25])/min(len(basicVector), 25)
+        # print min(len(basicVector), 25)
+        # print numpy.sum(basicVector[:25])
+        basicAll.append(numpy.sum(basicVector[:25]) / min(len(basicVector), 25))
+        controlContextECAll.append(numpy.sum(controlContextECVector[:25]) / min(len(controlContextECVector), 25))
+        exprAll.append(numpy.sum(exprVector[:25]) / min(len(exprVector), 25))
+        controlContextBCAll.append(numpy.sum(controlContextBCVector[:25]) / min(len(controlContextBCVector), 25))
+        exprDependAll.append(numpy.sum(exprDependVector[:25]) / min(len(exprDependVector), 25))
 
 rows = []
 with open('dataset_new1/worksheet.csv', 'rb') as f:
@@ -188,8 +191,6 @@ for i in range(1, len(rows)):
         print i
         print j
         j += 1
-    else:
-        rows[i].append(1)
 
 with open('dataset_new1/worksheet.csv', 'wb') as f:
     writer = csv.writer(f)
