@@ -4,15 +4,15 @@ import os
 import csv
 
 finalVector = []
-questionList = os.listdir("data")
+questionList = os.listdir("data2")
 print(questionList)
 for i in range(1, len(questionList)):
     print(questionList[i])
-    dirList = os.listdir("data/" + questionList[i])  # dir is your directory path
+    dirList = os.listdir("data2/" + questionList[i])  # dir is your directory path
     x = GetGraphs(len(dirList) - 1)
     trainData = x.graphs(questionList[i], dirList)
-    # trainData = data[:10]
-    dirList = os.listdir("data/" + questionList[i] + "/goodset")
+    # trainData = data2[:10]
+    dirList = os.listdir("data2/" + questionList[i] + "/goodset")
     print(dirList)
     for train in trainData:
         model = MyMiniModel(0.6)
@@ -53,9 +53,9 @@ with open('dataset/worksheet.csv', 'wb') as f:
     writer.writerows(rows)
 
 # x = GetGraphs(20)
-# data = x.graphs()
+# data2 = x.graphs()
 #
-# trainData = data[:10]
+# trainData = data2[:10]
 # test = x.getTestGraph()
 # matrix = []
 # workbook = openpyxl.Workbook('feat.xlsx')
@@ -86,7 +86,7 @@ with open('dataset/worksheet.csv', 'wb') as f:
 
 # print (test)
 # train =[]
-# for t in data:
+# for t in data2:
 # 	# print(t[0])
 # 	train.append([t[0], t[1], t[0], t[1]])
 

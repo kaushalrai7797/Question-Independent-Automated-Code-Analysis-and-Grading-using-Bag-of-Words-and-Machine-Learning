@@ -73,14 +73,14 @@ class GetGraphs:
     def graphs(self, location, dirList):
         graphs = []
         for j in range(len(dirList) - 1):
-            with open("data/" + str(location) + "/" + dirList[j], "r") as file:
+            with open("data2/" + str(location) + "/" + dirList[j], "r") as file:
                 gp = json.load(file)
             graphs.append(gp)
 
         return graphs
 
     def getTestGraph(self, location, filename):
-        with open("data/" + str(location) + "/goodset/" + filename, "r") as file:
+        with open("data2/" + str(location) + "/goodset/" + filename, "r") as file:
             gp = json.load(file)
 
         return gp

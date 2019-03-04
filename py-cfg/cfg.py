@@ -487,7 +487,7 @@ class CFGBuilder:
 		for e in elements:
 			# lastNode = self.graph.lastNode
 
-			curNode = self.graph.createNode('data')
+			curNode = self.graph.createNode('data2')
 			self.curNode = curNode
 			if (len(e.printer()) < 40):
 				self.graph.addString(self.curNode, e.printer())
@@ -675,7 +675,7 @@ class CFGBuilder:
 			self.curNode = rhNode
 			rBlock = self.accepts(B.getRHS())
 
-			lhNode = self.graph.createNode('data')
+			lhNode = self.graph.createNode('data2')
 			self.curNode = lhNode
 			lBlock = self.accepts(B.getLHS())
 
@@ -710,7 +710,7 @@ class CFGBuilder:
 		inc = F.getInc()
 
 		# self.accepts(i)
-		# self.graph.createNode('data', 'cn')
+		# self.graph.createNode('data2', 'cn')
 		# self.accepts(cond)
 		# self.addPrefix('lp')
 		# self.accepts(body)
@@ -721,14 +721,14 @@ class CFGBuilder:
 		# 	self._block = self.createBlock()
 		# 	initBlock =  self.accepts(i)
 
-		condNode = self.graph.createNode('data')
+		condNode = self.graph.createNode('data2')
 
 		self.graph.addFeature(condNode, 'cn')
 		self.accepts(i)
 		self.accepts(cond)
 
 		self.addPrefix('lp')
-		IncNode = self.graph.createNode('data')
+		IncNode = self.graph.createNode('data2')
 		self.curNode = IncNode
 		self.accepts(inc)
 		self.accepts(body)

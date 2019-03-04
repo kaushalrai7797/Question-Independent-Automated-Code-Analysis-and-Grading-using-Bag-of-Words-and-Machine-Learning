@@ -10,7 +10,7 @@ exprAll = []
 controlContextBCAll = []
 exprDependAll = []
 
-questionList = os.listdir("data")
+questionList = os.listdir("data2")
 # print(questionList)
 # for i in range(1, len(questionList)):
 for i in range(len(questionList)):
@@ -21,10 +21,10 @@ for i in range(len(questionList)):
     corpusE = []
 
     # print(questionList[i])
-    dirList = os.listdir("data/" + questionList[i])  # dir is your directory path
+    dirList = os.listdir("data2/" + questionList[i])  # dir is your directory path
     x = GetGraphs(len(dirList) - 1)
     trainData = x.graphs(questionList[i], dirList)
-    dirList = os.listdir("data/" + questionList[i] + "/goodset")
+    dirList = os.listdir("data2/" + questionList[i] + "/goodset")
     # print(dirList)
     for filename in dirList:
         test = x.getTestGraph(questionList[i], filename)
@@ -41,7 +41,7 @@ for i in range(len(questionList)):
         corpusE.append(" ".join(train['features'][0]['expr']))
         corpusBC.append(" ".join(train['features'][0]['controlContextBC']))
 
-    vectorizer = CountVectorizer(stop_words=[])
+    # vectorizer = CountVectorizer(stop_words=[])
 
     # print(len(corpusB))
     # print(len(corpusE))
@@ -65,18 +65,39 @@ for i in range(len(questionList)):
     #         j += 1
 
     # corpusED = list(filter(lambda a: len(a) > 0, corpusED))
-
+    dict = {}
+    j = 0
     if corpusB:
-        XB = vectorizer.fit_transform(corpusB)
-        XB = XB.toarray()
-    else:
-        XB = [[]]
+        for sentence in corpusB:
+            for word in sentence:
+                if word not in dict:
+                    dict[word] = j
+                    j = j + 1
 
+        XB = numpy.zeros([len(corpusB), len(dict)])
+        j = 0
+        for sentence in corpusB:
+            # arr = numpy.zeros(len(dict))
+            for word in sentence:
+                XB[j][dict[word]] += 1
+            j += 1
+
+    dict = {}
+    j = 0
     if corpusE:
-        XE = vectorizer.fit_transform(corpusE)
-        XE = XE.toarray()
-    else:
-        XE = [[]]
+        for sentence in corpusE:
+            for word in sentence:
+                if word not in dict:
+                    dict[word] = j
+                    j = j + 1
+
+        XE = numpy.zeros([len(corpusE), len(dict)])
+        j = 0
+        for sentence in corpusE:
+            # arr = numpy.zeros(len(dict))
+            for word in sentence:
+                XE[j][dict[word]] += 1
+            j += 1
 
     dict = {}
     j = 0
@@ -106,17 +127,39 @@ for i in range(len(questionList)):
     # for j in indexListBC:
     #     XED = numpy.insert(XED, j+1, numpy.zeros(XED.shape[1]), 0)
 
+    dict = {}
+    j = 0
     if corpusBC:
-        XBC = vectorizer.fit_transform(corpusBC)
-        XBC = XBC.toarray()
-    else:
-        XBC = [[]]
+        for sentence in corpusBC:
+            for word in sentence:
+                if word not in dict:
+                    dict[word] = j
+                    j = j + 1
 
+        XBC = numpy.zeros([len(corpusBC), len(dict)])
+        j = 0
+        for sentence in corpusBC:
+            # arr = numpy.zeros(len(dict))
+            for word in sentence:
+                XBC[j][dict[word]] += 1
+            j += 1
+
+    dict = {}
+    j = 0
     if corpusEC:
-        XEC = vectorizer.fit_transform(corpusEC)
-        XEC = XEC.toarray()
-    else:
-        XEC = [[]]
+        for sentence in corpusEC:
+            for word in sentence:
+                if word not in dict:
+                    dict[word] = j
+                    j = j + 1
+
+        XEC = numpy.zeros([len(corpusEC), len(dict)])
+        j = 0
+        for sentence in corpusEC:
+            # arr = numpy.zeros(len(dict))
+            for word in sentence:
+                XEC[j][dict[word]] += 1
+            j += 1
 
     basicVector = []
     exprVector = []

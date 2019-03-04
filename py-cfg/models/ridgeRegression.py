@@ -6,7 +6,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.linear_model import Ridge
 
 data = pd.read_csv("dataset_new1/worksheet.csv")
-# print(data.head())
+# print(data2.head())
 X = (data.drop(['Verdict', 'Grade', 'Question', 'Solution'], axis=1))
 Y = (data['Grade'])
 # print(X[:10])
