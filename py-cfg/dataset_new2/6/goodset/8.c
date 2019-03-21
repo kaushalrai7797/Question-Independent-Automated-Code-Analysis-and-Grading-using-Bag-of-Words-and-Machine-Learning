@@ -1,0 +1,42 @@
+#include<stdio.h>
+int main()
+{
+int rem[25],i,j,k,n,t,flag1,flag2,u;
+scanf("%d",&t);
+for(i=1;i<=t;i++)
+{
+scanf("%d%d",&n,&k);
+flag1=0;
+flag2=0;
+for(j=0;j<25;j++)
+{
+rem[j]=0;
+}
+for(j=1;j<=n;j++)
+{
+scanf("%d",&u);
+rem[u%(k+1)]++;
+}
+if(flag1==1)
+{
+printf("NO\n");
+}
+else
+{
+for(j=0;j<25;j++)
+{
+if(rem[j]>=n-1)
+{
+flag2=1;
+printf("YES\n");
+break;
+}
+}
+if(flag2==0)
+{
+printf("NO\n");
+}
+}
+}
+return 0;
+} 

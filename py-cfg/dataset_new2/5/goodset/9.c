@@ -1,0 +1,96 @@
+#include<stdio.h>
+#include<string.h>
+int main()
+{
+    int t,i,j,l,p,w,c;
+    scanf("%d",&t);
+    for(i=0;i<t;i++)
+    {
+        char ar[1000000],new[1000001];c=0;
+        scanf("%s",ar);
+        l=strlen(ar);
+        p=l/2;
+        for(j=p-1;j>=0;j--)
+        {
+            w=ar[j]-ar[l-j-1];
+            if(w!=0)
+            break;
+        }
+        for(j=0;j<p;j++)
+        {
+            ar[l-1-j]=ar[j];
+        }
+        if(w>0)
+            printf("%s\n",ar);
+        else if(l%2!=0&&ar[p]!='9')
+        {
+            ar[p]+=1;
+            printf("%s\n",ar);
+        }
+        else if(l%2==0&&ar[p-1]!='9')
+        {
+            ar[p-1]+=1;
+            ar[p]+=1;
+            printf("%s\n",ar);
+        }
+        else
+        {
+            for(j=0;j<(l+1)/2;j++)
+            {
+                if(ar[j]!='9')
+                {
+                    c=1;
+                    break;
+                }
+            }
+            if(c==1)
+            {
+                for(j=(l-1)/2;j>=0;j--)
+                {
+                    if(ar[j]=='9')
+                    {
+                        ar[j]='0';
+                    }
+                    else
+                    {
+                        ar[j]+=1;
+                        break;
+                    }
+                }
+                for(j=0;j<p;j++)
+                {
+                    ar[l-1-j]=ar[j];
+                }
+                printf("%s\n",ar);
+            }
+            else if(c==0)
+            {
+                new[0]='0';
+                for(j=0;j<l;j++)
+                {
+                    new[j+1]=ar[j];
+                }
+                l+=1;
+                p=l/2;
+                for(j=(l-1)/2;j>=0;j--)
+                {
+                    if(new[j]=='9')
+                    {
+                        new[j]='0';
+                    }
+                    else
+                    {
+                        new[j]+=1;
+                        break;
+                    }
+                }
+                for(j=0;j<p;j++)
+                {
+                    new[l-1-j]=new[j];
+                }
+                printf("%s\n",new);
+            }
+        }
+    }
+    return 0;
+}
